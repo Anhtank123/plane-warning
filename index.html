@@ -11,6 +11,7 @@
     /* =========== CẤU HÌNH IN =========== */
     @page{ size:A3 portrait; margin:12mm; }
     @media print{ body{ background:#fff!important } .screen-only,.interactive-only{ display:none!important } }
+
     /* =========== THEME =========== */
     :root{
       --bg:#0b1a2a;
@@ -41,44 +42,25 @@
     }
     header{ padding:16px 20px 12px; display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center; }
     .brand{ display:flex; gap:12px; align-items:center }
-    /* ==== CHỮ "AIR SAFETY · PRESSURE" SIÊU TO KHỦNG – NỔI BẬT TUYỆT ĐỐI ==== */
-    
+
     .badge{
-    background:linear-gradient(135deg, #ffe97a 0%, #ffcf40 25%, #fff6b0 50%, #ffcf40 75%, #ffe97a 100%);
-    background-size:300% 300%;
-    animation:shine 5s linear infinite;
-    color:#1b2235;
-    padding:18px 32px;
-    font-weight:900;
-    border-radius:999px;
-    box-shadow:0 25px 50px rgba(255,213,106,.6), inset 0 2px 6px rgba(255,255,255,.5);
-    font-size:40px;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    transition:all .3s ease;
-    text-shadow:0 2px 8px rgba(255,255,255,.6);
+      background:linear-gradient(135deg, #ffe97a 0%, #ffcf40 25%, #fff6b0 50%, #ffcf40 75%, #ffe97a 100%);
+      background-size:300% 300%; animation:shine 5s linear infinite;
+      color:#1b2235; padding:18px 32px; font-weight:900; border-radius:999px;
+      box-shadow:0 25px 50px rgba(255,213,106,.6), inset 0 2px 6px rgba(255,255,255,.5);
+      font-size:40px; letter-spacing:2.5px; text-transform:uppercase; transition:all .3s ease;
+      text-shadow:0 2px 8px rgba(255,255,255,.6);
     }
-    .badge:hover{
-    transform:scale(1.1) rotate(-1deg);
-    box-shadow:0 32px 60px rgba(255,213,106,.7), inset 0 3px 8px rgba(255,255,255,.6);
-    }
-    @keyframes shine {
-    0% { background-position:0% 50%; }
-    50% { background-position:100% 50%; }
-    100% { background-position:0% 50%; }
-    }
+    .badge:hover{ transform:scale(1.1) rotate(-1deg); box-shadow:0 32px 60px rgba(255,213,106,.7), inset 0 3px 8px rgba(255,255,255,.6); }
+    @keyframes shine{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
     .seal{
-      border:1px solid var(--line);
-      border-radius:12px;
-      padding:8px 12px;
-      color:var(--muted);
-      font-size:12px;
-      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      font-weight:600;
+      border:1px solid var(--line); border-radius:12px; padding:8px 12px; color:var(--muted); font-size:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); font-weight:600;
     }
     h1{ font-size:38px; font-weight:900; line-height:1.1; text-wrap:balance; text-shadow:0 2px 4px rgba(0,0,0,.3); }
     .sub{ color:var(--muted); margin:4px 0 0; font-size:17px; font-weight:500; }
+
     .grid{ padding:14px 20px 20px; display:grid; gap:16px; grid-template-columns:1fr 1fr; }
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.04));
@@ -100,91 +82,112 @@
     .pill strong{ font-weight:600; }
     .muted{ color:var(--muted); font-size:13.5px; }
 
-    /* === ALERT GRID – SIÊU GỌN (NÉN 30%), MÀU NỀN THEO MỨC === */
-    .alert-compact h3{
-      margin-top:10px; font-size:17px; line-height:1.2;
-    }
-    .alert-grid{
-      display:grid; gap:6px; margin-top:8px; grid-template-columns:1fr;
-    }
+    /* ALERT GRID */
+    .alert-compact h3{ margin-top:10px; font-size:17px; line-height:1.2; }
+    .alert-grid{ display:grid; gap:6px; margin-top:8px; grid-template-columns:1fr; }
     .alert-card{
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid var(--line); border-radius:10px; padding:7px 9px;
-      min-height:68px; display:flex; flex-direction:column;
+      border:1px solid var(--line); border-radius:10px; padding:7px 9px; min-height:68px; display:flex; flex-direction:column;
       position:relative; overflow:hidden; transition:transform .2s ease;
     }
-    .alert-card::before{
-      content:''; position:absolute; inset:0; opacity:0.15; transition:opacity .25s ease;
-    }
+    .alert-card::before{ content:''; position:absolute; inset:0; opacity:0.15; transition:opacity .25s ease; }
     .alert-card:hover::before{ opacity:0.25; }
     .alert-card.level1::before{ background:var(--safe); }
     .alert-card.level2::before{ background:var(--amber); }
     .alert-card.level3::before{ background:var(--danger); }
     .alert-card:hover{ transform:translateY(-2px); }
-    .alert-head{
-      display:grid; grid-template-columns:auto 1fr auto; gap:5px; align-items:center; margin-bottom:3px;
-      position:relative; z-index:1;
-    }
-    .alert-ico{
-      width:26px; height:26px; border-radius:8px; display:grid; place-items:center; font-size:14px;
-    }
+    .alert-head{ display:grid; grid-template-columns:auto 1fr auto; gap:5px; align-items:center; margin-bottom:3px; position:relative; z-index:1; }
+    .alert-ico{ width:26px; height:26px; border-radius:8px; display:grid; place-items:center; font-size:14px; }
     .alert-head strong{ font-size:13.5px; font-weight:700; }
     .lg-sub{ color:var(--muted); font-size:11.5px; margin-top:0; line-height:1.2; }
-    .badge{
-      padding:1px 5px; border-radius:5px; font-size:9.5px; font-weight:700;
-    }
+    .badge{ padding:1px 5px; border-radius:5px; font-size:9.5px; font-weight:700; }
     .badge.green{ background:rgba(103,255,173,.3); color:var(--safe); border:1px solid var(--safe); }
     .badge.amber{ background:rgba(255,184,77,.3); color:var(--amber); border:1px solid var(--amber); }
     .badge.red{ background:rgba(255,106,122,.3); color:var(--danger); border:1px solid var(--danger); }
-    .alert-list{
-      list-style:none; padding-left:0; font-size:12.2px; line-height:1.28; margin-top:auto; position:relative; z-index:1;
-    }
-    .alert-list li{
-      position:relative; padding-left:12px; margin:1.5px 0;
-    }
-    .alert-list li::before{
-      content:"•"; position:absolute; left:0; color:var(--muted); font-size:10px;
-    }
+    .alert-list{ list-style:none; padding-left:0; font-size:12.2px; line-height:1.28; margin-top:auto; position:relative; z-index:1; }
+    .alert-list li{ position:relative; padding-left:12px; margin:1.5px 0; }
+    .alert-list li::before{ content:"•"; position:absolute; left:0; color:var(--muted); font-size:10px; }
 
-    /* Altitude slider */
+    /* === Thanh công cụ mô phỏng === */
+    .tool-sm{ display:flex; gap:8px; margin:6px 0 10px; flex-wrap:wrap; }
+    .btn-sm{
+      appearance:none; border:1px solid var(--line); background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.05));
+      color:var(--text); border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer; letter-spacing:.2px;
+      transition:transform .15s ease, box-shadow .2s ease, background .2s ease; box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+    .btn-sm:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.25); }
+    .btn-primary{ background:linear-gradient(180deg, rgba(255,213,106,.8), rgba(255,213,106,.55)); color:#2a291f; }
+
+    /* === Altitude slider (cột phải) === */
     .altitude-control{
-      margin:12px 0 8px; padding:12px; background:rgba(255,255,255,.06); border-radius:12px; border:1px solid var(--line);
-      position:relative;
+      margin:12px 0 8px; padding:12px; background:rgba(255,255,255,.06); border-radius:12px; border:1px solid var(--line); position:relative;
     }
     .slider-label{ display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; color:var(--muted); }
     .slider-track{
       position:relative; height:20px; border-radius:999px; overflow:hidden; background:rgba(0,0,0,.2);
       box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 8px 20px rgba(0,0,0,.25);
-      cursor:pointer; user-select:none;
+      cursor:pointer; user-select:none; transition: box-shadow .25s ease, outline-color .25s ease;
+      outline: 2px solid transparent;
     }
+    /* Track glow theo vùng */
+    .slider-track[data-zone="green"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(103,255,173,.25); outline-color: rgba(103,255,173,.35); }
+    .slider-track[data-zone="yellow"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(255,184,77,.25); outline-color: rgba(255,184,77,.35); }
+    .slider-track[data-zone="red"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(255,106,122,.25); outline-color: rgba(255,106,122,.35); }
+
     .zone-green{ position:absolute; left:0; top:0; height:100%; width:40%; background:var(--safe); transition:filter .25s ease; }
-    .zone-yellow{ position:absolute; left:40%; top:0; height:100%; width:35%; background:var(--accent); transition:filter .25s ease; }
+    .zone-yellow{ position:absolute; left:40%; top:0; height:100%; width:35%; background:var(--amber); transition:filter .25s ease; }
     .zone-red{ position:absolute; left:75%; top:0; height:100%; width:25%; background:var(--danger); transition:filter .25s ease; }
-    .zone-green.active{ filter:brightness(1.3) drop-shadow(0 0 8px var(--safe)); }
-    .zone-yellow.active{ filter:brightness(1.3) drop-shadow(0 0 8px var(--accent)); }
-    .zone-red.active{ filter:brightness(1.3) drop-shadow(0 0 8px var(--danger)); }
-    .arrow-container{
-      position:absolute; top:0; left:0; width:100%; height:20px; pointer-events:none; overflow:hidden;
+
+    /* Vùng active có glow nhịp */
+    .zone-green.active, .zone-yellow.active, .zone-red.active{ filter:brightness(1.25) drop-shadow(0 0 8px currentColor); }
+    .zone-green.active{ color:var(--safe); animation:zonePulse 1.4s ease-in-out infinite; }
+    .zone-yellow.active{ color:var(--amber); animation:zonePulse 1.4s ease-in-out infinite; }
+    .zone-red.active{ color:var(--danger); animation:zonePulse 1.4s ease-in-out infinite; }
+    @keyframes zonePulse{
+      0%{ filter:brightness(1.05) drop-shadow(0 0 6px currentColor); }
+      50%{ filter:brightness(1.35) drop-shadow(0 0 14px currentColor); }
+      100%{ filter:brightness(1.05) drop-shadow(0 0 6px currentColor); }
     }
+
+    .arrow-container{ position:absolute; top:0; left:0; width:100%; height:20px; pointer-events:none; overflow:hidden; }
     .arrow{
-      position:absolute; top:0; left:0; width:0; height:0;
-      border-left:9px solid transparent; border-right:9px solid transparent; border-top:8px solid #fff;
-      transform:translateX(-50%); transition:left .08s cubic-bezier(.2, .8, .4, 1); z-index:5; cursor:pointer;
-      filter:drop-shadow(0 1px 3px rgba(0,0,0,.5)); pointer-events:auto;
+      position:absolute; top:0; left:0; width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent; border-top:8px solid #fff;
+      transform:translateX(-50%); transition:left .08s cubic-bezier(.2,.8,.4,1); z-index:5; cursor:pointer; filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
+      pointer-events:auto;
+    }
+    .arrow.jump{ animation:arrowJump .28s ease; }
+    @keyframes arrowJump{
+      0%{ transform:translateX(-50%) translateY(0); }
+      50%{ transform:translateX(-50%) translateY(-3px); }
+      100%{ transform:translateX(-50%) translateY(0); }
     }
     .arrow::after{
       content:attr(data-alt); position:absolute; bottom:-22px; left:50%; transform:translateX(-50%);
-      background:rgba(0,0,0,.7); color:#fff; padding:3px 7px; border-radius:5px; font-size:11px; white-space:nowrap;
-      opacity:0; transition:opacity .2s;
+      background:rgba(0,0,0,.7); color:#fff; padding:3px 7px; border-radius:5px; font-size:11px; white-space:nowrap; opacity:0; transition:opacity .2s;
     }
     .arrow:hover::after{ opacity:1; }
-    .zone-list li{ transition:all .25s cubic-bezier(.2, .8, .4, 1); }
+
+    /* KPIs 3 ô (giữa là spacer trống) */
+    .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px; }
+    .kpi{ background:rgba(0,0,0,.2); border:1px solid var(--line); border-radius:12px; padding:10px; min-height:64px; display:flex; flex-direction:column; justify-content:center; }
+    .kpi .label{ color:var(--muted); font-size:13px; margin-bottom:4px; }
+    .kpi .val{ font:900 18px 'Inter'; transition: color .25s ease, text-shadow .25s ease, transform .25s ease; }
+    .kpi.spacer{ background:transparent; border:1px dashed transparent; }
+
+    /* Hiệu ứng khi cảnh báo đổi vùng */
+    .val.flash{ animation:flashPop .42s ease; }
+    @keyframes flashPop{
+      0%{ transform:scale(0.96); text-shadow:0 0 0 rgba(0,0,0,0); }
+      50%{ transform:scale(1.06); text-shadow:0 0 16px currentColor; }
+      100%{ transform:scale(1.0); text-shadow:0 0 0 rgba(0,0,0,0); }
+    }
+
+    .zone-list li{ transition:all .25s cubic-bezier(.2,.8,.4,1); }
     .zone-list li.active{ transform:scale(1.05); font-weight:800; }
-    .zone-list li.active span{ text-shadow:0 0 12px currentColor, 0 0 24px currentColor; animation:glow 1.5s infinite alternate; }
-    @keyframes glow{ from{ text-shadow:0 0 12px currentColor, 0 0 24px currentColor; } to{ text-shadow:0 0 20px currentColor, 0 0 40px currentColor; } }
+    .zone-list li.active span{ text-shadow:0 0 12px currentColor, 0 0 24px currentColor; }
 
     #statusBox{ margin-top:8px; font-size:14px; color:var(--muted); }
-    #statusBox strong{ font-weight:700; color:var(--text); }
+    #statusBox strong{ font-weight:800; }
 
     .qrbox{ display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; border:1px solid var(--line); border-radius:14px;
       padding:12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.05)); margin-top:12px; cursor:pointer;
@@ -227,8 +230,9 @@
       <div style="padding:0 20px 6px">
         <h1>CẢNH BÁO ÁP SUẤT MÁY BAY<br><span class="sub">Điều áp cabin & ứng phó khi cất/hạ cánh</span></h1>
       </div>
+
       <section class="grid">
-        <!-- CỘT TRÁI – ALERT ĐÃ NÉN -->
+        <!-- CỘT TRÁI -->
         <article class="card interactive-only alert-compact">
           <h3>CHÚ Ý NHANH 5 GIÂY</h3>
           <div class="quick">
@@ -255,13 +259,12 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M12 12c4 0 4-4 8-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M12 12c4 0 4 4 8 4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
               </div>
               <div>
-                <strong>Khuyến Khích</strong>
-                <div class="muted">Nhai kẹo cao su | Hít sâu / Thở đều.</div>
+                <strong>Khuyến khích</strong>
+                <div class="muted">Nhai kẹo cao su · Hít sâu/Thở đều.</div>
               </div>
             </div>
           </div>
 
-          <!-- ALERT ĐÃ NÉN -->
           <h3>Khi nào NHẤN NÚT GỌI TIẾP VIÊN?</h3>
           <div class="alert-grid">
             <div class="alert-card level1">
@@ -277,7 +280,7 @@
             </div>
             <div class="alert-card level2">
               <div class="alert-head">
-                <div class="alert-ico" style="background:rgba(255,213,106,.18); color:var(--amber)">⚠️</div>
+                <div class="alert-ico" style="background:rgba(255,184,77,.18); color:var(--amber)">⚠️</div>
                 <div><strong>Báo sớm</strong><div class="lg-sub">Triệu chứng kéo dài</div></div>
                 <span class="badge amber">Mức 2</span>
               </div>
@@ -300,32 +303,54 @@
           </div>
         </article>
 
-        <!-- CỘT PHẢI – GIỮ NGUYÊN -->
+        <!-- CỘT PHẢI – Độ cao · Oxy · Cảnh báo -->
         <article class="card interactive-only">
           <h3>VÙNG AN TOÀN – CẢNH BÁO THEO ĐỘ CAO</h3>
+
+          <div class="tool-sm" aria-label="Thanh công cụ mô phỏng">
+            <button class="btn-sm btn-primary" id="demoBtn">Tự chạy mô phỏng</button>
+            <button class="btn-sm" id="resetBtn">Đặt lại</button>
+          </div>
+
           <div class="altitude-control">
             <div class="slider-label"><span>0 m</span><span id="altValue">0 m</span><span>6.000 m</span></div>
-            <div class="slider-track" id="sliderTrack">
+            <div class="slider-track" id="sliderTrack" role="slider" aria-valuemin="0" aria-valuemax="6000" aria-valuenow="0" tabindex="0" data-zone="green">
               <div class="zone-green"></div>
               <div class="zone-yellow"></div>
               <div class="zone-red"></div>
-            </div>
-            <div class="arrow-container">
-              <div class="arrow" id="arrow" data-alt="0 m"></div>
+              <div class="arrow-container">
+                <div class="arrow" id="arrow" data-alt="0 m"></div>
+              </div>
             </div>
           </div>
+
+          <!-- KPIs: trái “Độ cao hiện tại”, giữa trống, phải “Cảnh báo” -->
+          <div class="stats" aria-label="Thông số nhanh">
+            <div class="kpi">
+              <div class="label">Độ cao hiện tại</div>
+              <div class="val" id="altKpiVal">0 m</div>
+            </div>
+            <div class="kpi spacer" aria-hidden="true"></div>
+            <div class="kpi">
+              <div class="label">Cảnh báo</div>
+              <div class="val" id="stateVal" style="color:var(--safe)">Ổn định</div>
+            </div>
+          </div>
+
           <div id="statusBox">
             Áp suất: <strong id="pressureValue">101.3</strong> kPa ·
             Oxy: <strong id="oxygenValue">100</strong>%
           </div>
+
           <ul class="list zone-list" style="margin-top:12px; padding-left:20px; font-size:14.5px;">
             <li id="zoneGreen"><span style="color:var(--safe)"><strong>Vùng xanh</strong></span>: bình thường · nghỉ ngắn · uống đủ nước.</li>
-            <li id="zoneYellow"><span style="color:var(--accent)"><strong>Vùng vàng</strong></span>: hạn chế vận động · theo dõi triệu chứng.</li>
-            <li id="zoneRed"><span style="color:var(--danger)"><strong>Vùng đỏ ( Cảnh Báo )</strong></span>: nếu đau dữ dội/khó thở → <strong>báo tiếp viên ngay</strong>.</li>
+            <li id="zoneYellow"><span style="color:var(--amber)"><strong>Vùng vàng</strong></span>: hạn chế vận động · theo dõi triệu chứng.</li>
+            <li id="zoneRed"><span style="color:var(--danger)"><strong>Vùng đỏ</strong></span>: đau dữ dội/khó thở → <strong>báo tiếp viên ngay</strong>.</li>
           </ul>
+
           <div class="qrbox" onclick="openModal()">
             <div>
-              <strong>Quét mã QR để xem hướng dẫn xử lí khi bị JETLAG</strong>
+              <strong>Quét mã QR để xem hướng dẫn xử lí JETLAG</strong>
               <div class="muted">Tích hợp QR → video/hướng dẫn chi tiết (VI/EN)</div>
             </div>
             <div class="qr">
@@ -334,9 +359,10 @@
           </div>
         </article>
       </section>
+
       <footer>
         <div>© 2025 · Biển cảnh báo áp suất máy bay · 12E - STEM - KTHS.</div>
-        <div>Trường THPT Kim Thành · STEM VẬT LÝ</div>
+        <div>Trường THPT Kim Thành · STEM VẬT LÝ 12E</div>
       </footer>
     </div>
   </div>
@@ -358,92 +384,148 @@
   </div>
 
 <script>
-  const track = document.getElementById('sliderTrack');
-  const arrow = document.getElementById('arrow');
-  const altValue = document.getElementById('altValue');
-  const pressureValue = document.getElementById('pressureValue');
-  const oxygenValue = document.getElementById('oxygenValue');
-  const zones = { green: document.querySelector('.zone-green'), yellow: document.querySelector('.zone-yellow'), red: document.querySelector('.zone-red') };
-  const zoneTexts = { green: document.getElementById('zoneGreen'), yellow: document.getElementById('zoneYellow'), red: document.getElementById('zoneRed') };
+const track = document.getElementById('sliderTrack');
+const arrow = document.getElementById('arrow');
+const altValue = document.getElementById('altValue');
+const altKpiVal = document.getElementById('altKpiVal');
+const stateVal = document.getElementById('stateVal');
+const pressureValue = document.getElementById('pressureValue');
+const oxygenValue = document.getElementById('oxygenValue');
+const demoBtn = document.getElementById('demoBtn');
+const resetBtn = document.getElementById('resetBtn');
 
-  const maxAlt = 6000;
-  let isDragging = false;
-  let rafId = null;
-  let autoStartTime = performance.now();
-  let currentPercent = 0; // Giá trị hiện tại do auto điều khiển
+const zones = {
+  green: document.querySelector('.zone-green'),
+  yellow: document.querySelector('.zone-yellow'),
+  red: document.querySelector('.zone-red')
+};
+const zoneTexts = {
+  green: document.getElementById('zoneGreen'),
+  yellow: document.getElementById('zoneYellow'),
+  red: document.getElementById('zoneRed')
+};
 
-  function calculatePressure(alt) { return (101.325 * Math.pow((1 - 2.25577e-5 * alt), 5.2559)).toFixed(1); }
-  function calculateOxygen(alt) { return Math.max(100 - Math.round(alt / 100), 40); }
+const maxAlt = 6000;
+const greenMax = 0.40;
+const yellowMax = 0.75;
 
-  function updatePosition(percent) {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(() => {
-      const pos = percent * 100;
-      arrow.style.left = `${pos}%`;
-      const alt = Math.round(percent * maxAlt);
-      arrow.setAttribute('data-alt', alt + ' m');
-      altValue.textContent = alt + ' m';
-      pressureValue.textContent = calculatePressure(alt);
-      oxygenValue.textContent = calculateOxygen(alt);
+let isDragging = false;
+let demoRunning = false;
+let currentPercent = 0;
+let prevRiskKey = 'green';
+let t0 = 0;
+let fpsLimit = 120;
+let frameInterval = 1000 / fpsLimit;
+let lastFrame = 0;
 
-      // Active zones
-      Object.values(zones).forEach(z => z.classList.remove('active'));
-      Object.values(zoneTexts).forEach(t => t.classList.remove('active'));
-      if (percent <= 0.4) { zones.green.classList.add('active'); zoneTexts.green.classList.add('active'); }
-      else if (percent <= 0.75) { zones.yellow.classList.add('active'); zoneTexts.yellow.classList.add('active'); }
-      else { zones.red.classList.add('active'); zoneTexts.red.classList.add('active'); }
-    });
+function calculatePressure(alt) {
+  return (101.325 * Math.pow((1 - 2.25577e-5 * alt), 5.2559)).toFixed(1);
+}
+function calculateOxygen(alt) {
+  return Math.max(100 - Math.round(alt / 100), 40);
+}
+function computeRisk(p) {
+  if (p <= greenMax) return {text:'Ổn định', color:'var(--safe)', key:'green'};
+  if (p <= yellowMax) return {text:'Cẩn Trọng', color:'var(--amber)', key:'yellow'};
+  return {text:'Nguy hiểm', color:'var(--danger)', key:'red'};
+}
+function triggerOnce(el, cls){
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+}
+function updatePosition(percent){
+  percent = Math.max(0, Math.min(1, percent));
+  currentPercent = percent;
+  const pos = percent * 100;
+  const alt = Math.round(percent * maxAlt);
+  arrow.style.left = pos + '%';
+  arrow.setAttribute('data-alt', alt + ' m');
+  altValue.textContent = alt + ' m';
+  altKpiVal.textContent = alt + ' m';
+  pressureValue.textContent = calculatePressure(alt);
+  oxygenValue.textContent = calculateOxygen(alt);
+
+  const risk = computeRisk(percent);
+  if (risk.key !== prevRiskKey){
+    triggerOnce(stateVal, 'flash');
+    triggerOnce(arrow, 'jump');
+    track.setAttribute('data-zone', risk.key);
+    prevRiskKey = risk.key;
   }
 
-  // === KÉO THẢ ===
-  const moveHandler = (clientX) => {
-    const rect = track.getBoundingClientRect();
-    let percent = (clientX - rect.left) / rect.width;
-    percent = Math.max(0, Math.min(1, percent));
-    currentPercent = percent;          // Cập nhật vị trí hiện tại
-    autoStartTime = performance.now() - (percent * 12000); // Đồng bộ lại thời gian auto với vị trí mới
-    updatePosition(percent);
-  };
+  Object.values(zones).forEach(z => z.classList.remove('active'));
+  Object.values(zoneTexts).forEach(t => t.classList.remove('active'));
+  zones[risk.key].classList.add('active');
+  zoneTexts[risk.key].classList.add('active');
 
-  track.addEventListener('mousedown', e => { isDragging = true; moveHandler(e.clientX); });
-  document.addEventListener('mousemove', e => { if (isDragging) moveHandler(e.clientX); });
-  document.addEventListener('mouseup', () => { isDragging = false; });
+  stateVal.textContent = risk.text;
+  stateVal.style.color = getComputedStyle(document.documentElement).getPropertyValue(risk.color) || risk.color;
+}
 
-  track.addEventListener('touchstart', e => { isDragging = true; moveHandler(e.touches[0].clientX); e.preventDefault(); });
-  document.addEventListener('touchmove', e => { if (isDragging) { moveHandler(e.touches[0].clientX); e.preventDefault(); } });
-  document.addEventListener('touchend', () => { isDragging = false; });
+// ===== Kéo thả =====
+function clientXToPercent(x){
+  const r = track.getBoundingClientRect();
+  return Math.max(0, Math.min(1, (x - r.left) / r.width));
+}
+function onDown(x){ isDragging = true; updatePosition(clientXToPercent(x)); }
+function onMove(x){ if (isDragging) updatePosition(clientXToPercent(x)); }
+function onUp(){ isDragging = false; }
 
-  track.addEventListener('click', e => { if (!isDragging) moveHandler(e.clientX); });
+track.addEventListener('mousedown', e=>onDown(e.clientX));
+document.addEventListener('mousemove', e=>onMove(e.clientX));
+document.addEventListener('mouseup', onUp);
+track.addEventListener('touchstart', e=>{onDown(e.touches[0].clientX); e.preventDefault();},{passive:false});
+document.addEventListener('touchmove', e=>{onMove(e.touches[0].clientX); e.preventDefault();},{passive:false});
+document.addEventListener('touchend', onUp);
+track.addEventListener('click', e=>{if(!isDragging)updatePosition(clientXToPercent(e.clientX));});
 
-  // === AUTO FLIGHT SIÊU MƯỢT + ĐỒNG BỘ SAU KÉO THẢ ===
-  function animateFlight(now) {
-    if (!isDragging) {
-      const elapsed = now - autoStartTime;
-      let progress = (elapsed % 24000) / 24000; // 24 giây 1 vòng
+// ===== Phím mũi tên =====
+track.addEventListener('keydown', e=>{
+  const stepAlt = e.shiftKey ? 200 : 50;
+  const delta = stepAlt / maxAlt;
+  if(e.key==='ArrowRight') updatePosition(currentPercent+delta);
+  if(e.key==='ArrowLeft')  updatePosition(currentPercent-delta);
+});
 
-      if (progress > 0.5) {
-        progress = 1 - (progress - 0.5) * 2;
-      } else {
-        progress *= 2;
-      }
-      currentPercent = progress;
-      updatePosition(progress);
-    }
-    requestAnimationFrame(animateFlight);
-  }
+// ===== Vòng mô phỏng 120 FPS =====
+function loop(now){
+  if(!demoRunning) return;
+  const delta = now - lastFrame;
+  if(delta < frameInterval){ requestAnimationFrame(loop); return; }
+  lastFrame = now;
+  if(!t0) t0 = now;
+  const T = 24000;               // 24 s một chu kỳ
+  const phase = (now - t0) % T;
+  let p = phase / T;
+  const tri = p < 0.5 ? (p * 2) : (1 - (p - 0.5) * 2);
+  if(!isDragging) updatePosition(tri);
+  requestAnimationFrame(loop);
+}
+function startDemo(){
+  if(demoRunning) return;
+  demoRunning = true;
+  demoBtn.textContent='Dừng mô phỏng';
+  t0 = performance.now() - currentPercent * 24000 / 2;
+  lastFrame = performance.now();
+  requestAnimationFrame(loop);
+}
+function stopDemo(){
+  demoRunning=false;
+  demoBtn.textContent='Tự chạy mô phỏng';
+}
+demoBtn.addEventListener('click', ()=> demoRunning?stopDemo():startDemo());
+resetBtn.addEventListener('click', ()=>{
+  stopDemo(); prevRiskKey='green'; track.setAttribute('data-zone','green'); updatePosition(0);
+});
 
-  requestAnimationFrame(animateFlight);
+// ===== Modal =====
+function openModal(){ document.getElementById('qrModal').classList.add('active'); }
+function closeModal(){ document.getElementById('qrModal').classList.remove('active'); }
+window.addEventListener('click', e=>{ if(e.target.classList.contains('modal')) closeModal(); });
+window.openModal=openModal; window.closeModal=closeModal;
 
-  // === MODAL ===
-  function openModal() { document.getElementById('qrModal').classList.add('active'); }
-  function closeModal() { document.getElementById('qrModal').classList.remove('active'); }
-  window.addEventListener('click', e => { if (e.target.classList.contains('modal')) closeModal(); });
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-
-  // Khởi động
-  updatePosition(0);
+// Khởi động
+updatePosition(0);
 </script>
+
 </body>
 </html>
-
