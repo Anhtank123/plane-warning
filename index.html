@@ -357,101 +357,93 @@
     In nhanh: <kbd>Ctrl/Cmd + P</kbd> → Paper size: <b>A3</b> → Margins: Default → Save as PDF.
   </div>
 
-  <script>
-    const track = document.getElementById('sliderTrack');
-    const arrow = document.getElementById('arrow');
-    const altValue = document.getElementById('altValue');
-    const pressureValue = document.getElementById('pressureValue');
-    const oxygenValue = document.getElementById('oxygenValue');
-    const zones = {
-      green: document.querySelector('.zone-green'),
-      yellow: document.querySelector('.zone-yellow'),
-      red: document.querySelector('.zone-red')
-    };
-    const zoneTexts = {
-      green: document.getElementById('zoneGreen'),
-      yellow: document.getElementById('zoneYellow'),
-      red: document.getElementById('zoneRed')
-    };
-    const min = 0;
-    const max = 6000;
-    let isDragging = false;
-    let rafId = null;
-    function calculatePressure(alt) {
-      return (101.325 * Math.pow((1 - 2.25577e-5 * alt), 5.2559)).toFixed(1);
-    }
-    function calculateOxygen(alt) {
-      return Math.max(100 - Math.round(alt / 100), 40);
-    }
-    function getAltitudeFromPercent(percent) {
-      return Math.round(min + percent * (max - min));
-    }
-    function updatePosition(clientX) {
-      const rect = track.getBoundingClientRect();
-      let rawPercent = (clientX - rect.left) / rect.width;
-      let percent = Math.max(0, Math.min(1, rawPercent));
-      const alt = getAltitudeFromPercent(percent);
-      const pos = percent * 100;
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        arrow.style.left = `${pos}%`;
-        arrow.setAttribute('data-alt', alt + ' m');
-        altValue.textContent = alt + ' m';
-        const pressure = calculatePressure(alt);
-        const oxygen = calculateOxygen(alt);
-        pressureValue.textContent = pressure;
-        oxygenValue.textContent = oxygen;
-        Object.values(zones).forEach(z => z.classList.remove('active'));
-        Object.values(zoneTexts).forEach(t => t.classList.remove('active'));
-        let activeZone, activeText;
-        if (percent <= 0.4) {
-          activeZone = zones.green;
-          activeText = zoneTexts.green;
-        } else if (percent <= 0.75) {
-          activeZone = zones.yellow;
-          activeText = zoneTexts.yellow;
-        } else {
-          activeZone = zones.red;
-          activeText = zoneTexts.red;
-        }
-        activeZone.classList.add('active');
-        activeText.classList.add('active');
-      });
-    }
-    track.addEventListener('mousedown', e => { isDragging = true; updatePosition(e.clientX); });
-    document.addEventListener('mousemove', e => { if (isDragging) updatePosition(e.clientX); });
-    document.addEventListener('mouseup', () => { isDragging = false; if (rafId) cancelAnimationFrame(rafId); });
-    arrow.addEventListener('mousedown', e => { isDragging = true; e.stopPropagation(); updatePosition(e.clientX); });
-    track.addEventListener('touchstart', e => { isDragging = true; updatePosition(e.touches[0].clientX); e.preventDefault(); });
-    document.addEventListener('touchmove', e => { if (isDragging) { updatePosition(e.touches[0].clientX); e.preventDefault(); } });
-    document.addEventListener('touchend', () => { isDragging = false; if (rafId) cancelAnimationFrame(rafId); });
-    arrow.addEventListener('touchstart', e => { isDragging = true; updatePosition(e.touches[0].clientX); e.preventDefault(); e.stopPropagation(); });
-    track.addEventListener('click', e => { if (!isDragging) updatePosition(e.clientX); });
-    updatePosition(track.getBoundingClientRect().left);
-    function openModal() { document.getElementById('qrModal').classList.add('active'); }
-    function closeModal() { document.getElementById('qrModal').classList.remove('active'); }
-    window.addEventListener('click', e => { if (e.target.classList.contains('modal')) closeModal(); });
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-    // ======== GPS REAL ALTITUDE MODE ========
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(
-        pos => {
-          const alt = pos.coords.altitude;
-          if (alt !== null) {
-            const rect = track.getBoundingClientRect();
-            const clientX = rect.left + (Math.min(alt, 6000) / 6000) * rect.width;
-            updatePosition(clientX);
-            console.log("Độ cao thật:", alt, "m");
-          } else {
-            console.log("Thiết bị không có cảm biến độ cao (dùng mô phỏng).");
-          }
-        },
-        err => { console.warn("Lỗi GPS:", err.message); },
-        { enableHighAccuracy: true }
-      );
-    }
+<script>
+  const track = document.getElementById('sliderTrack');
+  const arrow = document.getElementById('arrow');
+  const altValue = document.getElementById('altValue');
+  const pressureValue = document.getElementById('pressureValue');
+  const oxygenValue = document.getElementById('oxygenValue');
+  const zones = { green: document.querySelector('.zone-green'), yellow: document.querySelector('.zone-yellow'), red: document.querySelector('.zone-red') };
+  const zoneTexts = { green: document.getElementById('zoneGreen'), yellow: document.getElementById('zoneYellow'), red: document.getElementById('zoneRed') };
 
-  </script>
+  const maxAlt = 6000;
+  let isDragging = false;
+  let rafId = null;
+  let autoStartTime = performance.now();
+  let currentPercent = 0; // Giá trị hiện tại do auto điều khiển
+
+  function calculatePressure(alt) { return (101.325 * Math.pow((1 - 2.25577e-5 * alt), 5.2559)).toFixed(1); }
+  function calculateOxygen(alt) { return Math.max(100 - Math.round(alt / 100), 40); }
+
+  function updatePosition(percent) {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const pos = percent * 100;
+      arrow.style.left = `${pos}%`;
+      const alt = Math.round(percent * maxAlt);
+      arrow.setAttribute('data-alt', alt + ' m');
+      altValue.textContent = alt + ' m';
+      pressureValue.textContent = calculatePressure(alt);
+      oxygenValue.textContent = calculateOxygen(alt);
+
+      // Active zones
+      Object.values(zones).forEach(z => z.classList.remove('active'));
+      Object.values(zoneTexts).forEach(t => t.classList.remove('active'));
+      if (percent <= 0.4) { zones.green.classList.add('active'); zoneTexts.green.classList.add('active'); }
+      else if (percent <= 0.75) { zones.yellow.classList.add('active'); zoneTexts.yellow.classList.add('active'); }
+      else { zones.red.classList.add('active'); zoneTexts.red.classList.add('active'); }
+    });
+  }
+
+  // === KÉO THẢ ===
+  const moveHandler = (clientX) => {
+    const rect = track.getBoundingClientRect();
+    let percent = (clientX - rect.left) / rect.width;
+    percent = Math.max(0, Math.min(1, percent));
+    currentPercent = percent;          // Cập nhật vị trí hiện tại
+    autoStartTime = performance.now() - (percent * 12000); // Đồng bộ lại thời gian auto với vị trí mới
+    updatePosition(percent);
+  };
+
+  track.addEventListener('mousedown', e => { isDragging = true; moveHandler(e.clientX); });
+  document.addEventListener('mousemove', e => { if (isDragging) moveHandler(e.clientX); });
+  document.addEventListener('mouseup', () => { isDragging = false; });
+
+  track.addEventListener('touchstart', e => { isDragging = true; moveHandler(e.touches[0].clientX); e.preventDefault(); });
+  document.addEventListener('touchmove', e => { if (isDragging) { moveHandler(e.touches[0].clientX); e.preventDefault(); } });
+  document.addEventListener('touchend', () => { isDragging = false; });
+
+  track.addEventListener('click', e => { if (!isDragging) moveHandler(e.clientX); });
+
+  // === AUTO FLIGHT SIÊU MƯỢT + ĐỒNG BỘ SAU KÉO THẢ ===
+  function animateFlight(now) {
+    if (!isDragging) {
+      const elapsed = now - autoStartTime;
+      let progress = (elapsed % 24000) / 24000; // 24 giây 1 vòng
+
+      if (progress > 0.5) {
+        progress = 1 - (progress - 0.5) * 2;
+      } else {
+        progress *= 2;
+      }
+      currentPercent = progress;
+      updatePosition(progress);
+    }
+    requestAnimationFrame(animateFlight);
+  }
+
+  requestAnimationFrame(animateFlight);
+
+  // === MODAL ===
+  function openModal() { document.getElementById('qrModal').classList.add('active'); }
+  function closeModal() { document.getElementById('qrModal').classList.remove('active'); }
+  window.addEventListener('click', e => { if (e.target.classList.contains('modal')) closeModal(); });
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+
+  // Khởi động
+  updatePosition(0);
+</script>
 </body>
 </html>
+
