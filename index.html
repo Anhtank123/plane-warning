@@ -482,7 +482,12 @@ track.addEventListener('mousedown', e=>onDown(e.clientX));
 document.addEventListener('mousemove', e=>onMove(e.clientX));
 document.addEventListener('mouseup', onUp);
 track.addEventListener('touchstart', e=>{onDown(e.touches[0].clientX); e.preventDefault();},{passive:false});
-document.addEventListener('touchmove', e=>{onMove(e.touches[0].clientX); e.preventDefault();},{passive:false});
+document.addEventListener('touchmove', e=>{
+  // Nếu không đang kéo slider thì để trình duyệt xử lý bình thường (scroll)
+  if (!isDragging) return;
+  onMove(e.touches[0].clientX);
+  e.preventDefault();
+}, {passive:false});
 document.addEventListener('touchend', onUp);
 track.addEventListener('click', e=>{if(!isDragging)updatePosition(clientXToPercent(e.clientX));});
 
