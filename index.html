@@ -308,6 +308,7 @@
           <h3>VÙNG AN TOÀN – CẢNH BÁO THEO ĐỘ CAO</h3>
 
           <div class="tool-sm" aria-label="Thanh công cụ mô phỏng">
+            <button class="btn-sm" id="gpsBtn">Kết nối GPS</button>
             <button class="btn-sm btn-primary" id="demoBtn">Tự chạy mô phỏng</button>
             <button class="btn-sm" id="resetBtn">Đặt lại</button>
           </div>
@@ -340,6 +341,11 @@
           <div id="statusBox">
             Áp suất: <strong id="pressureValue">101.3</strong> kPa ·
             Oxy: <strong id="oxygenValue">100</strong>%
+          </div>
+
+          <!-- TRẠNG THÁI GPS: chỉ báo thành công/thất bại, không hiện số liệu -->
+          <div id="gpsStatus" class="screen-only" style="margin-top:4px;font-size:13px;color:#9fb3d9">
+            Đang kiểm tra GPS trên thiết bị…
           </div>
 
           <ul class="list zone-list" style="margin-top:12px; padding-left:20px; font-size:14.5px;">
@@ -393,6 +399,8 @@ const pressureValue = document.getElementById('pressureValue');
 const oxygenValue = document.getElementById('oxygenValue');
 const demoBtn = document.getElementById('demoBtn');
 const resetBtn = document.getElementById('resetBtn');
+const gpsBtn = document.getElementById('gpsBtn');
+const gpsStatus = document.getElementById('gpsStatus');
 
 const zones = {
   green: document.querySelector('.zone-green'),
@@ -458,7 +466,7 @@ function updatePosition(percent){
   zoneTexts[risk.key].classList.add('active');
 
   stateVal.textContent = risk.text;
-  stateVal.style.color = getComputedStyle(document.documentElement).getPropertyValue(risk.color) || risk.color;
+  stateVal.style.color = risk.color; // dùng trực tiếp var(--safe)/amber/danger
 }
 
 // ===== Kéo thả =====
@@ -504,7 +512,8 @@ function startDemo(){
   if(demoRunning) return;
   demoRunning = true;
   demoBtn.textContent='Dừng mô phỏng';
-  t0 = performance.now() - currentPercent * 24000 / 2;
+  const T = 24000;
+  t0 = performance.now() - currentPercent * T / 2; // tiếp tục từ vị trí hiện tại
   lastFrame = performance.now();
   requestAnimationFrame(loop);
 }
@@ -515,6 +524,10 @@ function stopDemo(){
 demoBtn.addEventListener('click', ()=> demoRunning?stopDemo():startDemo());
 resetBtn.addEventListener('click', ()=>{
   stopDemo(); prevRiskKey='green'; track.setAttribute('data-zone','green'); updatePosition(0);
+  if(gpsStatus){
+    gpsStatus.textContent = 'Đang kiểm tra GPS trên thiết bị…';
+    gpsStatus.style.color = '#9fb3d9';
+  }
 });
 
 // ===== Modal =====
@@ -523,8 +536,54 @@ function closeModal(){ document.getElementById('qrModal').classList.remove('acti
 window.addEventListener('click', e=>{ if(e.target.classList.contains('modal')) closeModal(); });
 window.openModal=openModal; window.closeModal=closeModal;
 
+// ===== GPS INTEGRATION =====
+function initGPS(){
+  if(!gpsStatus) return;
+
+  if(!('geolocation' in navigator)){
+    gpsStatus.textContent = 'Thiết bị không hỗ trợ GPS.';
+    gpsStatus.style.color = '#ffb4b4';
+    return;
+  }
+
+  gpsStatus.textContent = 'Đang xin quyền truy cập GPS…';
+  gpsStatus.style.color = '#9fb3d9';
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      gpsStatus.textContent = 'Đã kết nối GPS thành công.';
+      gpsStatus.style.color = 'var(--safe)';
+
+      let h = pos.coords.altitude;
+
+      // Nếu không có altitude thì chỉ báo thành công, không làm gì thêm
+      if(h == null || isNaN(h)){
+        return;
+      }
+
+      if(h < 0) h = 0;
+      if(h > maxAlt) h = maxAlt;
+
+      const percent = h / maxAlt;
+      updatePosition(percent);
+    },
+    err => {
+      gpsStatus.textContent = 'Không truy cập được GPS (có thể bạn chưa cho phép).';
+      gpsStatus.style.color = '#ffb4b4';
+    },
+    {
+      enableHighAccuracy:true,
+      timeout:10000,
+      maximumAge:0
+    }
+  );
+}
+
+gpsBtn.addEventListener('click', initGPS);
+
 // Khởi động
 updatePosition(0);
+initGPS(); // vẫn auto thử 1 lần khi load
 </script>
 
 </body>
