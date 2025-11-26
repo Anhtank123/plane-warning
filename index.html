@@ -541,8 +541,25 @@ function closeModal(){ document.getElementById('qrModal').classList.remove('acti
 window.addEventListener('click', e=>{ if(e.target.classList.contains('modal')) closeModal(); });
 window.openModal=openModal; window.closeModal=closeModal;
 
-// ===== GPS INTEGRATION =====
-function initGPS(){
+// ===== GPS INTEGRATION (dùng API độ cao theo lat/lon) =====
+
+// Gọi Open-Meteo để lấy elevation theo lat/lon
+async function fetchElevation(lat, lon) {
+  try {
+    const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const h = data && Array.isArray(data.elevation) ? data.elevation[0] : null;
+    if (typeof h === 'number' && !isNaN(h)) return h;   // mét
+    return null;
+  } catch (e) {
+    console.error('Lỗi fetch elevation:', e);
+    return null;
+  }
+}
+
+async function initGPS(){
   if(!gpsStatus) return;
 
   if(!('geolocation' in navigator)){
@@ -555,25 +572,46 @@ function initGPS(){
   gpsStatus.style.color = '#9fb3d9';
 
   navigator.geolocation.getCurrentPosition(
-    pos => {
-      gpsStatus.textContent = 'Đã kết nối GPS thành công.';
-      gpsStatus.style.color = 'var(--safe)';
+    async pos => {
+      gpsStatus.textContent = 'Đã kết nối GPS, đang đọc độ cao thực tế…';
+      gpsStatus.style.color = '#9fb3d9';
 
-      let h = pos.coords.altitude;
+      const { latitude, longitude, altitude } = pos.coords;
+      console.log('GPS coords:', latitude, longitude, 'alt=', altitude);
 
-      // Nếu không có altitude thì chỉ báo thành công, không làm gì thêm
-      if(h == null || isNaN(h)){
+      // Ưu tiên dùng API độ cao theo lat/lon
+      let h = await fetchElevation(latitude, longitude);
+
+      // Nếu API lỗi, fallback về altitude thô của thiết bị (nếu có)
+      if (h == null && altitude != null && !isNaN(altitude)) {
+        h = altitude;
+      }
+
+      if (h == null) {
+        gpsStatus.textContent = 'Đã kết nối GPS nhưng không lấy được độ cao (API hoặc thiết bị không cung cấp).';
+        gpsStatus.style.color = '#ffb4b4';
         return;
       }
 
-      if(h < 0) h = 0;
-      if(h > maxAlt) h = maxAlt;
+      // Chuẩn hóa độ cao vào range 0–6000m cho poster
+      if (h < 0) h = 0;
+      if (h > maxAlt) h = maxAlt;
 
       const percent = h / maxAlt;
       updatePosition(percent);
+
+      gpsStatus.textContent = `Đã kết nối GPS thành công · Độ cao khoảng ${Math.round(h)} m`;
+      gpsStatus.style.color = 'var(--safe)';
     },
     err => {
-      gpsStatus.textContent = 'Không truy cập được GPS (có thể bạn chưa cho phép).';
+      console.error('GPS error:', err);
+      if (err.code === err.PERMISSION_DENIED) {
+        gpsStatus.textContent = 'Bạn đã từ chối quyền GPS. Hãy cho phép lại trong cài đặt trình duyệt.';
+      } else if (err.code === err.TIMEOUT) {
+        gpsStatus.textContent = 'Không lấy được GPS (hết thời gian chờ).';
+      } else {
+        gpsStatus.textContent = 'Không truy cập được GPS.';
+      }
       gpsStatus.style.color = '#ffb4b4';
     },
     {
@@ -584,12 +622,12 @@ function initGPS(){
   );
 }
 
-
 gpsBtn.addEventListener('click', initGPS);
 
 // Khởi động
 updatePosition(0);
-initGPS(); // vẫn auto thử 1 lần khi load
+initGPS(); // thử auto một lần khi load (nếu trang có quyền)
+
 </script>
 
 </body>
