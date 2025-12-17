@@ -12,45 +12,48 @@
     @page{ size:A3 portrait; margin:12mm; }
     @media print{ body{ background:#fff!important } .screen-only,.interactive-only{ display:none!important } }
 
-    /* =========== THEME =========== */
+    /* =========== THEME (đã thay theo background sáng hơn bạn gửi) =========== */
     :root{
-      --bg:#0b1a2a;
-      --glass:rgba(255,255,255,0.12);
-      --line:rgba(255,255,255,0.22);
-      --text:#ecf3ff;
-      --muted:#b9c7e6;
+      --bg:#1a2b40;                  /* ĐÃ SÁNG HƠN: từ #0b1a2a → #1a2b40 */
+      --glass:rgba(255,255,255,0.18); /* Tăng độ trong suốt glass */
+      --line:rgba(255,255,255,0.28);
+      --text:#f0f8ff;                /* Trắng sáng hơn */
+      --muted:#c8d8f8;
       --accent:#ffd56a;
       --danger:#ff6a7a;
       --safe:#67ffad;
       --amber:#ffb84d;
-      --hover:rgba(255,255,255,0.08);
+      --hover:rgba(255,255,255,0.12);
     }
     *{ box-sizing:border-box; margin:0; padding:0; }
     html,body{ height:100%; font-family:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
     body{
       background:
-        radial-gradient(100% 80% at 20% 0%, #143055 0%, rgba(20,48,85,0) 60%),
-        radial-gradient(80% 80% at 85% 10%, #1a365e 0%, rgba(26,54,94,0) 65%),
+        radial-gradient(100% 80% at 20% 0%, #2a4b7a 0%, rgba(42,75,122,0) 60%),   /* Sáng hơn */
+        radial-gradient(80% 80% at 85% 10%, #3a5f8a 0%, rgba(58,95,138,0) 65%),   /* Sáng hơn */
         var(--bg);
       color:var(--text); letter-spacing:.1px; line-height:1.35;
     }
     .wrap{ max-width:860px; margin:0 auto; padding:18mm 12mm; position:relative; }
     .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid var(--line); border-radius:20px; box-shadow:0 24px 72px rgba(0,0,0,.4);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); /* Tăng độ sáng nền panel */
+      border:1px solid var(--line); border-radius:20px; box-shadow:0 24px 72px rgba(0,0,0,.35);
       overflow:hidden; position:relative; backdrop-filter:blur(12px);
     }
     header{ padding:16px 20px 12px; display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center; }
     .brand{ display:flex; gap:12px; align-items:center }
 
-    .badge{
-      background:linear-gradient(135deg, #ffe97a 0%, #ffcf40 25%, #fff6b0 50%, #ffcf40 75%, #ffe97a 100%);
-      background-size:300% 300%; animation:shine 5s linear infinite;
-      color:#1b2235; padding:18px 32px; font-weight:900; border-radius:999px;
-      box-shadow:0 25px 50px rgba(255,213,106,.6), inset 0 2px 6px rgba(255,255,255,.5);
-      font-size:40px; letter-spacing:2.5px; text-transform:uppercase; transition:all .3s ease;
-      text-shadow:0 2px 8px rgba(255,255,255,.6);
-    }
+.badge{
+  background:linear-gradient(135deg, #ffe97a 0%, #ffcf40 25%, #fff6b0 50%, #ffcf40 75%, #ffe97a 100%);
+  background-size:300% 300%; animation:shine 5s linear infinite;
+  color:#1b2235; padding:18px 32px; font-weight:900; border-radius:999px;
+  box-shadow:0 25px 50px rgba(255,213,106,.6), inset 0 2px 6px rgba(255,255,255,.5);
+  font-size:40px; letter-spacing:2.5px; text-transform:uppercase; transition:all .3s ease;
+  text-shadow:0 2px 8px rgba(255,255,255,.6);
+  white-space: nowrap;
+  word-spacing: 0;
+}
+
     .badge:hover{ transform:scale(1.1) rotate(-1deg); box-shadow:0 32px 60px rgba(255,213,106,.7), inset 0 3px 8px rgba(255,255,255,.6); }
     @keyframes shine{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
@@ -63,7 +66,7 @@
 
     .grid{ padding:14px 20px 20px; display:grid; gap:16px; grid-template-columns:1fr 1fr; }
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.04));
+      background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.08)); /* Sáng hơn nền card */
       border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
       transition:transform .2s ease, box-shadow .2s ease;
     }
@@ -74,11 +77,11 @@
     .quick{ display:grid; gap:10px; }
     .pill{
       display:grid; grid-template-columns:42px 1fr; gap:12px; align-items:center; border:1px solid var(--line); border-radius:14px;
-      padding:10px 12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.05)); cursor:pointer;
-      transition:all .2s ease;
+      padding:10px 12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.08)); /* Sáng hơn pill */
+      cursor:pointer; transition:all .2s ease;
     }
-    .pill:hover{ background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.35); transform:scale(1.02); }
-    .ico{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:rgba(255,255,255,.1); }
+    .pill:hover{ background:rgba(255,255,255,.20); border-color:rgba(255,255,255,.40); transform:scale(1.02); }
+    .ico{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:rgba(255,255,255,.15); }
     .pill strong{ font-weight:600; }
     .muted{ color:var(--muted); font-size:13.5px; }
 
@@ -86,12 +89,12 @@
     .alert-compact h3{ margin-top:10px; font-size:17px; line-height:1.2; }
     .alert-grid{ display:grid; gap:6px; margin-top:8px; grid-template-columns:1fr; }
     .alert-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06)); /* Sáng hơn alert card */
       border:1px solid var(--line); border-radius:10px; padding:7px 9px; min-height:68px; display:flex; flex-direction:column;
       position:relative; overflow:hidden; transition:transform .2s ease;
     }
-    .alert-card::before{ content:''; position:absolute; inset:0; opacity:0.15; transition:opacity .25s ease; }
-    .alert-card:hover::before{ opacity:0.25; }
+    .alert-card::before{ content:''; position:absolute; inset:0; opacity:0.18; transition:opacity .25s ease; }
+    .alert-card:hover::before{ opacity:0.30; }
     .alert-card.level1::before{ background:var(--safe); }
     .alert-card.level2::before{ background:var(--amber); }
     .alert-card.level3::before{ background:var(--danger); }
@@ -111,7 +114,7 @@
     /* === Thanh công cụ mô phỏng === */
     .tool-sm{ display:flex; gap:8px; margin:6px 0 10px; flex-wrap:wrap; }
     .btn-sm{
-      appearance:none; border:1px solid var(--line); background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.05));
+      appearance:none; border:1px solid var(--line); background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.08));
       color:var(--text); border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer; letter-spacing:.2px;
       transition:transform .15s ease, box-shadow .2s ease, background .2s ease; box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
     }
@@ -120,7 +123,7 @@
 
     /* === Altitude slider (cột phải) === */
     .altitude-control{
-      margin:12px 0 8px; padding:12px; background:rgba(255,255,255,.06); border-radius:12px; border:1px solid var(--line); position:relative;
+      margin:12px 0 8px; padding:12px; background:rgba(255,255,255,.10); border-radius:12px; border:1px solid var(--line); position:relative;
     }
     .slider-label{ display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; color:var(--muted); }
     .slider-track{
@@ -190,7 +193,7 @@
     #statusBox strong{ font-weight:800; }
 
     .qrbox{ display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; border:1px solid var(--line); border-radius:14px;
-      padding:12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.05)); margin-top:12px; cursor:pointer;
+      padding:12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.08)); margin-top:12px; cursor:pointer;
     }
     .qr{ width:104px; height:104px; background:#fff; border-radius:10px; display:grid; place-items:center; padding:4px; }
     .qr img{ width:100%; height:100%; object-fit:contain; }
@@ -356,11 +359,7 @@
 
           <div class="qrbox" onclick="openModal()">
             <div>
-              <strong>Quét mã QR để xem hướng dẫn xử lí JETLAG</strong>
-              <div class="muted">Tích hợp QR → video/hướng dẫn chi tiết (VI/EN)</div>
-            </div>
-            <div class="qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ" alt="QR Code Jetlag Guide">
+              <strong>Hướng dẫn xử lí JETLAG</strong>
             </div>
           </div>
         </article>
@@ -381,13 +380,10 @@
       <p><strong>Bước 1:</strong> Uống đủ nước trước & trong chuyến bay (500ml/giờ).</p>
       <p><strong>Bước 2:</strong> Ngồi nghỉ ngơi, tạm dừng sử dụng các thiết bị điện tử.</p>
       <p><strong>Bước 3:</strong> Ngủ theo múi giờ đích (đeo bịt mắt, tai nghe).</p>
-      <p style="margin-top:16px;"><em>Video hướng dẫn (YouTube): <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" style="color:var(--accent)">Xem ngay →</a></em></p>
     </div>
   </div>
 
-  <div class="screen-only" style="max-width:860px;margin:16px auto;color:#8ea2d9;font-size:13.5px">
-    In nhanh: <kbd>Ctrl/Cmd + P</kbd> → Paper size: <b>A3</b> → Margins: Default → Save as PDF.
-  </div>
+
 
 <script>
 const track = document.getElementById('sliderTrack');
@@ -627,7 +623,6 @@ gpsBtn.addEventListener('click', initGPS);
 // Khởi động
 updatePosition(0);
 initGPS(); // thử auto một lần khi load (nếu trang có quyền)
-
 </script>
 
 </body>
