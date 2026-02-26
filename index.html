@@ -2076,6 +2076,7 @@ intranet.airline.local"></textarea>
 
     // ---------- State ----------
     const state = {
+      autoT0: 0,
       lang: "vi",
       tab: "safety",
       mode: "alt",
@@ -2246,12 +2247,24 @@ intranet.airline.local"></textarea>
     function setMode(mode){
       state.mode = mode;
       const alt = mode === "alt";
+
       el.modeAlt.setAttribute("aria-pressed", alt ? "true" : "false");
       el.modePress.setAttribute("aria-pressed", alt ? "false" : "true");
+
       el.altRange.disabled = !alt;
       el.pressRange.disabled = alt;
+
       el.altRange.style.opacity = alt ? "1" : ".45";
       el.pressRange.style.opacity = alt ? ".45" : "1";
+
+      // ✅ FIX: đổi mode thì sync ngay theo slider đang active để không bị “nhảy”
+      if (alt) {
+        syncFromAltitude(parseFloat(el.altRange.value));
+      } else {
+        syncFromPressure(parseFloat(el.pressRange.value));
+      }
+
+      renderSafety();
       pushLog("input_mode", { mode });
     }
 
@@ -2527,6 +2540,38 @@ intranet.airline.local"></textarea>
     }
 
     // ---------- Simulation engine ----------
+      // ===== AUTO ENGINE (triangle wave like your poster demo) =====
+  const AUTO = {
+    T: 24000,                 // 24s / cycle
+    altMin: 0,
+    altMax: 9000,             // match altRange max
+    pressMin: 350,            // match pressRange min
+    pressMax: 1013            // match pressRange max
+  };
+
+  // time->triangle [0..1..0]
+  function tri01(nowMs, t0Ms, T){
+    const phase = ((nowMs - t0Ms) % T + T) % T;
+    const p = phase / T;                  // 0..1
+    return (p < 0.5) ? (p * 2) : (1 - (p - 0.5) * 2);
+  }
+
+  // align t0 so that current value continues smoothly
+  function setAutoT0FromCurrent(){
+    const now = state.t; // state.t is our running clock (ms)
+    let tri = 0;
+
+    if (state.mode === "alt") {
+      const alt = clamp(state.cabinAlt_m, AUTO.altMin, AUTO.altMax);
+      const percent = (alt - AUTO.altMin) / (AUTO.altMax - AUTO.altMin); // 0..1
+      // tri is 0..1..0; mapping in poster uses t0 = now - currentPercent*T/2
+      state.autoT0 = now - (percent * AUTO.T / 2);
+    } else {
+      const P = clamp(state.cabinPress_hPa, AUTO.pressMin, AUTO.pressMax);
+      const percent = (P - AUTO.pressMin) / (AUTO.pressMax - AUTO.pressMin);
+      state.autoT0 = now - (percent * AUTO.T / 2);
+    }
+  }
     function tick(dt){
       if(state.paused) return;
       state.t += dt;
@@ -2536,15 +2581,18 @@ intranet.airline.local"></textarea>
       state.speed_kmh = 840 + wob*14 + wob2*8;
       state.oat_C = -45 + wob2*2 - wob*1.2;
 
-      if(state.sim === "auto"){
-        if(state.mode === "alt"){
-          const base = parseFloat(el.altRange.value);
-          const drift = (Math.sin(state.t*0.0009)*14 + Math.sin(state.t*0.0017)*8);
-          syncFromAltitude(base + drift);
-        }else{
-          const base = parseFloat(el.pressRange.value);
-          const drift = (Math.sin(state.t*0.0011)*2 + Math.sin(state.t*0.0019)*1);
-          syncFromPressure(base + drift);
+      if (state.sim === "auto") {
+        const tri = tri01(state.t, state.autoT0 || 0, AUTO.T); // 0..1..0
+
+        if (state.mode === "alt") {
+          const alt = AUTO.altMin + tri * (AUTO.altMax - AUTO.altMin);
+          // keep slider in sync with auto value
+          el.altRange.value = Math.round(alt / 50) * 50;
+          syncFromAltitude(parseFloat(el.altRange.value));
+        } else {
+          const P = AUTO.pressMin + tri * (AUTO.pressMax - AUTO.pressMin);
+          el.pressRange.value = Math.round(P);
+          syncFromPressure(parseFloat(el.pressRange.value));
         }
       }
     }
@@ -2695,8 +2743,8 @@ intranet.airline.local"></textarea>
       ctx.globalAlpha = 1;
     }
     function draw(){
-      if(document.hidden) {
-        requestAnimationFrame(draw);
+        if(document.hidden) {
+          requestAnimationFrame(draw);
         return;
       }
 
@@ -3143,8 +3191,23 @@ intranet.airline.local"></textarea>
 
       // Sim toggle
       el.btnSim.addEventListener("click", () => {
-        setSim(state.sim === "auto" ? "manual" : "auto");
-        toast("Simulation: " + state.sim.toUpperCase());
+        const next = (state.sim === "auto") ? "manual" : "auto";
+
+        if (next === "auto") {
+          // ✅ start auto from current value
+          setAutoT0FromCurrent();
+          setSim("auto");
+          toast("AUTO: ON");
+        } else {
+          setSim("manual");
+          toast("AUTO: OFF");
+        }
+
+        // make sure state matches UI immediately
+        if (state.mode === "alt") syncFromAltitude(parseFloat(el.altRange.value));
+        else syncFromPressure(parseFloat(el.pressRange.value));
+
+        renderSafety();
       });
 
       // Pause
