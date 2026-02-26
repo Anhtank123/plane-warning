@@ -1,629 +1,3492 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Biển cảnh báo áp suất máy bay – Phiên bản tương tác</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="color-scheme" content="dark" />
+  
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://upload.wikimedia.org; media-src 'self' blob: https://upload.wikimedia.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+
+  <title>AERO•PORTAL — Cabin Safety + Premium IFE (v3 Patched)</title>
+
   <style>
-    /* =========== CẤU HÌNH IN =========== */
-    @page{ size:A3 portrait; margin:12mm; }
-    @media print{ body{ background:#fff!important } .screen-only,.interactive-only{ display:none!important } }
-
-    /* =========== THEME (đã thay theo background sáng hơn bạn gửi) =========== */
+    /* --- GIỮ NGUYÊN TOÀN BỘ CSS CỦA BẠN --- */
     :root{
-      --bg:#1a2b40;                  /* ĐÃ SÁNG HƠN: từ #0b1a2a → #1a2b40 */
-      --glass:rgba(255,255,255,0.18); /* Tăng độ trong suốt glass */
-      --line:rgba(255,255,255,0.28);
-      --text:#f0f8ff;                /* Trắng sáng hơn */
-      --muted:#c8d8f8;
-      --accent:#ffd56a;
-      --danger:#ff6a7a;
-      --safe:#67ffad;
-      --amber:#ffb84d;
-      --hover:rgba(255,255,255,0.12);
+      --bg0:#06070b;
+      --bg1:#0a0d16;
+      --ink:#e9eefc;
+      --muted:#a9b3d6;
+      --dim:#6f7aa8;
+      --line:rgba(255,255,255,.10);
+      --glass:rgba(255,255,255,.06);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 35px rgba(0,0,0,.40);
+      --radius: 22px;
+      --radius2: 16px;
+      --ok:#6ee7b7;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --critical:#f43f5e;
+      --accent:#8b5cf6;
+      --accent2:#22d3ee;
+      --focus: 0 0 0 3px rgba(139,92,246,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{ height:100%; font-family:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; }
-    body{
+
+    /* ===== THEME DARK (Default) ===== */
+    :root{ color-scheme: dark; }
+    :root[data-theme="dark"]{ color-scheme: dark; }
+
+    /* ========================================================
+       APPLE-LIKE LIGHT THEME OVERRIDES (State-of-the-Art)
+       ======================================================== */
+    :root[data-theme="light"] {
+      color-scheme: light;
+
+      /* Core Apple Colors */
+      --bg0: #FBFBFD; /* Classic Apple Off-White */
+      --bg1: #F5F5F7; /* Classic Apple Gray Background */
+      --ink: #1D1D1F; /* Signature Apple Dark Text */
+      --muted: #86868B;
+      --dim: #A1A1A6;
+
+      /* Glass & Surfaces */
+      --glass: rgba(255, 255, 255, 0.65);
+      --glass-solid: rgba(255, 255, 255, 0.95);
+      --surface-track: rgba(0, 0, 0, 0.05);
+      --surface-thumb: #FFFFFF;
+
+      /* Delicate Apple Borders & Shadows */
+      --line: rgba(0, 0, 0, 0.08);
+      --border-glass: rgba(0, 0, 0, 0.05);
+      --inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      --shadow-apple-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+      --shadow-apple-card: 0 4px 14px -4px rgba(0, 0, 0, 0.06);
+      --shadow-apple-float: 0 20px 60px -15px rgba(0, 0, 0, 0.12);
+
+      --focus: 0 0 0 4px rgba(0, 125, 250, 0.25); /* Apple Focus Blue */
+    }
+
+    /* Background Gradient Tuning (Ultra Soft) */
+    :root[data-theme="light"] body {
       background:
-        radial-gradient(100% 80% at 20% 0%, #2a4b7a 0%, rgba(42,75,122,0) 60%),   /* Sáng hơn */
-        radial-gradient(80% 80% at 85% 10%, #3a5f8a 0%, rgba(58,95,138,0) 65%),   /* Sáng hơn */
-        var(--bg);
-      color:var(--text); letter-spacing:.1px; line-height:1.35;
+        radial-gradient(1200px 800px at 20% 20%, rgba(139, 92, 246, 0.05), transparent 60%),
+        radial-gradient(900px 700px at 80% 25%, rgba(34, 211, 238, 0.05), transparent 55%),
+        radial-gradient(800px 700px at 55% 80%, rgba(251, 191, 36, 0.03), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
     }
-    .wrap{ max-width:860px; margin:0 auto; padding:18mm 12mm; position:relative; }
-    .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); /* Tăng độ sáng nền panel */
-      border:1px solid var(--line); border-radius:20px; box-shadow:0 24px 72px rgba(0,0,0,.35);
-      overflow:hidden; position:relative; backdrop-filter:blur(12px);
+
+    /* Force Light Mode Text Color Override for Hardcoded White Text */
+    :root[data-theme="light"] .brand h1,
+    :root[data-theme="light"] .panelHeader h2,
+    :root[data-theme="light"] .stageTop h2,
+    :root[data-theme="light"] .value,
+    :root[data-theme="light"] .v,
+    :root[data-theme="light"] .n,
+    :root[data-theme="light"] strong,
+    :root[data-theme="light"] .callout b,
+    :root[data-theme="light"] .step.on,
+    :root[data-theme="light"] .svcName,
+    :root[data-theme="light"] h3,
+    :root[data-theme="light"] .modalTop h3 {
+      color: var(--ink) !important;
     }
-    header{ padding:16px 20px 12px; display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center; }
-    .brand{ display:flex; gap:12px; align-items:center }
 
-.badge{
-  background:linear-gradient(135deg, #ffe97a 0%, #ffcf40 25%, #fff6b0 50%, #ffcf40 75%, #ffe97a 100%);
-  background-size:300% 300%; animation:shine 5s linear infinite;
-  color:#1b2235; padding:18px 32px; font-weight:900; border-radius:999px;
-  box-shadow:0 25px 50px rgba(255,213,106,.6), inset 0 2px 6px rgba(255,255,255,.5);
-  font-size:40px; letter-spacing:2.5px; text-transform:uppercase; transition:all .3s ease;
-  text-shadow:0 2px 8px rgba(255,255,255,.6);
-  white-space: nowrap;
-  word-spacing: 0;
-}
+    /* Fix SVG strokes inside buttons for Light Mode */
+    :root[data-theme="light"] .tabicon path { stroke: var(--ink); }
+    :root[data-theme="light"] .tabicon path[fill] { fill: var(--ink); stroke: none; }
+    :root[data-theme="light"] .logo svg path[fill="rgba(255,255,255,.92)"] { fill: #ffffff; }
 
-    .badge:hover{ transform:scale(1.1) rotate(-1deg); box-shadow:0 32px 60px rgba(255,213,106,.7), inset 0 3px 8px rgba(255,255,255,.6); }
-    @keyframes shine{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-
-    .seal{
-      border:1px solid var(--line); border-radius:12px; padding:8px 12px; color:var(--muted); font-size:12px;
-      background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); font-weight:600;
+    /* Frosted Glass Panels & Modals */
+    :root[data-theme="light"] .topbar,
+    :root[data-theme="light"] .panel,
+    :root[data-theme="light"] .modal,
+    :root[data-theme="light"] .svcModal,
+    :root[data-theme="light"] .overlayAlert {
+      background: var(--glass);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-apple-soft), var(--inner-glow);
     }
-    h1{ font-size:38px; font-weight:900; line-height:1.1; text-wrap:balance; text-shadow:0 2px 4px rgba(0,0,0,.3); }
-    .sub{ color:var(--muted); margin:4px 0 0; font-size:17px; font-weight:500; }
 
-    .grid{ padding:14px 20px 20px; display:grid; gap:16px; grid-template-columns:1fr 1fr; }
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.08)); /* Sáng hơn nền card */
-      border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
-      transition:transform .2s ease, box-shadow .2s ease;
+    /* Remove excessive pseudo-element noise in light mode */
+    :root[data-theme="light"] .topbar::before,
+    :root[data-theme="light"] .panel::before,
+    :root[data-theme="light"] .appTile::before,
+    :root[data-theme="light"] .svcCard::before,
+    :root[data-theme="light"] .projCard::before {
+      opacity: 0;
     }
-    .card:hover{ transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.3); }
-    .card h3{ margin:0 0 10px; font-size:19px; font-weight:700; letter-spacing:.4px; }
 
-    /* Quick pills */
-    .quick{ display:grid; gap:10px; }
+    /* Solid White Cards with soft shadow */
+    :root[data-theme="light"] .card,
+    :root[data-theme="light"] .appTile,
+    :root[data-theme="light"] .svcCard,
+    :root[data-theme="light"] .projCard,
+    :root[data-theme="light"] .navItem {
+      background: var(--glass-solid);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-apple-card), var(--inner-glow);
+    }
+    :root[data-theme="light"] .svcCard:hover,
+    :root[data-theme="light"] .appTile:hover,
+    :root[data-theme="light"] .navItem:hover {
+      background: #FFFFFF;
+      box-shadow: var(--shadow-apple-float);
+    }
+
+    /* Inputs, Textareas, Drops */
+    :root[data-theme="light"] input,
+    :root[data-theme="light"] select,
+    :root[data-theme="light"] textarea,
+    :root[data-theme="light"] .svcNote,
+    :root[data-theme="light"] .searchBox,
+    :root[data-theme="light"] .drop {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--ink);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+    :root[data-theme="light"] input::placeholder,
+    :root[data-theme="light"] textarea::placeholder,
+    :root[data-theme="light"] .svcNote::placeholder {
+      color: var(--dim);
+    }
+
+    /* Segmented Controls & Tabs (iOS Style) */
+    :root[data-theme="light"] .tabs,
+    :root[data-theme="light"] .seg {
+      background: var(--surface-track);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    :root[data-theme="light"] .tabbtn[data-active="true"],
+    :root[data-theme="light"] .seg button[aria-pressed="true"] {
+      background: var(--surface-thumb);
+      color: var(--ink) !important;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0,0,0,0.04);
+    }
+    :root[data-theme="light"] .tabbtn:hover:not([data-active="true"]),
+    :root[data-theme="light"] .seg button:hover:not([aria-pressed="true"]) {
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--ink);
+    }
+
+    /* Buttons */
+    :root[data-theme="light"] .btn,
+    :root[data-theme="light"] .svcBtn,
+    :root[data-theme="light"] .qtyBtn,
+    :root[data-theme="light"] .ovToggle,
+    :root[data-theme="light"] .linkBtn {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    :root[data-theme="light"] .btn:hover,
+    :root[data-theme="light"] .svcBtn:hover,
+    :root[data-theme="light"] .linkBtn:hover {
+      background: #F5F5F7;
+    }
+    /* Primary buttons (keep colorful gradient, ensure text is pure white) */
+    :root[data-theme="light"] .btn.primary,
+    :root[data-theme="light"] .svcBtn.primary,
+    :root[data-theme="light"] .cartPillBtn {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.85), rgba(34, 211, 238, 0.85));
+      color: #FFFFFF !important;
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Pills, Tags, Chips, Steps */
+    :root[data-theme="light"] .pill,
+    :root[data-theme="light"] .tag,
+    :root[data-theme="light"] .chip,
+    :root[data-theme="light"] .step,
+    :root[data-theme="light"] .badge,
+    :root[data-theme="light"] .fp,
+    :root[data-theme="light"] .svcPill {
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--ink);
+      backdrop-filter: blur(10px);
+      box-shadow: none;
+    }
+    :root[data-theme="light"] .step.on {
+       background: #ffffff;
+       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+       border-color: rgba(0,0,0,0.08);
+    }
+    :root[data-theme="light"] .fp[aria-pressed="true"] {
+      background: #ffffff;
+      color: var(--ink);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    /* Internal Borders/Dividers */
+    :root[data-theme="light"] .panelHeader,
+    :root[data-theme="light"] .stageTop,
+    :root[data-theme="light"] .modalTop,
+    :root[data-theme="light"] .svcModalTop,
+    :root[data-theme="light"] .svcModalLeft,
+    :root[data-theme="light"] .modalNav {
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+    :root[data-theme="light"] .hr {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    /* Misc Apple Adjustments */
+    :root[data-theme="light"] .kpi,
+    :root[data-theme="light"] .mutedBox,
+    :root[data-theme="light"] .callout {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--muted);
+    }
+    :root[data-theme="light"] .svcThumb,
+    :root[data-theme="light"] .svcBigThumb {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    :root[data-theme="light"] video {
+      background: #000;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-apple-card);
+    }
+    :root[data-theme="light"] .modalMask,
+    :root[data-theme="light"] .svcMask {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    :root[data-theme="light"] .fx {
+      opacity: 0.15; /* Tone down background FX */
+    }
+
+    /* ========================================================
+       GLOBAL / DARK MODE RULES (Your original untouched)
+       ======================================================== */
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(139,92,246,.22), transparent 60%),
+        radial-gradient(900px 700px at 80% 25%, rgba(34,211,238,.18), transparent 55%),
+        radial-gradient(800px 700px at 55% 80%, rgba(251,191,36,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow:hidden;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fx{
+      pointer-events:none;
+      position:fixed; inset:0;
+      background:
+        radial-gradient(600px 400px at 50% 40%, rgba(255,255,255,.08), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 3px);
+      mix-blend-mode: overlay;
+      opacity:.35;
+      filter: blur(.3px);
+      animation: fxShift 10s ease-in-out infinite alternate;
+    }
+    @keyframes fxShift{
+      from{ transform: translate3d(0,0,0); opacity:.25; }
+      to  { transform: translate3d(0,-10px,0); opacity:.40; }
+    }
+
+    .app{
+      position:relative;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      padding: 18px;
+      gap: 14px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+    .topbar::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 150px at 18% 0%, rgba(139,92,246,.30), transparent 60%),
+                  radial-gradient(700px 200px at 80% 0%, rgba(34,211,238,.22), transparent 60%);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .brand{
+      position:relative;
+      display:flex; align-items:center; gap: 12px;
+      min-width: 280px;
+      cursor: default;
+    }
+    .logo{
+      width: 44px; height:44px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(34,211,238,.65));
+      box-shadow: 0 14px 30px rgba(0,0,0,.40);
+      border: 1px solid rgba(255,255,255,.20);
+    }
+    .brand h1{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: .20em;
+      text-transform: uppercase;
+      color: rgba(233,238,252,.92);
+    }
+    .brand .sub{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.02em;
+    }
+
+    .meta{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin-left:auto;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
     .pill{
-      display:grid; grid-template-columns:42px 1fr; gap:12px; align-items:center; border:1px solid var(--line); border-radius:14px;
-      padding:10px 12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.08)); /* Sáng hơn pill */
-      cursor:pointer; transition:all .2s ease;
+      display:flex; align-items:center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(10px);
+      min-height: 40px;
     }
-    .pill:hover{ background:rgba(255,255,255,.20); border-color:rgba(255,255,255,.40); transform:scale(1.02); }
-    .ico{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:rgba(255,255,255,.15); }
-    .pill strong{ font-weight:600; }
-    .muted{ color:var(--muted); font-size:13.5px; }
-
-    /* ALERT GRID */
-    .alert-compact h3{ margin-top:10px; font-size:17px; line-height:1.2; }
-    .alert-grid{ display:grid; gap:6px; margin-top:8px; grid-template-columns:1fr; }
-    .alert-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06)); /* Sáng hơn alert card */
-      border:1px solid var(--line); border-radius:10px; padding:7px 9px; min-height:68px; display:flex; flex-direction:column;
-      position:relative; overflow:hidden; transition:transform .2s ease;
+    .pill strong{
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .02em;
     }
-    .alert-card::before{ content:''; position:absolute; inset:0; opacity:0.18; transition:opacity .25s ease; }
-    .alert-card:hover::before{ opacity:0.30; }
-    .alert-card.level1::before{ background:var(--safe); }
-    .alert-card.level2::before{ background:var(--amber); }
-    .alert-card.level3::before{ background:var(--danger); }
-    .alert-card:hover{ transform:translateY(-2px); }
-    .alert-head{ display:grid; grid-template-columns:auto 1fr auto; gap:5px; align-items:center; margin-bottom:3px; position:relative; z-index:1; }
-    .alert-ico{ width:26px; height:26px; border-radius:8px; display:grid; place-items:center; font-size:14px; }
-    .alert-head strong{ font-size:13.5px; font-weight:700; }
-    .lg-sub{ color:var(--muted); font-size:11.5px; margin-top:0; line-height:1.2; }
-    .badge{ padding:1px 5px; border-radius:5px; font-size:9.5px; font-weight:700; }
-    .badge.green{ background:rgba(103,255,173,.3); color:var(--safe); border:1px solid var(--safe); }
-    .badge.amber{ background:rgba(255,184,77,.3); color:var(--amber); border:1px solid var(--amber); }
-    .badge.red{ background:rgba(255,106,122,.3); color:var(--danger); border:1px solid var(--danger); }
-    .alert-list{ list-style:none; padding-left:0; font-size:12.2px; line-height:1.28; margin-top:auto; position:relative; z-index:1; }
-    .alert-list li{ position:relative; padding-left:12px; margin:1.5px 0; }
-    .alert-list li::before{ content:"•"; position:absolute; left:0; color:var(--muted); font-size:10px; }
-
-    /* === Thanh công cụ mô phỏng === */
-    .tool-sm{ display:flex; gap:8px; margin:6px 0 10px; flex-wrap:wrap; }
-    .btn-sm{
-      appearance:none; border:1px solid var(--line); background:linear-gradient(180deg,var(--glass),rgba(255,255,255,.08));
-      color:var(--text); border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer; letter-spacing:.2px;
-      transition:transform .15s ease, box-shadow .2s ease, background .2s ease; box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
-    }
-    .btn-sm:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.25); }
-    .btn-primary{ background:linear-gradient(180deg, rgba(255,213,106,.8), rgba(255,213,106,.55)); color:#2a291f; }
-
-    /* === Altitude slider (cột phải) === */
-    .altitude-control{
-      margin:12px 0 8px; padding:12px; background:rgba(255,255,255,.10); border-radius:12px; border:1px solid var(--line); position:relative;
-    }
-    .slider-label{ display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; color:var(--muted); }
-    .slider-track{
-      position:relative; height:20px; border-radius:999px; overflow:hidden; background:rgba(0,0,0,.2);
-      box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 8px 20px rgba(0,0,0,.25);
-      cursor:pointer; user-select:none; transition: box-shadow .25s ease, outline-color .25s ease;
-      outline: 2px solid transparent;
-    }
-    /* Track glow theo vùng */
-    .slider-track[data-zone="green"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(103,255,173,.25); outline-color: rgba(103,255,173,.35); }
-    .slider-track[data-zone="yellow"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(255,184,77,.25); outline-color: rgba(255,184,77,.35); }
-    .slider-track[data-zone="red"]{ box-shadow:inset 0 0 0 1px rgba(0,0,0,.25), 0 0 0 0 rgba(0,0,0,0), 0 0 14px 2px rgba(255,106,122,.25); outline-color: rgba(255,106,122,.35); }
-
-    .zone-green{ position:absolute; left:0; top:0; height:100%; width:40%; background:var(--safe); transition:filter .25s ease; }
-    .zone-yellow{ position:absolute; left:40%; top:0; height:100%; width:35%; background:var(--amber); transition:filter .25s ease; }
-    .zone-red{ position:absolute; left:75%; top:0; height:100%; width:25%; background:var(--danger); transition:filter .25s ease; }
-
-    /* Vùng active có glow nhịp */
-    .zone-green.active, .zone-yellow.active, .zone-red.active{ filter:brightness(1.25) drop-shadow(0 0 8px currentColor); }
-    .zone-green.active{ color:var(--safe); animation:zonePulse 1.4s ease-in-out infinite; }
-    .zone-yellow.active{ color:var(--amber); animation:zonePulse 1.4s ease-in-out infinite; }
-    .zone-red.active{ color:var(--danger); animation:zonePulse 1.4s ease-in-out infinite; }
-    @keyframes zonePulse{
-      0%{ filter:brightness(1.05) drop-shadow(0 0 6px currentColor); }
-      50%{ filter:brightness(1.35) drop-shadow(0 0 14px currentColor); }
-      100%{ filter:brightness(1.05) drop-shadow(0 0 6px currentColor); }
+    .pill span{ color: var(--muted); font-size: 12px; }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 3px rgba(110,231,183,.12);
     }
 
-    .arrow-container{ position:absolute; top:0; left:0; width:100%; height:20px; pointer-events:none; overflow:hidden; }
-    .arrow{
-      position:absolute; top:0; left:0; width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent; border-top:8px solid #fff;
-      transform:translateX(-50%); transition:left .08s cubic-bezier(.2,.8,.4,1); z-index:5; cursor:pointer; filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
-      pointer-events:auto;
+    .tabs{
+      display:flex;
+      gap: 10px;
+      position:relative;
+      padding: 6px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow2);
+      max-width: 820px;
+      margin-left: 10px;
+      overflow:hidden;
     }
-    .arrow.jump{ animation:arrowJump .28s ease; }
-    @keyframes arrowJump{
-      0%{ transform:translateX(-50%) translateY(0); }
-      50%{ transform:translateX(-50%) translateY(-3px); }
-      100%{ transform:translateX(-50%) translateY(0); }
+    .tabbtn{
+      appearance:none; border:0; cursor:pointer;
+      color: var(--muted);
+      background: transparent;
+      padding: 12px 14px;
+      border-radius: 999px;
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 750;
+      letter-spacing:.02em;
+      transition: transform .18s ease, background .18s ease, color .18s ease;
+      outline:none;
+      min-width: 210px;
+      justify-content:center;
     }
-    .arrow::after{
-      content:attr(data-alt); position:absolute; bottom:-22px; left:50%; transform:translateX(-50%);
-      background:rgba(0,0,0,.7); color:#fff; padding:3px 7px; border-radius:5px; font-size:11px; white-space:nowrap; opacity:0; transition:opacity .2s;
+    .tabbtn:focus-visible{ box-shadow: var(--focus); }
+    .tabbtn:hover{ transform: translateY(-1px); color: var(--ink); }
+    .tabbtn[data-active="true"]{
+      color: rgba(233,238,252,.98);
+      background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(34,211,238,.20));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 12px 40px rgba(139,92,246,.18);
     }
-    .arrow:hover::after{ opacity:1; }
+    .tabicon{ width: 18px; height:18px; display:inline-block; opacity:.95; }
 
-    /* KPIs 3 ô (giữa là spacer trống) */
-    .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px; }
-    .kpi{ background:rgba(0,0,0,.2); border:1px solid var(--line); border-radius:12px; padding:10px; min-height:64px; display:flex; flex-direction:column; justify-content:center; }
-    .kpi .label{ color:var(--muted); font-size:13px; margin-bottom:4px; }
-    .kpi .val{ font:900 18px 'Inter'; transition: color .25s ease, text-shadow .25s ease, transform .25s ease; }
-    .kpi.spacer{ background:transparent; border:1px dashed transparent; }
+    .view{ flex: 1; display:none; min-height: 0; }
+    .view.active{ display:flex; }
 
-    /* Hiệu ứng khi cảnh báo đổi vùng */
-    .val.flash{ animation:flashPop .42s ease; }
-    @keyframes flashPop{
-      0%{ transform:scale(0.96); text-shadow:0 0 0 rgba(0,0,0,0); }
-      50%{ transform:scale(1.06); text-shadow:0 0 16px currentColor; }
-      100%{ transform:scale(1.0); text-shadow:0 0 0 rgba(0,0,0,0); }
+    .grid{
+      flex:1;
+      display:grid;
+      grid-template-columns: 1.10fr 1.60fr 1.10fr;
+      gap: 14px;
+      min-height:0;
+    }
+    .panel{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+      min-height:0;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(600px 250px at 20% 0%, rgba(139,92,246,.20), transparent 62%),
+        radial-gradient(550px 240px at 80% 0%, rgba(34,211,238,.16), transparent 62%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .panelHeader{
+      position:relative;
+      padding: 16px 16px 12px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .panelHeader h2{
+      margin:0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      color: rgba(233,238,252,.92);
+    }
+    .panelHeader .hint{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.02em;
+      max-width: 280px;
+      text-align:right;
+    }
+    .panelBody{
+      position:relative;
+      padding: 14px 16px 16px;
+      height: calc(100% - 56px);
+      overflow:auto;
+    }
+    .panelBody::-webkit-scrollbar{ width: 10px; }
+    .panelBody::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.10);
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.15);
     }
 
-    .zone-list li{ transition:all .25s cubic-bezier(.2,.8,.4,1); }
-    .zone-list li.active{ transform:scale(1.05); font-weight:800; }
-    .zone-list li.active span{ text-shadow:0 0 12px currentColor, 0 0 24px currentColor; }
-
-    #statusBox{ margin-top:8px; font-size:14px; color:var(--muted); }
-    #statusBox strong{ font-weight:800; }
-
-    .qrbox{ display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; border:1px solid var(--line); border-radius:14px;
-      padding:12px; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,.08)); margin-top:12px; cursor:pointer;
+    .controlGroup{ display:flex; flex-direction:column; gap: 12px; }
+    .seg{
+      display:flex;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+      align-items:center;
+      gap: 0;
     }
-    .qr{ width:104px; height:104px; background:#fff; border-radius:10px; display:grid; place-items:center; padding:4px; }
-    .qr img{ width:100%; height:100%; object-fit:contain; }
+    .seg button{
+      flex:1;
+      padding: 10px 12px;
+      border:0;
+      background: transparent;
+      color: var(--muted);
+      cursor:pointer;
+      font-weight: 750;
+      letter-spacing:.02em;
+      transition: background .16s ease, color .16s ease;
+      min-height: 44px;
+    }
+    .seg button[aria-pressed="true"]{
+      color: rgba(233,238,252,.98);
+      background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(34,211,238,.18));
+    }
 
-    footer{ display:grid; grid-template-columns:1fr auto; gap:10px; align-items:end; padding:0 20px 18px; color:var(--muted); font-size:13px; }
+    .row{ display:flex; gap: 12px; align-items:center; }
+    .label{ font-size: 12px; color: var(--muted); width: 140px; letter-spacing:.02em; line-height:1.25; }
+    .value{ margin-left:auto; font-family: var(--mono); font-size: 12px; color: rgba(233,238,252,.95); opacity:.95; }
+    input[type="range"]{ width:100%; accent-color: #b79bff; }
+    .rangeBox{ flex: 1; display:flex; flex-direction:column; gap: 6px; }
+    .micro{ font-size: 11px; color: var(--dim); letter-spacing:.02em; }
 
-    /* Modal */
+    .card{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius: var(--radius2);
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+    }
+    .kpiGrid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .kpi{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+    }
+    .kpi .t{
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .kpi .n{ font-family: var(--mono); font-size: 16px; font-weight: 900; letter-spacing: .02em; }
+    .kpi .s{ font-size: 11px; color: var(--dim); margin-top: 6px; line-height:1.35; }
+
+    .status{ display:flex; align-items:center; gap: 12px; }
+    .badge{
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      font-size: 11px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      white-space: nowrap;
+    }
+    .badge.ok{ color: rgba(110,231,183,.95); box-shadow: 0 0 0 3px rgba(110,231,183,.12); }
+    .badge.warn{ color: rgba(251,191,36,.95); box-shadow: 0 0 0 3px rgba(251,191,36,.12); }
+    .badge.danger{ color: rgba(251,113,133,.95); box-shadow: 0 0 0 3px rgba(251,113,133,.12); }
+    .badge.critical{ color: rgba(244,63,94,.95); box-shadow: 0 0 0 3px rgba(244,63,94,.12); }
+    .status p{ margin:0; color: var(--muted); font-size: 12px; line-height:1.35; }
+
+    .stage{ height:100%; display:flex; flex-direction:column; min-height:0; }
+    .stageTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 14px 16px 12px;
+      position:relative;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .stageTop .left{ display:flex; flex-direction:column; gap: 6px; min-width: 260px; }
+    .stageTop h2{
+      margin:0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      color: rgba(233,238,252,.92);
+    }
+    .stageTop .sub{ font-size: 12px; color: var(--muted); }
+    .stageTop .right{ display:flex; gap: 10px; align-items:center; flex-wrap:wrap; }
+
+    .btn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 850;
+      letter-spacing:.02em;
+      transition: transform .16s ease, background .16s ease;
+      outline:none;
+      white-space: nowrap;
+      min-height: 42px;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+    .btn:focus-visible{ box-shadow: var(--focus); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(139,92,246,.45), rgba(34,211,238,.22));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 12px 40px rgba(139,92,246,.16);
+    }
+
+    .stageCanvasWrap{ position:relative; flex:1; min-height:0; padding: 12px; }
+    canvas#sky{
+      width:100%;
+      height:100%;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(1200px 700px at 25% 20%, rgba(139,92,246,.12), transparent 60%),
+        radial-gradient(900px 600px at 80% 35%, rgba(34,211,238,.10), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.35));
+      box-shadow: var(--shadow);
+      display:block;
+    }
+
+    .hud{
+      position:absolute;
+      top: 26px; left: 26px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      max-width: 380px;
+      pointer-events:none;
+    }
+    .hudRow{ display:flex; gap: 10px; flex-wrap:wrap; }
+    .chip{
+      display:flex; align-items:center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
+    }
+    .chip .k{ font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing:.14em; }
+    .chip .v{ font-family: var(--mono); font-size: 12px; font-weight: 900; color: rgba(233,238,252,.98); }
+
+    /* Overlay alert dock bottom-right + collapsible */
+    .overlayAlert{
+      position:absolute;
+      right: 22px; bottom: 22px;
+      top:auto;
+      width: min(420px, 42%);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.20));
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      z-index: 4;
+    }
+    .overlayAlert .head{
+      padding: 14px 14px 10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .overlayAlert .head strong{
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+    }
+    .overlayAlert .body{
+      padding: 12px 14px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.45;
+    }
+    .overlayAlert .steps{ margin: 10px 0 0; padding: 0 0 0 16px; color: rgba(233,238,252,.92); }
+    .overlayAlert .steps li{ margin: 6px 0; }
+    .overlayAlert[data-level="ok"] strong{ color: rgba(110,231,183,.95); }
+    .overlayAlert[data-level="warn"] strong{ color: rgba(251,191,36,.95); }
+    .overlayAlert[data-level="danger"] strong{ color: rgba(251,113,133,.95); }
+    .overlayAlert[data-level="critical"] strong{ color: rgba(244,63,94,.98); }
+    .overlayAlert.min .body{ display:none; }
+    .ovToggle{
+      margin-left:auto;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: rgba(233,238,252,.92);
+      border-radius: 999px;
+      padding: 6px 10px;
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.02em;
+      min-height: unset;
+      height: 28px;
+    }
+    .ovToggle:hover{ background: rgba(255,255,255,.06); }
+
+    /* Enterprise */
+    .projects{
+      flex:1;
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap: 14px;
+      min-height:0;
+    }
+    .searchBox{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
+      border-radius: 999px;
+      padding: 10px 12px;
+    }
+    .searchBox input{
+      flex:1;
+      background: transparent;
+      border:0;
+      color: rgba(233,238,252,.95);
+      outline:none;
+      font-size: 13px;
+      letter-spacing:.02em;
+    }
+    .filterPills{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .fp{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      cursor:pointer;
+      font-weight: 850;
+      font-size: 12px;
+      letter-spacing:.02em;
+      outline:none;
+    }
+    .fp[aria-pressed="true"]{
+      color: rgba(233,238,252,.98);
+      background: linear-gradient(135deg, rgba(139,92,246,.40), rgba(34,211,238,.18));
+      border-color: rgba(255,255,255,.18);
+    }
+
+    .cards{ display:grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 14px; }
+    .projCard{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18));
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    .projCard::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 200px at 25% 0%, rgba(139,92,246,.25), transparent 60%),
+                  radial-gradient(500px 220px at 85% 0%, rgba(34,211,238,.18), transparent 60%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .projCard .inner{
+      position:relative;
+      padding: 16px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height: 180px;
+    }
+    .projCard h3{ margin:0; font-size: 14px; letter-spacing:.02em; }
+    .projCard p{ margin:0; color: var(--muted); font-size: 12px; line-height:1.45; flex:1; }
+    .tags{ display:flex; flex-wrap:wrap; gap: 8px; }
+    .tag{
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.88);
+    }
+    .projCard .actions{ display:flex; gap: 10px; align-items:center; flex-wrap:wrap; }
+    .linkBtn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.02em;
+      width: fit-content;
+      outline:none;
+      min-height: 42px;
+    }
+    .linkBtn:hover{ background: rgba(255,255,255,.06); }
+
+    /* Services menu cards */
+    .svcTopRow{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom: 12px; }
+    .svcTitle{
+      font-size: 12px; letter-spacing:.18em; text-transform: uppercase;
+      color: rgba(233,238,252,.92); font-weight: 900;
+    }
+    .svcMini{ color: rgba(169,179,214,.95); font-size: 12px; }
+    .svcGrid{ display:grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 14px; margin-top: 12px; }
+    .svcCard{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18));
+      box-shadow: 0 10px 35px rgba(0,0,0,.40);
+      overflow:hidden;
+      position:relative;
+      cursor:pointer;
+      outline:none;
+      transition: transform .16s ease, background .16s ease;
+    }
+    .svcCard:hover{ transform: translateY(-2px); background: rgba(255,255,255,.06); }
+    .svcCard::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(520px 180px at 25% 0%, rgba(139,92,246,.22), transparent 60%),
+                  radial-gradient(520px 210px at 85% 0%, rgba(34,211,238,.16), transparent 60%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .svcInner{ position:relative; padding: 14px; display:flex; gap: 12px; align-items:flex-start; }
+    .svcThumb{
+      width: 92px; height: 92px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      flex: 0 0 auto;
+      display:grid; place-items:center;
+    }
+    .svcThumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+    .svcName{ font-weight: 950; letter-spacing:.02em; margin:0; font-size: 14px; }
+    .svcDesc{ margin:6px 0 0; color: rgba(169,179,214,.95); font-size: 12px; line-height:1.45; }
+    .svcMeta{ margin-top: 10px; display:flex; gap: 8px; flex-wrap:wrap; align-items:center; }
+    .svcPill{
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.88);
+    }
+
+    .stepper{
+      display:flex; gap: 10px; flex-wrap:wrap; align-items:center;
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      margin-bottom: 12px;
+    }
+    .step{
+      display:flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(169,179,214,.95);
+      font-weight: 900;
+      letter-spacing:.02em;
+      font-size: 12px;
+      background: rgba(255,255,255,.03);
+    }
+    .step.on{
+      color: rgba(233,238,252,.98);
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(34,211,238,.20));
+      box-shadow: 0 18px 50px rgba(139,92,246,.14);
+    }
+    .cartPillBtn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(139,92,246,.45), rgba(34,211,238,.22));
+      color: rgba(233,238,252,.95);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.02em;
+      white-space: nowrap;
+      min-height: 42px;
+    }
+
+    /* Service modal */
+    .svcMask{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.60);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 9999;
+      padding: 18px;
+    }
+    .svcMask.show{ display:flex; }
+    .svcModal{
+      width: min(980px, 96vw);
+      height: min(680px, 92vh);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.25));
+      box-shadow: 0 30px 110px rgba(0,0,0,.65);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .svcModalTop{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .svcModalTop h3{ margin:0; letter-spacing:.18em; text-transform: uppercase; font-size: 13px; }
+    .svcModalTop .right{ margin-left:auto; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .svcModalBody{
+      flex:1; min-height:0;
+      display:grid;
+      grid-template-columns: 340px 1fr;
+    }
+    .svcModalLeft{
+      border-right: 1px solid rgba(255,255,255,.10);
+      padding: 14px;
+      overflow:auto;
+    }
+    .svcModalRight{
+      padding: 14px 16px;
+      overflow:auto;
+      min-height:0;
+    }
+    .svcBigThumb{
+      width:100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    .svcBigThumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .qtyRow{ display:flex; align-items:center; gap: 10px; margin-top: 12px; }
+    .qtyBtn{
+      width:40px; height:40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      cursor:pointer;
+      font-weight: 900;
+      outline:none;
+    }
+    .qtyBtn:hover{ background: rgba(255,255,255,.06); }
+    .qtyVal{ font-family: var(--mono); font-weight: 900; min-width: 44px; text-align:center; }
+    .svcNote{
+      width:100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      padding: 10px 12px;
+      outline:none;
+      min-height: 90px;
+      resize: vertical;
+      font-family: var(--mono);
+    }
+    .svcActions{ margin-top: 10px; display:flex; gap: 10px; flex-wrap:wrap; align-items:center; }
+    .svcBtn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.02em;
+      outline:none;
+      min-height: 42px;
+    }
+    .svcBtn:hover{ background: rgba(255,255,255,.06); }
+    .svcBtn.primary{
+      background: linear-gradient(135deg, rgba(139,92,246,.45), rgba(34,211,238,.22));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 12px 40px rgba(139,92,246,.16);
+    }
+
+    /* IFE */
+    .ife{
+      flex:1;
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap: 14px;
+      min-height:0;
+    }
+    .appGrid{ display:grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 12px; }
+    .appTile{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+      cursor:pointer;
+      transition: transform .16s ease, background .16s ease;
+      outline:none;
+      box-shadow: 0 14px 40px rgba(0,0,0,.32);
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      min-height: 132px;
+      position:relative;
+      overflow:hidden;
+    }
+    .appTile::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(400px 180px at 20% 0%, rgba(139,92,246,.22), transparent 55%),
+                  radial-gradient(420px 200px at 85% 0%, rgba(34,211,238,.18), transparent 55%);
+      opacity:.55; pointer-events:none;
+    }
+    .appTile:hover{ transform: translateY(-2px); background: rgba(255,255,255,.06); }
+    .appTile:focus-visible{ box-shadow: var(--focus); }
+    .appTile .name{ font-weight: 950; letter-spacing:.02em; position:relative; }
+    .appTile .desc{ color: var(--muted); font-size: 12px; line-height:1.35; position:relative; }
+    .appTile .mini{
+      margin-top:auto;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(233,238,252,.85);
+      opacity:.9;
+      position:relative;
+    }
+
+    .player{ height:100%; display:flex; flex-direction:column; gap: 12px; min-height:0; }
+    .playerTop{ display:flex; align-items:center; gap: 10px; flex-wrap:wrap; }
+    video{
+      width:100%;
+      height:100%;
+      background: rgba(0,0,0,.35);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+    }
+    .drop{
+      flex:1;
+      min-height:0;
+      border-radius: var(--radius);
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      color: var(--muted);
+      text-align:center;
+      line-height:1.45;
+    }
+    .drop strong{ color: rgba(233,238,252,.92); }
+    .split{ flex:1; min-height:0; display:grid; grid-template-rows: 1fr 140px; gap: 12px; }
+
+    .spacer{ flex:1; }
+    .mono{ font-family: var(--mono); }
+    .hr{ height:1px; background: rgba(255,255,255,.08); margin: 12px 0; }
+    .small{ font-size: 12px; color: var(--muted); line-height:1.45; }
+    .callout{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.45;
+    }
+    .callout b{ color: rgba(233,238,252,.92); }
+
+    /* ===== Settings Modal ===== */
+    .modalMask{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 9998;
+      padding: 18px;
+    }
+    .modalMask.show{ display:flex; }
     .modal{
-      position:fixed; inset:0; background:rgba(0,0,0,.75); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center;
-      z-index:999; opacity:0; transition:opacity .3s ease;
+      width: min(980px, 96vw);
+      height: min(680px, 92vh);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.25));
+      box-shadow: 0 30px 110px rgba(0,0,0,.65);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
     }
-    .modal.active{ display:flex; opacity:1; }
-    .modal-content{
-      background:var(--bg); border:1px solid var(--line); border-radius:20px; padding:24px; max-width:90%; box-shadow:0 32px 80px rgba(0,0,0,.5);
-      transform:scale(.9); transition:transform .3s ease;
+    .modalTop{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
     }
-    .modal.active .modal-content{ transform:scale(1); }
-    .modal h3{ margin-bottom:12px; }
-    .close{ float:right; cursor:pointer; font-size:24px; color:var(--muted); }
+    .modalTop h3{
+      margin:0;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+    .modalTop .right{ margin-left:auto; display:flex; gap:10px; align-items:center; }
+    .modalBody{
+      flex:1;
+      min-height:0;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+    }
+    .modalNav{
+      border-right: 1px solid rgba(255,255,255,.10);
+      padding: 12px;
+      overflow:auto;
+    }
+    .navItem{
+      width:100%;
+      text-align:left;
+      padding: 12px 12px;
+      margin: 6px 0;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.92);
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.02em;
+      outline:none;
+      min-height: 44px;
+    }
+    .navItem[aria-pressed="true"]{
+      background: linear-gradient(135deg, rgba(139,92,246,.35), rgba(34,211,238,.20));
+      border-color: rgba(255,255,255,.16);
+      box-shadow: 0 18px 50px rgba(139,92,246,.14);
+    }
+    .modalPane{
+      padding: 14px 16px;
+      overflow:auto;
+      min-height:0;
+    }
+    .field{
+      display:grid;
+      grid-template-columns: 160px 1fr;
+      gap: 10px;
+      align-items:center;
+      margin: 10px 0;
+    }
+    .field label{
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing:.02em;
+    }
+    .field input, .field select, .field textarea{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: rgba(233,238,252,.95);
+      padding: 10px 12px;
+      outline:none;
+      font-family: var(--sans);
+      min-height: 42px;
+    }
+    .field textarea{ min-height: 120px; resize: vertical; font-family: var(--mono); }
+    .inlineBtns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .mutedBox{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.45;
+    }
 
-    /* Responsive */
-    @media (max-width:860px){
-      .grid{ grid-template-columns:1fr; } h1{ font-size:32px; } .wrap{ padding:14mm 10mm; }
-      .badge{ font-size:20px; padding:12px 20px; }
+    @media (max-width: 1200px){
+      .grid{ grid-template-columns: 1fr; }
+      .projects{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr; }
+      .svcGrid{ grid-template-columns: 1fr; }
+      .ife{ grid-template-columns: 1fr; }
+      .overlayAlert{ width: min(460px, 76%); }
+      .tabs{ max-width: 100%; margin-left: 0; }
+      .tabbtn{ min-width: 0; flex:1; }
+      body{ overflow:auto; }
+      .app{ overflow:auto; }
+      .modalBody{ grid-template-columns: 1fr; }
+      .modalNav{ border-right:0; border-bottom: 1px solid rgba(255,255,255,.10); display:flex; gap:10px; }
+      .navItem{ margin:0; }
+      .svcModalBody{ grid-template-columns: 1fr; }
+      .svcModalLeft{ border-right:0; border-bottom: 1px solid rgba(255,255,255,.10); }
     }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="panel">
-      <header>
-        <div class="brand">
-          <div class="badge">AIR SAFETY · PRESSURE</div>
+  <div class="fx"></div>
+
+  <div class="app" id="app">
+    <div class="topbar">
+      <div class="brand" id="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M3 13.2l18-7.2-7.2 18-2.3-7.2L3 13.2z" fill="rgba(255,255,255,.92)"/>
+            <path d="M11.5 16.8l3.8-3.8" stroke="rgba(0,0,0,.25)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
-        <div class="seal">12E - STEM</div>
-      </header>
-      <div style="padding:0 20px 6px">
-        <h1>CẢNH BÁO ÁP SUẤT MÁY BAY<br><span class="sub">Điều áp cabin & ứng phó khi cất/hạ cánh</span></h1>
+        <div>
+          <h1 id="brandTitle">AERO•PORTAL</h1>
+          <div class="sub" id="brandSub">Cabin Safety Intelligence • Premium In-Flight Experience</div>
+        </div>
       </div>
 
-      <section class="grid">
-        <!-- CỘT TRÁI -->
-        <article class="card interactive-only alert-compact">
-          <h3>CHÚ Ý NHANH 5 GIÂY</h3>
-          <div class="quick">
-            <div class="pill">
-              <div class="ico">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-opacity=".9" stroke-width="1.5"/><path d="M12 12L18 8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="#fff"/></svg>
+      <div class="tabs" role="tablist" aria-label="AERO tabs">
+        <button class="tabbtn" role="tab" aria-controls="view-safety" data-tab="safety" data-active="true">
+          <svg class="tabicon" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l9 4v6c0 6-4 9-9 10C7 21 3 18 3 12V6l9-4z" stroke="rgba(233,238,252,.92)" stroke-width="1.7"/>
+            <path d="M12 7v6" stroke="rgba(233,238,252,.92)" stroke-width="1.7" stroke-linecap="round"/>
+            <path d="M12 16.8h.01" stroke="rgba(233,238,252,.92)" stroke-width="3.2" stroke-linecap="round"/>
+          </svg>
+          An toàn
+        </button>
+
+        <button class="tabbtn" role="tab" aria-controls="view-projects" data-tab="projects" data-active="false">
+          <svg class="tabicon" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(233,238,252,.92)" stroke-width="1.7" stroke-linecap="round"/>
+            <path d="M7 6.5v14" stroke="rgba(233,238,252,.45)" stroke-width="1.2"/>
+          </svg>
+          Dịch vụ
+        </button>
+
+        <button class="tabbtn" role="tab" aria-controls="view-ife" data-tab="ife" data-active="false">
+          <svg class="tabicon" viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h16v12H4z" stroke="rgba(233,238,252,.92)" stroke-width="1.7" />
+            <path d="M10 9l6 3-6 3V9z" fill="rgba(233,238,252,.92)"/>
+          </svg>
+          Giải trí
+        </button>
+      </div>
+
+      <div class="meta">
+        <div class="pill" title="Seat personalization">
+          <span>Ghế</span>
+          <strong id="seatLabel">—</strong>
+          <span class="mono" id="profileLabel">ADULT</span>
+        </div>
+        <div class="pill" title="System Health">
+          <span class="dot" id="sysDot"></span>
+          <span>Hệ thống</span>
+          <strong id="sysState">READY</strong>
+        </div>
+        <div class="pill" title="Local Time">
+          <span>Giờ</span>
+          <strong id="clock">--:--:--</strong>
+        </div>
+        <button class="btn" id="btnSettings" title="Settings / CMS / Policy">⚙ Cài đặt</button>
+      </div>
+    </div>
+
+    <section class="view active" id="view-safety" role="tabpanel">
+      <div class="grid">
+        <div class="panel">
+          <div class="panelHeader">
+            <h2>Thông số cabin</h2>
+            <div class="hint">Chọn: Độ cao cabin hoặc Áp suất cabin</div>
+          </div>
+          <div class="panelBody">
+            <div class="controlGroup">
+              <div class="seg" role="group" aria-label="Input mode">
+                <button id="modeAlt" aria-pressed="true">Độ cao cabin</button>
+                <button id="modePress" aria-pressed="false">Áp suất cabin</button>
               </div>
-              <div>
-                <strong>Lên cao ↑ ↓ áp suất</strong>
-                <div class="muted">Không khí loãng ⇒ dễ ù tai, căng tức tai mũi họng.</div>
+
+              <div class="card">
+                <div class="row">
+                  <div class="label">Độ cao cabin</div>
+                  <div class="value" id="altLabel">2,400 m</div>
+                </div>
+                <div class="rangeBox">
+                  <input id="altRange" type="range" min="0" max="9000" value="2400" step="50" />
+                  <div class="micro">0 → 9,000 m (mô phỏng). Cabin thường ~ 1,800–2,500 m.</div>
+                </div>
+
+                <div class="hr"></div>
+
+                <div class="row">
+                  <div class="label">Áp suất cabin</div>
+                  <div class="value" id="pressLabel">~ 750 hPa</div>
+                </div>
+                <div class="rangeBox">
+                  <input id="pressRange" type="range" min="350" max="1013" value="750" step="1" />
+                  <div class="micro">350 → 1013 hPa (mô phỏng). 1013 hPa ≈ mực nước biển.</div>
+                </div>
+
+                <div class="hr"></div>
+
+                <div class="row">
+                  <div class="label">Mô phỏng</div>
+                  <div class="value" id="simLabel">AUTO</div>
+                </div>
+                <div class="row">
+                  <button class="btn" id="btnSim">AUTO</button>
+                  <button class="btn" id="btnPause">Tạm dừng</button>
+                  <button class="btn primary" id="btnReset">Đặt lại</button>
+                  <div class="spacer"></div>
+                  <button class="btn" id="btnLang">VI</button>
+                </div>
               </div>
-            </div>
-            <div class="pill">
-              <div class="ico">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 20c2.7 0 4-1.8 4-3.6 0-2.4 2-2.9 2-6.4C18 6.7 15.8 5 13 5S8 6.7 8 10" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="10" r=".8" fill="#fff"/></svg>
+
+              <div class="card">
+                <div class="status">
+                  <span class="badge ok" id="statusBadge">OK</span>
+                  <p id="statusText">Cabin đang trong vùng an toàn mô phỏng.</p>
+                </div>
+
+                <div class="hr"></div>
+
+                <div class="kpiGrid">
+                  <div class="kpi">
+                    <div class="t" id="kpiT1">O₂ khả dụng</div>
+                    <div class="n" id="o2Avail">~ 74%</div>
+                    <div class="s">So với mực nước biển (ước tính theo áp suất).</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="t" id="kpiT2">O₂ tương đương</div>
+                    <div class="n" id="o2Eq">~ 15.5%</div>
+                    <div class="s">“Cảm giác” tương đương nồng độ O₂ ở mực nước biển.</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="t" id="kpiT3">Áp suất cabin</div>
+                    <div class="n" id="kpiPress">~ 750 hPa</div>
+                    <div class="s">Từ slider / mô phỏng ISA.</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="t" id="kpiT4">Độ cao cabin</div>
+                    <div class="n" id="kpiAlt">2,400 m</div>
+                    <div class="s">Từ slider / quy đổi áp suất.</div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <strong>Triệu chứng thường gặp</strong>
-                <div class="muted">Ù tai, đau đầu nhẹ, chóng mặt, buồn nôn.</div>
-              </div>
-            </div>
-            <div class="pill">
-              <div class="ico">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M12 12c4 0 4-4 8-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M12 12c4 0 4 4 8 4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
-              </div>
-              <div>
-                <strong>Khuyến khích</strong>
-                <div class="muted">Nhai kẹo cao su · Hít sâu/Thở đều.</div>
+
+              <div class="callout">
+                <b>Nguyên tắc vàng:</b> Nếu có cảnh báo áp suất/oxy — <b>đeo mặt nạ oxy khi được yêu cầu</b>, thắt dây an toàn, và <b>làm theo hướng dẫn tiếp viên</b>.
               </div>
             </div>
           </div>
+        </div>
 
-          <h3>Khi nào NHẤN NÚT GỌI TIẾP VIÊN?</h3>
-          <div class="alert-grid">
-            <div class="alert-card level1">
-              <div class="alert-head">
-                <div class="alert-ico" style="background:rgba(103,255,173,.15); color:var(--safe)">✔️</div>
-                <div><strong>Theo dõi (tự xử lý)</strong><div class="lg-sub">Chưa cần gọi</div></div>
-                <span class="badge green">Mức 1</span>
-              </div>
-              <ul class="alert-list">
-                <li>Ù tai nhẹ &lt; 10 phút → nhai kẹo, nuốt.</li>
-                <li>Đau đầu thoáng → hít sâu, uống nước.</li>
-              </ul>
+        <div class="panel stage">
+          <div class="stageTop">
+            <div class="left">
+              <h2 id="stageTitle">Mô phỏng chuyến bay</h2>
+              <div class="sub" id="stageSub">Mô phỏng bay • HUD cabin • cảnh báo theo ngưỡng</div>
             </div>
-            <div class="alert-card level2">
-              <div class="alert-head">
-                <div class="alert-ico" style="background:rgba(255,184,77,.18); color:var(--amber)">⚠️</div>
-                <div><strong>Báo sớm</strong><div class="lg-sub">Triệu chứng kéo dài</div></div>
-                <span class="badge amber">Mức 2</span>
-              </div>
-              <ul class="alert-list">
-                <li>Ù tai &gt; 10 phút dù đã xử lý.</li>
-                <li>Buồn nôn, chóng mặt tăng dần.</li>
-              </ul>
+            <div class="right">
+              <button class="btn" id="btnTheme">Theme: DARK</button>
             </div>
-            <div class="alert-card level3">
-              <div class="alert-head">
-                <div class="alert-ico" style="background:rgba(255,106,122,.18); color:var(--danger)">🆘</div>
-                <div><strong>KHẨN CẤP</strong><div class="lg-sub">GỌI NGAY</div></div>
-                <span class="badge red">Mức 3</span>
+          </div> 
+          <div class="stageCanvasWrap">
+            <canvas id="sky"></canvas>
+
+            <div class="hud" aria-hidden="true">
+              <div class="hudRow">
+                <div class="chip"><div class="k" id="hudK1">Hành trình</div><div class="v" id="hudCruise">ON</div></div>
+                <div class="chip"><div class="k" id="hudK2">Tốc độ</div><div class="v" id="hudSpeed">~ 840 km/h</div></div>
+                <div class="chip"><div class="k" id="hudK3">Ngoài trời</div><div class="v" id="hudOat">-45°C</div></div>
               </div>
-              <ul class="alert-list">
-                <li>Đau ngực, khó thở, ngất.</li>
-                <li>Chảy máu mũi, đau tai dữ dội.</li>
-              </ul>
+              <div class="hudRow">
+                <div class="chip"><div class="k" id="hudK4">Độ cao cabin</div><div class="v" id="hudCabAlt">2,400 m</div></div>
+                <div class="chip"><div class="k" id="hudK5">Áp suất cabin</div><div class="v" id="hudCabPress">750 hPa</div></div>
+                <div class="chip"><div class="k" id="hudK6">O₂ khả dụng</div><div class="v" id="hudO2">74%</div></div>
+              </div>
             </div>
-          </div>
-        </article>
 
-        <!-- CỘT PHẢI – Độ cao · Oxy · Cảnh báo -->
-        <article class="card interactive-only">
-          <h3>VÙNG AN TOÀN – CẢNH BÁO THEO ĐỘ CAO</h3>
-
-          <div class="tool-sm" aria-label="Thanh công cụ mô phỏng">
-            <button class="btn-sm" id="gpsBtn">Kết nối GPS</button>
-            <button class="btn-sm btn-primary" id="demoBtn">Tự chạy mô phỏng</button>
-            <button class="btn-sm" id="resetBtn">Đặt lại</button>
-          </div>
-
-          <div class="altitude-control">
-            <div class="slider-label"><span>0 m</span><span id="altValue">0 m</span><span>6.000 m</span></div>
-            <div class="slider-track" id="sliderTrack" role="slider" aria-valuemin="0" aria-valuemax="6000" aria-valuenow="0" tabindex="0" data-zone="green">
-              <div class="zone-green"></div>
-              <div class="zone-yellow"></div>
-              <div class="zone-red"></div>
-              <div class="arrow-container">
-                <div class="arrow" id="arrow" data-alt="0 m"></div>
+            <div class="overlayAlert" id="overlayAlert" data-level="ok">
+              <div class="head">
+                <strong id="overlayTitle">Trạng thái: OK</strong>
+                <span class="mono" id="overlayMetric">O₂ ~ 74%</span>
+                <button class="ovToggle" id="ovToggle" title="Thu gọn / mở rộng">▾</button>
+              </div>
+              <div class="body">
+                <div id="overlayText">Cabin đang trong vùng an toàn mô phỏng.</div>
+                <ul class="steps" id="overlaySteps"></ul>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- KPIs: trái “Độ cao hiện tại”, giữa trống, phải “Cảnh báo” -->
-          <div class="stats" aria-label="Thông số nhanh">
-            <div class="kpi">
-              <div class="label">Độ cao hiện tại</div>
-              <div class="val" id="altKpiVal">0 m</div>
+        <div class="panel">
+          <div class="panelHeader">
+            <h2 id="effectsTitle">Tác động lên cơ thể</h2>
+            <div class="hint" id="effectsHint">Giải thích tác động + hướng dẫn (mô phỏng)</div>
+          </div>
+
+          <div class="panelBody">
+            <div class="card" id="effectsCard">
+              <h3 style="margin:0 0 10px; font-size:14px;" id="effectsH1">Với mức oxy/áp suất này, cơ thể có thể gặp:</h3>
+              <div class="small" id="effectsText">
+                Thường là ít ảnh hưởng ở phần lớn hành khách. Một số người nhạy cảm có thể hơi mệt/khó chịu nhẹ.
+              </div>
+
+              <div class="hr"></div>
+
+              <h3 style="margin:0 0 10px; font-size:14px;" id="effectsH2">Bạn nên làm gì:</h3>
+              <ul class="small" id="adviceList" style="margin:0; padding-left: 18px;"></ul>
             </div>
-            <div class="kpi spacer" aria-hidden="true"></div>
-            <div class="kpi">
-              <div class="label">Cảnh báo</div>
-              <div class="val" id="stateVal" style="color:var(--safe)">Ổn định</div>
+
+            <div class="hr"></div>
+
+            <div class="card">
+              <div class="small" id="quickExplain">
+                <b>Giải thích nhanh:</b> “O₂ khả dụng” giảm chủ yếu vì <b>áp suất</b> giảm theo độ cao. Nồng độ O₂ vẫn ~20.9%, nhưng “lượng O₂ hữu ích” giảm.
+              </div>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="card">
+              <div class="small mono" id="techExplain">
+                Model: ISA (0–11 km) + quy đổi áp suất/độ cao + O₂_avail ≈ P/P0
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div id="statusBox">
-            Áp suất: <strong id="pressureValue">101.3</strong> kPa ·
-            Oxy: <strong id="oxygenValue">100</strong>%
+    <section class="view" id="view-projects" role="tabpanel">
+      <div class="projects">
+        <div class="panel">
+          <div class="panelHeader">
+            <h2 id="svcLeftTitle">Dịch vụ</h2>
+            <div class="hint" id="svcLeftHint">Menu • đặt món • trạng thái đơn</div>
           </div>
+          <div class="panelBody">
+            <div class="searchBox">
+              <span style="opacity:.9">🔎</span>
+              <input id="svcSearch" placeholder="Tìm món ăn, đồ uống, từ khóa..." autocomplete="off" />
+              <button class="btn" id="btnClearSvcSearch">Xóa</button>
+            </div>
 
-          <!-- TRẠNG THÁI GPS: chỉ báo thành công/thất bại, không hiện số liệu -->
-          <div id="gpsStatus" class="screen-only" style="margin-top:4px;font-size:13px;color:#9fb3d9">
-            Đang kiểm tra GPS trên thiết bị…
-          </div>
+            <div class="hr"></div>
 
-          <ul class="list zone-list" style="margin-top:12px; padding-left:20px; font-size:14.5px;">
-            <li id="zoneGreen"><span style="color:var(--safe)"><strong>Vùng xanh</strong></span>: bình thường · nghỉ ngắn · uống đủ nước.</li>
-            <li id="zoneYellow"><span style="color:var(--amber)"><strong>Vùng vàng</strong></span>: hạn chế vận động · theo dõi triệu chứng.</li>
-            <li id="zoneRed"><span style="color:var(--danger)"><strong>Vùng đỏ</strong></span>: đau dữ dội/khó thở → <strong>báo tiếp viên ngay</strong>.</li>
-          </ul>
+            <div class="card">
+              <div class="row">
+                <div class="label">Danh mục</div>
+                <div class="value mono" id="svcActive">—</div>
+              </div>
+              <div class="filterPills" id="svcPills" style="margin-top:10px"></div>
+            </div>
 
-          <div class="qrbox" onclick="openModal()">
-            <div>
-              <strong>Hướng dẫn xử lí JETLAG</strong>
+            <div class="hr"></div>
+
+            <div class="card" id="orderStatusCard">
+              <div class="row">
+                <div class="label">Trạng thái đơn</div>
+                <div class="value mono" id="orderStateVal">NHÁP</div>
+              </div>
+              <div class="small" id="orderStateSub" style="margin-top:10px; line-height:1.45"></div>
+              <div class="inlineBtns" style="margin-top:10px">
+                <button class="btn" id="btnViewCart">Xem giỏ</button>
+                <button class="btn primary" id="btnConfirmOrder">Xác nhận</button>
+                <button class="btn" id="btnSendOrder">Gửi tiếp viên</button>
+                <button class="btn" id="btnClearOrder">Xóa</button>
+              </div>
+              <div class="hr"></div>
+              <div class="small"><b>Ghi chú cho tiếp viên</b></div>
+              <textarea id="orderNote" class="svcNote" placeholder="VD: ít đá / không phô mai / không hành..."></textarea>
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="callout">
+              <b>Gợi ý:</b> Bấm “Xác nhận” trước, sau đó “Gửi tiếp viên” để mô phỏng quy trình 3 bước.
             </div>
           </div>
-        </article>
-      </section>
+        </div>
 
-      <footer>
-        <div>© 2025 · Biển cảnh báo áp suất máy bay · 12E - STEM - KTHS.</div>
-        <div>Trường THPT Kim Thành · STEM VẬT LÝ 12E</div>
-      </footer>
+        <div class="panel">
+          <div class="panelHeader">
+            <h2 id="svcRightTitle">Menu trên máy bay</h2>
+            <div class="hint" id="svcRightHint">Bấm món → xem chi tiết → thêm vào giỏ → gửi tiếp viên</div>
+          </div>
+          <div class="panelBody">
+            <div class="seg" style="margin-bottom:12px">
+              <button id="entBtnMenu" aria-pressed="true">Menu</button>
+              <button id="entBtnShowcase" aria-pressed="false">Showcase</button>
+              <button class="cartPillBtn" id="entCartBtn" style="flex:0 0 auto;">🛒 Giỏ <span class="mono" id="entCartCount">0</span></button>
+            </div>
+
+            <div class="stepper" id="entStepper">
+              <div class="step on" data-step="1">1) Chọn món</div>
+              <div class="step" data-step="2">2) Xác nhận</div>
+              <div class="step" data-step="3">3) Gửi tiếp viên</div>
+              <div class="spacer"></div>
+              <div class="svcMini mono" id="entSeatMini">SEAT: —</div>
+            </div>
+
+            <div id="menuWrap">
+              <div class="svcTopRow">
+                <div class="svcTitle" id="entCatTitle">—</div>
+                <div class="svcMini" id="entCatHint"></div>
+              </div>
+              <div class="svcGrid" id="svcGrid"></div>
+
+              <div class="hr"></div>
+              <div class="callout"><b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log.</div>
+            </div>
+
+            <div id="showcaseWrap" style="display:none">
+              <div class="cards" id="projCards"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-ife" role="tabpanel">
+      <div class="ife">
+        <div class="panel">
+          <div class="panelHeader">
+            <h2>App Launcher</h2>
+            <div class="hint">Chỉ mở domain trong whitelist</div>
+          </div>
+          <div class="panelBody">
+            <div class="appGrid" id="appGrid"></div>
+            <div class="hr"></div>
+            <div class="callout">
+              <b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log.
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="card">
+              <div class="row">
+                <div class="label">Thư viện nội bộ</div>
+                <div class="value" id="mediaCount">0</div>
+              </div>
+              <div class="small" style="margin-top:10px" id="mediaHint">
+                Danh sách video demo/đào tạo — cấu hình trong Cài đặt → CMS (IFE library).
+              </div>
+              <div class="inlineBtns" id="mediaBtns"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel player">
+          <div class="panelHeader">
+            <h2>Trình phát trên máy bay</h2>
+            <div class="hint">Video nội bộ / file local (demo)</div>
+          </div>
+          <div class="panelBody">
+            <div class="playerTop">
+              <button class="btn primary" id="btnPickVideo">Chọn video</button>
+              <button class="btn" id="btnStopVideo">Dừng</button>
+              <div class="spacer"></div>
+              <div class="pill"><span>Chế độ</span><strong id="ifeMode">LOCAL</strong></div>
+            </div>
+
+            <div class="split">
+              <video id="video" controls playsinline></video>
+
+              <div class="drop" id="drop">
+                Kéo-thả file video vào đây hoặc bấm <strong>“Chọn video”</strong>.<br/>
+                (Bản thật thường phát từ <strong>server nội bộ</strong> để offline.)
+              </div>
+            </div>
+
+            <input type="file" id="fileVideo" accept="video/*" hidden />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modalMask" id="modalMask" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modalTop">
+        <h3 id="settingsTitle">Cài đặt • CMS • Chính sách</h3>
+        <div class="right">
+          <div class="pill"><span>Lưu trữ</span><strong id="storageState">LOCAL</strong></div>
+          <button class="btn" id="btnCloseSettings">Đóng</button>
+        </div>
+      </div>
+
+      <div class="modalBody">
+        <div class="modalNav">
+          <button class="navItem" data-pane="seat" aria-pressed="true">Ghế</button>
+          <button class="navItem" data-pane="cms" aria-pressed="false">CMS</button>
+          <button class="navItem" data-pane="security" aria-pressed="false">Bảo mật</button>
+          <button class="navItem" data-pane="logs" aria-pressed="false">Nhật ký</button>
+        </div>
+
+        <div class="modalPane" id="paneSeat">
+          <div class="mutedBox">
+            <b>Seat personalization</b>: lưu offline (localStorage). Dùng để hiển thị Seat ID / profile / language.
+          </div>
+
+          <div class="field">
+            <label>Mã ghế</label>
+            <input id="seatIdInput" placeholder="VD: 1A / 12C / VIP-01" />
+          </div>
+
+          <div class="field">
+            <label>Hồ sơ hành khách</label>
+            <select id="profileInput">
+              <option value="adult">Adult</option>
+              <option value="kid">Kid</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Ngôn ngữ</label>
+            <select id="langInput">
+              <option value="vi">VI</option>
+              <option value="en">EN</option>
+            </select>
+          </div>
+
+          <div class="inlineBtns">
+            <button class="btn primary" id="btnSaveSeat">Lưu</button>
+            <button class="btn" id="btnResetSeat">Reset ghế</button>
+          </div>
+        </div>
+
+        <div class="modalPane" id="paneCMS" style="display:none">
+          <div class="mutedBox">
+            <b>CMS JSON</b>: Import/Export toàn bộ cấu hình (Brand/Services/Projects/Apps/Whitelist/IFE).<br/>
+            <span class="mono">Tip:</span> Import là “đổi hệ thống” trong 3 giây.
+          </div>
+
+          <div class="field">
+            <label>Tên thương hiệu</label>
+            <input id="brandTitleInput" placeholder="AERO•PORTAL" />
+          </div>
+          <div class="field">
+            <label>Mô tả thương hiệu</label>
+            <input id="brandSubInput" placeholder="Cabin Safety • Premium IFE" />
+          </div>
+
+          <div class="field">
+            <label>Nhập JSON</label>
+            <input type="file" id="configFile" accept="application/json" />
+          </div>
+
+          <div class="field">
+            <label>Xuất JSON</label>
+            <textarea id="configPreview" spellcheck="false"></textarea>
+          </div>
+
+          <div class="inlineBtns">
+            <button class="btn primary" id="btnApplyBrand">Áp dụng</button>
+            <button class="btn" id="btnExport">Làm mới</button>
+            <button class="btn" id="btnFactory">Khôi phục mặc định</button>
+          </div>
+        </div>
+
+        <div class="modalPane" id="paneSecurity" style="display:none">
+          <div class="mutedBox">
+            <b>Whitelist Policy</b>: chỉ cho phép mở URL nếu domain match whitelist.<br/>
+            Mỗi lần mở / bị chặn sẽ ghi vào Logs.
+          </div>
+
+          <div class="field">
+            <label>Whitelist domains</label>
+            <textarea id="whitelistInput" spellcheck="false" placeholder="youtube.com
+netflix.com
+intranet.airline.local"></textarea>
+          </div>
+
+          <div class="inlineBtns">
+            <button class="btn primary" id="btnSaveWhitelist">Lưu</button>
+            <button class="btn" id="btnTighten">Siết whitelist (an toàn)</button>
+          </div>
+
+          <div class="hr"></div>
+          <div class="mutedBox">
+            <b>Security note</b>: kiosk thật thường dùng thêm layer hệ điều hành (kiosk mode) + proxy nội bộ.
+          </div>
+        </div>
+
+        <div class="modalPane" id="paneLogs" style="display:none">
+          <div class="mutedBox">
+            <b>Event Logs</b>: lưu local, giới hạn 200 entries.
+          </div>
+
+          <div class="inlineBtns">
+            <button class="btn" id="btnRefreshLogs">Làm mới</button>
+            <button class="btn" id="btnClearLogs">Xóa log</button>
+            <button class="btn primary" id="btnCopyLogs">Copy</button>
+          </div>
+
+          <div class="field" style="grid-template-columns:1fr">
+            <textarea id="logsBox" spellcheck="false"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Modal QR -->
-  <div class="modal" id="qrModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">×</span>
-      <h3>Hướng dẫn chi tiết giảm JETLAG</h3>
-      <p><strong>Bước 1:</strong> Uống đủ nước trước & trong chuyến bay (500ml/giờ).</p>
-      <p><strong>Bước 2:</strong> Ngồi nghỉ ngơi, tạm dừng sử dụng các thiết bị điện tử.</p>
-      <p><strong>Bước 3:</strong> Ngủ theo múi giờ đích (đeo bịt mắt, tai nghe).</p>
+  <div class="svcMask" id="svcMask" aria-hidden="true">
+    <div class="svcModal" role="dialog" aria-modal="true">
+      <div class="svcModalTop">
+        <h3 id="svcModalTitle">CHI TIẾT</h3>
+        <div class="right">
+          <div class="pill"><span>Ghế</span><strong id="svcSeat">—</strong></div>
+          <button class="btn" id="svcClose">Đóng</button>
+        </div>
+      </div>
+      <div class="svcModalBody">
+        <div class="svcModalLeft">
+          <div class="svcBigThumb"><img id="svcImg" alt="thumb"/></div>
+          <div class="qtyRow">
+            <div class="label" style="width:auto">Số lượng</div>
+            <button class="qtyBtn" id="qtyMinus">−</button>
+            <div class="qtyVal" id="qtyVal">1</div>
+            <button class="qtyBtn" id="qtyPlus">+</button>
+          </div>
+          <div class="hr"></div>
+          <div class="small" style="margin-bottom:8px"><b>Ghi chú cho tiếp viên</b></div>
+          <textarea class="svcNote" id="svcItemNote" placeholder="VD: ít đá / không phô mai / không hành..."></textarea>
+        </div>
+        <div class="svcModalRight">
+          <h3 style="margin:0 0 8px; font-size:16px" id="svcName">—</h3>
+          <div class="small" id="svcDesc">—</div>
+          <div class="hr"></div>
+          <div class="tags" id="svcTags"></div>
+          <div class="hr"></div>
+          <div class="svcActions">
+            <button class="svcBtn primary" id="svcAdd">Thêm vào giỏ</button>
+            <button class="svcBtn" id="svcViewCart">🛒 Xem giỏ</button>
+          </div>
+          <div class="hr"></div>
+          <div class="mutedBox" id="svcExtra"></div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <script>
+    /* ==========================
+       AERO•PORTAL v3 (single-file)
+       - Safety simulation + canvas
+       - Services (Meals/Drinks) + cart + 3-step flow
+       - IFE apps + media library (demo aircraft videos)
+       - CMS JSON import/export + whitelist policy + logs
+       ========================== */
 
+    const $ = (s, el=document) => el.querySelector(s);
+    const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
-<script>
-const track = document.getElementById('sliderTrack');
-const arrow = document.getElementById('arrow');
-const altValue = document.getElementById('altValue');
-const altKpiVal = document.getElementById('altKpiVal');
-const stateVal = document.getElementById('stateVal');
-const pressureValue = document.getElementById('pressureValue');
-const oxygenValue = document.getElementById('oxygenValue');
-const demoBtn = document.getElementById('demoBtn');
-const resetBtn = document.getElementById('resetBtn');
-const gpsBtn = document.getElementById('gpsBtn');
-const gpsStatus = document.getElementById('gpsStatus');
+    const KEY = {
+      config: "aero.config.v3",
+      seat: "aero.seat.v3",
+      logs: "aero.logs.v3",
+      orders: "aero.orders.v3"
+    };
 
-const zones = {
-  green: document.querySelector('.zone-green'),
-  yellow: document.querySelector('.zone-yellow'),
-  red: document.querySelector('.zone-red')
-};
-const zoneTexts = {
-  green: document.getElementById('zoneGreen'),
-  yellow: document.getElementById('zoneYellow'),
-  red: document.getElementById('zoneRed')
-};
+    function structuredCloneSafe(o){
+      try{ return structuredClone(o); }catch{ return JSON.parse(JSON.stringify(o)); }
+    }
 
-const maxAlt = 6000;
-const greenMax = 0.40;
-const yellowMax = 0.75;
+    // ---------- Logging ----------
+    function nowISO(){ return new Date().toISOString(); }
+    function getLogs(){ try{ return JSON.parse(localStorage.getItem(KEY.logs) || "[]"); }catch{ return []; } }
+    function pushLog(type, meta={}){
+      const logs = getLogs();
+      logs.push({ t: nowISO(), type, meta });
+      while(logs.length > 200) logs.shift();
+      localStorage.setItem(KEY.logs, JSON.stringify(logs));
+    }
 
-let isDragging = false;
-let demoRunning = false;
-let currentPercent = 0;
-let prevRiskKey = 'green';
-let t0 = 0;
-let fpsLimit = 120;
-let frameInterval = 1000 / fpsLimit;
-let lastFrame = 0;
-
-function calculatePressure(alt) {
-  return (101.325 * Math.pow((1 - 2.25577e-5 * alt), 5.2559)).toFixed(1);
-}
-function calculateOxygen(alt) {
-  return Math.max(100 - Math.round(alt / 100), 40);
-}
-function computeRisk(p) {
-  if (p <= greenMax) return {text:'Ổn định', color:'var(--safe)', key:'green'};
-  if (p <= yellowMax) return {text:'Cẩn Trọng', color:'var(--amber)', key:'yellow'};
-  return {text:'Nguy hiểm', color:'var(--danger)', key:'red'};
-}
-function triggerOnce(el, cls){
-  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
-}
-function updatePosition(percent){
-  percent = Math.max(0, Math.min(1, percent));
-  currentPercent = percent;
-  const pos = percent * 100;
-  const alt = Math.round(percent * maxAlt);
-  arrow.style.left = pos + '%';
-  arrow.setAttribute('data-alt', alt + ' m');
-  altValue.textContent = alt + ' m';
-  altKpiVal.textContent = alt + ' m';
-  pressureValue.textContent = calculatePressure(alt);
-  oxygenValue.textContent = calculateOxygen(alt);
-
-  const risk = computeRisk(percent);
-  if (risk.key !== prevRiskKey){
-    triggerOnce(stateVal, 'flash');
-    triggerOnce(arrow, 'jump');
-    track.setAttribute('data-zone', risk.key);
-    prevRiskKey = risk.key;
-  }
-
-  Object.values(zones).forEach(z => z.classList.remove('active'));
-  Object.values(zoneTexts).forEach(t => t.classList.remove('active'));
-  zones[risk.key].classList.add('active');
-  zoneTexts[risk.key].classList.add('active');
-
-  stateVal.textContent = risk.text;
-  stateVal.style.color = risk.color; // dùng trực tiếp var(--safe)/amber/danger
-}
-
-// ===== Kéo thả =====
-function clientXToPercent(x){
-  const r = track.getBoundingClientRect();
-  return Math.max(0, Math.min(1, (x - r.left) / r.width));
-}
-function onDown(x){ isDragging = true; updatePosition(clientXToPercent(x)); }
-function onMove(x){ if (isDragging) updatePosition(clientXToPercent(x)); }
-function onUp(){ isDragging = false; }
-
-track.addEventListener('mousedown', e=>onDown(e.clientX));
-document.addEventListener('mousemove', e=>onMove(e.clientX));
-document.addEventListener('mouseup', onUp);
-track.addEventListener('touchstart', e=>{onDown(e.touches[0].clientX); e.preventDefault();},{passive:false});
-document.addEventListener('touchmove', e=>{
-  // Nếu không đang kéo slider thì để trình duyệt xử lý bình thường (scroll)
-  if (!isDragging) return;
-  onMove(e.touches[0].clientX);
-  e.preventDefault();
-}, {passive:false});
-document.addEventListener('touchend', onUp);
-track.addEventListener('click', e=>{if(!isDragging)updatePosition(clientXToPercent(e.clientX));});
-
-// ===== Phím mũi tên =====
-track.addEventListener('keydown', e=>{
-  const stepAlt = e.shiftKey ? 200 : 50;
-  const delta = stepAlt / maxAlt;
-  if(e.key==='ArrowRight') updatePosition(currentPercent+delta);
-  if(e.key==='ArrowLeft')  updatePosition(currentPercent-delta);
-});
-
-// ===== Vòng mô phỏng 120 FPS =====
-function loop(now){
-  if(!demoRunning) return;
-  const delta = now - lastFrame;
-  if(delta < frameInterval){ requestAnimationFrame(loop); return; }
-  lastFrame = now;
-  if(!t0) t0 = now;
-  const T = 24000;               // 24 s một chu kỳ
-  const phase = (now - t0) % T;
-  let p = phase / T;
-  const tri = p < 0.5 ? (p * 2) : (1 - (p - 0.5) * 2);
-  if(!isDragging) updatePosition(tri);
-  requestAnimationFrame(loop);
-}
-function startDemo(){
-  if(demoRunning) return;
-  demoRunning = true;
-  demoBtn.textContent='Dừng mô phỏng';
-  const T = 24000;
-  t0 = performance.now() - currentPercent * T / 2; // tiếp tục từ vị trí hiện tại
-  lastFrame = performance.now();
-  requestAnimationFrame(loop);
-}
-function stopDemo(){
-  demoRunning=false;
-  demoBtn.textContent='Tự chạy mô phỏng';
-}
-demoBtn.addEventListener('click', ()=> demoRunning?stopDemo():startDemo());
-resetBtn.addEventListener('click', ()=>{
-  stopDemo(); prevRiskKey='green'; track.setAttribute('data-zone','green'); updatePosition(0);
-  if(gpsStatus){
-    gpsStatus.textContent = 'Đang kiểm tra GPS trên thiết bị…';
-    gpsStatus.style.color = '#9fb3d9';
-  }
-});
-
-// ===== Modal =====
-function openModal(){ document.getElementById('qrModal').classList.add('active'); }
-function closeModal(){ document.getElementById('qrModal').classList.remove('active'); }
-window.addEventListener('click', e=>{ if(e.target.classList.contains('modal')) closeModal(); });
-window.openModal=openModal; window.closeModal=closeModal;
-
-// ===== GPS INTEGRATION (dùng API độ cao theo lat/lon) =====
-
-// Gọi Open-Meteo để lấy elevation theo lat/lon
-async function fetchElevation(lat, lon) {
-  try {
-    const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    const h = data && Array.isArray(data.elevation) ? data.elevation[0] : null;
-    if (typeof h === 'number' && !isNaN(h)) return h;   // mét
-    return null;
-  } catch (e) {
-    console.error('Lỗi fetch elevation:', e);
-    return null;
-  }
-}
-
-async function initGPS(){
-  if(!gpsStatus) return;
-
-  if(!('geolocation' in navigator)){
-    gpsStatus.textContent = 'Thiết bị không hỗ trợ GPS.';
-    gpsStatus.style.color = '#ffb4b4';
-    return;
-  }
-
-  gpsStatus.textContent = 'Đang xin quyền truy cập GPS…';
-  gpsStatus.style.color = '#9fb3d9';
-
-  navigator.geolocation.getCurrentPosition(
-    async pos => {
-      gpsStatus.textContent = 'Đã kết nối GPS, đang đọc độ cao thực tế…';
-      gpsStatus.style.color = '#9fb3d9';
-
-      const { latitude, longitude, altitude } = pos.coords;
-      console.log('GPS coords:', latitude, longitude, 'alt=', altitude);
-
-      // Ưu tiên dùng API độ cao theo lat/lon
-      let h = await fetchElevation(latitude, longitude);
-
-      // Nếu API lỗi, fallback về altitude thô của thiết bị (nếu có)
-      if (h == null && altitude != null && !isNaN(altitude)) {
-        h = altitude;
+    // ---------- URL policy ----------
+    function normalizeHost(u){
+      try{ return new URL(u).hostname.toLowerCase(); }catch{ return ""; }
+    }
+    function hostAllowed(host, whitelist){
+      const h = (host||"").toLowerCase();
+      return (whitelist||[]).some(w => {
+        const d = String(w||"").trim().toLowerCase();
+        if(!d) return false;
+        return h === d || h.endsWith("." + d);
+      });
+    }
+    function safeOpen(url){
+      if(url === "#"){
+        toast("Link nội bộ (#) — hãy thay URL thật trong CMS.");
+        pushLog("open_blocked", { url, reason:"placeholder" });
+        return;
       }
-
-      if (h == null) {
-        gpsStatus.textContent = 'Đã kết nối GPS nhưng không lấy được độ cao (API hoặc thiết bị không cung cấp).';
-        gpsStatus.style.color = '#ffb4b4';
+      if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        toast("Blocked: Invalid protocol");
+        pushLog("open_blocked", { url, reason:"invalid_protocol" });
         return;
       }
 
-      // Chuẩn hóa độ cao vào range 0–6000m cho poster
-      if (h < 0) h = 0;
-      if (h > maxAlt) h = maxAlt;
-
-      const percent = h / maxAlt;
-      updatePosition(percent);
-
-      gpsStatus.textContent = `Đã kết nối GPS thành công · Độ cao khoảng ${Math.round(h)} m`;
-      gpsStatus.style.color = 'var(--safe)';
-    },
-    err => {
-      console.error('GPS error:', err);
-      if (err.code === err.PERMISSION_DENIED) {
-        gpsStatus.textContent = 'Bạn đã từ chối quyền GPS. Hãy cho phép lại trong cài đặt trình duyệt.';
-      } else if (err.code === err.TIMEOUT) {
-        gpsStatus.textContent = 'Không lấy được GPS (hết thời gian chờ).';
-      } else {
-        gpsStatus.textContent = 'Không truy cập được GPS.';
+      const host = normalizeHost(url);
+      if(!host){
+        toast("URL không hợp lệ.");
+        pushLog("open_blocked", { url, reason:"invalid_url" });
+        return;
       }
-      gpsStatus.style.color = '#ffb4b4';
-    },
-    {
-      enableHighAccuracy:true,
-      timeout:10000,
-      maximumAge:0
+      if(!hostAllowed(host, state.config.whitelist || [])){
+        toast("Bị chặn bởi policy (whitelist).");
+        pushLog("open_blocked", { url, host, reason:"not_in_whitelist" });
+        return;
+      }
+      window.open(url, "_blank", "noopener,noreferrer");
+      pushLog("open_ok", { url, host });
     }
-  );
-}
 
-gpsBtn.addEventListener('click', initGPS);
+    // ---------- Default services ----------
+    const SERVICES_DEFAULT = {
+      categories: [
+        { id: "meals",  icon: "🍱", name: { vi: "Đồ ăn", en: "Meals" } },
+        { id: "drinks", icon: "🥤", name: { vi: "Đồ uống", en: "Drinks" } },
+        { id: "snack",  icon: "🍪", name: { vi: "Snack", en: "Snacks" } },
+        { id: "kids",   icon: "🧒", name: { vi: "Trẻ em", en: "Kids" } }
+      ],
+      items: [
+        { id:"meal_beef", cat:"meals", name:{vi:"Cơm bò sốt tiêu đen",en:"Black-pepper beef rice"}, desc:{vi:"Cơm + bò áp chảo + sốt tiêu đen, rau củ theo mùa.",en:"Rice + seared beef + black pepper sauce, seasonal veg."}, kcal:720, allergens:["Gluten","Đậu nành"], priceVnd:180000, emoji:"🥩" },
+        { id:"meal_teriyaki", cat:"meals", name:{vi:"Gà teriyaki + cơm",en:"Teriyaki chicken rice"}, desc:{vi:"Gà teriyaki mềm, cơm thơm, salad nhỏ.",en:"Tender teriyaki chicken, rice, small salad."}, kcal:690, allergens:["Đậu nành"], priceVnd:170000, emoji:"🍗" },
+        { id:"meal_veggie_pasta", cat:"meals", name:{vi:"Mì Ý chay sốt cà",en:"Veggie tomato pasta"}, desc:{vi:"Mì Ý + sốt cà chua, rau củ, phô mai tuỳ chọn.",en:"Pasta + tomato sauce, veggies, optional cheese."}, kcal:610, allergens:["Gluten","Sữa"], priceVnd:160000, emoji:"🍝" },
+        { id:"meal_breakfast", cat:"meals", name:{vi:"Bữa sáng trứng cuộn",en:"Breakfast omelet"}, desc:{vi:"Trứng cuộn + xúc xích + khoai nghiền.",en:"Omelet + sausage + mashed potato."}, kcal:640, allergens:["Trứng","Sữa"], priceVnd:150000, emoji:"🍳" },
+        { id:"kids_nuggets", cat:"kids", name:{vi:"Set trẻ em: nugget + khoai",en:"Kids set: nuggets + fries"}, desc:{vi:"Khẩu phần nhỏ, dễ ăn. Kèm sốt.",en:"Small portion, easy to eat. Includes dip."}, kcal:520, allergens:["Gluten"], priceVnd:120000, emoji:"🍟" },
+        { id:"snack_box", cat:"snack", name:{vi:"Snack box",en:"Snack box"}, desc:{vi:"Bánh quy + hạt + phô mai (tuỳ chuyến).",en:"Crackers + nuts + cheese (varies by flight)."}, kcal:430, allergens:["Hạt","Sữa","Gluten"], priceVnd:90000, emoji:"🍪" },
+        { id:"dessert_cheese", cat:"snack", name:{vi:"Bánh cheesecake",en:"Cheesecake"}, desc:{vi:"Tráng miệng mềm mịn, vị vani.",en:"Smooth vanilla cheesecake."}, kcal:380, allergens:["Sữa","Trứng","Gluten"], priceVnd:80000, emoji:"🍰" },
+        { id:"drink_coffee", cat:"drinks", name:{vi:"Cà phê nóng",en:"Hot coffee"}, desc:{vi:"Arabica blend, phục vụ nóng.",en:"Arabica blend, served hot."}, kcal:10, allergens:[], priceVnd:45000, emoji:"☕" },
+        { id:"drink_juice", cat:"drinks", name:{vi:"Nước cam",en:"Orange juice"}, desc:{vi:"Uống lạnh, chai nhỏ.",en:"Chilled, small bottle."}, kcal:120, allergens:[], priceVnd:50000, emoji:"🍊" },
+        { id:"drink_water", cat:"drinks", name:{vi:"Nước lọc",en:"Water"}, desc:{vi:"Nước đóng chai.",en:"Bottled water."}, kcal:0, allergens:[], priceVnd:30000, emoji:"💧" }
+      ]
+    };
 
-// Khởi động
-updatePosition(0);
-initGPS(); // thử auto một lần khi load (nếu trang có quyền)
-</script>
+    const DEMO_MEDIA = [
+      { title:{vi:"A380 cất cánh (YYZ) — demo", en:"A380 takeoff (YYZ) — demo"}, url:"https://upload.wikimedia.org/wikipedia/commons/e/e2/A380_Taking_off_from_YYZ.webm" },
+      { title:{vi:"Cất cánh — demo", en:"Takeoff — demo"}, url:"https://upload.wikimedia.org/wikipedia/commons/6/6a/Flight_take_off.webm" },
+      { title:{vi:"Hạ cánh — demo", en:"Landing — demo"}, url:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Flight_landing.webm" },
+      { title:{vi:"Diễn tập an toàn — demo", en:"Safety drill — demo"}, url:"https://upload.wikimedia.org/wikipedia/commons/1/15/Airplane_evacuation.webm" }
+    ];
 
+    // ---------- Factory config ----------
+    const FACTORY = {
+      brand: { title:"AERO•PORTAL", subtitle:"Cabin Safety Intelligence • Premium In-Flight Experience" },
+      tags: ["Aviation","Luxury","AI","Security","Hospitality","Infrastructure"],
+      projects: [
+        { title:"AeroSense — Cabin Intelligence Suite", desc:"Quan sát cabin theo ngưỡng, UI kiosk 5★, cảnh báo theo kịch bản, hỗ trợ crew ops.", tags:["Aviation","AI","Security"], cta:"Open Deck", url:"#"},
+        { title:"SkyLine — Premium IFE Portal", desc:"Launcher giải trí + player nội bộ, quản lý nội dung offline, tối ưu màn hình ghế ngồi cảm ứng.", tags:["Aviation","Hospitality"], cta:"View Demo", url:"#"},
+        { title:"Aurora — Digital Concierge", desc:"Concierge cho khách VIP: hành trình, dịch vụ, đặt suất ăn, hỗ trợ tức thì.", tags:["Luxury","Hospitality"], cta:"Explore", url:"#"},
+        { title:"Sentinel — Secure Edge Runtime", desc:"Chạy ứng dụng kiosk trong môi trường kiểm soát, logging, whitelist, policy enforcement.", tags:["Security","Infrastructure"], cta:"Spec Sheet", url:"#"}
+      ],
+      apps: [
+        { name:"YouTube", desc:"Video • Music • Live", url:"https://www.youtube.com", hint:"Opens in new tab" },
+        { name:"Netflix", desc:"Movies • Series", url:"https://www.netflix.com", hint:"May require login" },
+        { name:"Disney+", desc:"Family • Originals", url:"https://www.disneyplus.com", hint:"Service availability varies" },
+        { name:"Prime Video", desc:"Movies • TV", url:"https://www.primevideo.com", hint:"Service availability varies" },
+        { name:"Spotify", desc:"Music • Podcasts", url:"https://open.spotify.com", hint:"Audio experience" },
+        { name:"Onboard Store", desc:"Wi-Fi • Duty Free • Services", url:"#", hint:"Replace with internal link" }
+      ],
+      whitelist: ["youtube.com","netflix.com","disneyplus.com","primevideo.com","spotify.com","upload.wikimedia.org"],
+      ife: { library: structuredCloneSafe(DEMO_MEDIA) },
+      services: structuredCloneSafe(SERVICES_DEFAULT)
+    };
+
+    function mergeConfig(base, incoming){
+      if(incoming?.brand){
+        base.brand.title = incoming.brand.title ?? base.brand.title;
+        base.brand.subtitle = incoming.brand.subtitle ?? base.brand.subtitle;
+      }
+      if(Array.isArray(incoming?.tags)) base.tags = incoming.tags;
+      if(Array.isArray(incoming?.projects)) base.projects = incoming.projects;
+      if(Array.isArray(incoming?.apps)) base.apps = incoming.apps;
+      if(Array.isArray(incoming?.whitelist)) base.whitelist = incoming.whitelist;
+      if(incoming?.ife?.library && Array.isArray(incoming.ife.library)) base.ife.library = incoming.ife.library;
+      if(incoming?.services){
+        base.services = incoming.services;
+        if(!Array.isArray(base.services.categories)) base.services.categories = structuredCloneSafe(SERVICES_DEFAULT.categories);
+        if(!Array.isArray(base.services.items)) base.services.items = structuredCloneSafe(SERVICES_DEFAULT.items);
+      }
+      if(!base.ife?.library || base.ife.library.length === 0) base.ife = { library: structuredCloneSafe(DEMO_MEDIA) };
+      base.whitelist = Array.isArray(base.whitelist) ? base.whitelist : [];
+      if(!base.whitelist.includes("upload.wikimedia.org")) base.whitelist.push("upload.wikimedia.org");
+      return base;
+    }
+
+    function loadConfig(){
+      try{
+        const raw = localStorage.getItem(KEY.config);
+        if(!raw) return structuredCloneSafe(FACTORY);
+        const cfg = JSON.parse(raw);
+        return mergeConfig(structuredCloneSafe(FACTORY), cfg);
+      }catch{
+        return structuredCloneSafe(FACTORY);
+      }
+    }
+    function saveConfig(cfg){
+      localStorage.setItem(KEY.config, JSON.stringify(cfg));
+      pushLog("config_saved", { keys: Object.keys(cfg||{}) });
+    }
+
+    // ---------- I18N ----------
+    const I18N = {
+      vi: {
+        stageSub: "Mô phỏng bay • HUD cabin • cảnh báo theo ngưỡng",
+        badge_ok: "OK",
+        badge_warn: "CHÚ Ý",
+        badge_danger: "CẢNH BÁO",
+        badge_critical: "KHẨN",
+        status_ok: "Cabin đang trong vùng an toàn mô phỏng.",
+        status_warn: "Cabin bắt đầu vào vùng cần chú ý (mô phỏng).",
+        status_danger: "Cabin vào vùng cảnh báo (mô phỏng). Ưu tiên hướng dẫn phi hành đoàn.",
+        status_critical: "Cabin vào vùng khẩn (mô phỏng). Đeo mặt nạ oxy nếu được yêu cầu.",
+        overlay_ok: "Trạng thái: OK",
+        overlay_warn: "Trạng thái: CHÚ Ý",
+        overlay_danger: "Trạng thái: CẢNH BÁO",
+        overlay_critical: "Trạng thái: KHẨN",
+        steps_ok: ["Giữ dây an toàn khi ngồi.","Lắng nghe thông báo của phi hành đoàn.","Không tự ý thao tác thiết bị an toàn."],
+        steps_warn: ["Ngồi yên, thở đều.","Nếu thấy khó chịu: báo tiếp viên.","Sẵn sàng làm theo hướng dẫn."],
+        steps_danger: ["Giữ bình tĩnh, thắt dây an toàn.","Báo tiếp viên nếu chóng mặt/khó thở.","Chuẩn bị đeo mặt nạ oxy nếu được hướng dẫn."],
+        steps_critical: ["Làm theo hướng dẫn phi hành đoàn ngay lập tức.","Đeo mặt nạ oxy khi được yêu cầu.","Hỗ trợ trẻ em/người cần giúp sau khi bạn đã an toàn."],
+        effects_ok: "Thường ít ảnh hưởng với phần lớn hành khách. Một số người nhạy cảm có thể hơi mệt/khó chịu nhẹ.",
+        effects_warn: "Có thể mệt, khó tập trung, thở nhanh nhẹ. Người có bệnh nền có thể nhạy cảm hơn.",
+        effects_danger: "Có thể chóng mặt, buồn nôn, phản xạ chậm. Ưu tiên báo tiếp viên và làm theo hướng dẫn an toàn.",
+        effects_critical: "Nguy cơ rối loạn nhận thức tăng. Cần tuân thủ hướng dẫn khẩn cấp của phi hành đoàn.",
+        advice_ok: ["Ngồi yên, thở đều, uống nước nếu được phép.","Nếu chóng mặt/khó thở: báo tiếp viên.","Luôn ưu tiên hướng dẫn của phi hành đoàn."],
+        advice_warn: ["Hạn chế đứng dậy/di chuyển không cần thiết.","Thở chậm, đều; báo tiếp viên nếu khó chịu.","Chuẩn bị làm theo hướng dẫn an toàn."],
+        advice_danger: ["Giữ bình tĩnh, thắt dây an toàn.","Báo tiếp viên ngay nếu có triệu chứng rõ.","Sẵn sàng đeo mặt nạ oxy khi được yêu cầu."],
+        advice_critical: ["Tuân thủ hướng dẫn khẩn cấp ngay lập tức.","Đeo mặt nạ oxy khi được yêu cầu.","Hỗ trợ người khác sau khi bạn đã an toàn."],
+        techExplain: "Model: ISA (0–11 km) + quy đổi áp suất/độ cao + O₂_avail ≈ P/P0 (mô phỏng giáo dục)",
+        ui_tabs_safety: "An toàn",
+        ui_tabs_services: "Dịch vụ",
+        ui_tabs_ife: "Giải trí",
+        ui_seat: "Ghế",
+        ui_system: "Hệ thống",
+        ui_time: "Giờ",
+        ui_settings: "⚙ Cài đặt",
+        ui_cabin_params: "Thông số cabin",
+        ui_cabin_hint: "Chọn: Độ cao cabin hoặc Áp suất cabin",
+        ui_alt: "Độ cao cabin",
+        ui_press: "Áp suất cabin",
+        ui_sim: "Mô phỏng",
+        ui_pause: "Tạm dừng",
+        ui_resume: "Tiếp tục",
+        ui_reset: "Đặt lại",
+        ui_stage_title: "Mô phỏng chuyến bay",
+        ui_effects_title: "Tác động lên cơ thể",
+        ui_effects_hint: "Giải thích tác động + hướng dẫn (mô phỏng)",
+        ui_effects_h1: "Với mức oxy/áp suất này, cơ thể có thể gặp:",
+        ui_effects_h2: "Bạn nên làm gì:",
+        ui_quick_explain:
+          "<b>Giải thích nhanh:</b> “O₂ khả dụng” giảm chủ yếu vì <b>áp suất</b> giảm theo độ cao. Nồng độ O₂ vẫn ~20.9%, nhưng “lượng O₂ hữu ích” giảm.",
+        ui_svc_left_title: "Dịch vụ",
+        ui_svc_left_hint: "Menu • đặt món • trạng thái đơn",
+        ui_search_ph: "Tìm món ăn, đồ uống, từ khóa...",
+        ui_clear: "Xóa",
+        ui_order_state: "Trạng thái đơn",
+        ui_view_cart: "Xem giỏ",
+        ui_confirm: "Xác nhận",
+        ui_send: "Gửi tiếp viên",
+        ui_clear_order: "Xóa",
+        ui_note_ph: "VD: ít đá / không phô mai / không hành...",
+        ui_svc_right_title: "Menu trên máy bay",
+        ui_svc_right_hint: "Bấm món → xem chi tiết → thêm vào giỏ → gửi tiếp viên",
+        ui_menu: "Menu",
+        ui_showcase: "Showcase",
+        ui_cart: "🛒 Giỏ",
+        ui_ife_launcher: "App Launcher",
+        ui_ife_launcher_hint: "Chỉ mở domain trong whitelist",
+        ui_player: "Trình phát trên máy bay",
+        ui_player_hint: "Video nội bộ / file local (demo)",
+        ui_pick_video: "Chọn video",
+        ui_stop: "Dừng",
+        ui_mode: "Chế độ",
+        ui_drop:
+          'Kéo-thả file video vào đây hoặc bấm <strong>“Chọn video”</strong>.<br/>(Bản thật thường phát từ <strong>server nội bộ</strong> để offline.)',
+        ui_theme_dark: "Theme: DARK",
+        ui_theme_light: "Theme: LIGHT"
+      },
+      en: {
+        stageSub: "Flight simulation • cabin HUD • threshold-based alerts",
+        badge_ok: "OK",
+        badge_warn: "CAUTION",
+        badge_danger: "WARNING",
+        badge_critical: "CRITICAL",
+        status_ok: "Cabin is within a simulated safe range.",
+        status_warn: "Cabin is entering a caution zone (simulated).",
+        status_danger: "Cabin is in a warning zone (simulated). Follow crew instructions.",
+        status_critical: "Cabin is in a CRITICAL zone (simulated). Oxygen mask if instructed.",
+        overlay_ok: "Status: OK",
+        overlay_warn: "Status: CAUTION",
+        overlay_danger: "Status: WARNING",
+        overlay_critical: "Status: CRITICAL",
+        steps_ok: ["Keep seatbelt fastened while seated.","Listen to crew announcements.","Do not operate safety equipment."],
+        steps_warn: ["Remain seated and breathe calmly.","Notify crew if you feel unwell.","Be ready to follow instructions."],
+        steps_danger: ["Stay calm and fasten seatbelt.","Notify crew if dizziness/shortness of breath.","Prepare for oxygen mask if instructed."],
+        steps_critical: ["Follow crew emergency instructions immediately.","Put on oxygen mask if instructed.","Assist others after you are safe."],
+        effects_ok: "Typically minimal impact for most passengers. Sensitive individuals may feel mild discomfort.",
+        effects_warn: "May cause fatigue, reduced focus, slightly faster breathing.",
+        effects_danger: "May cause dizziness, nausea, slowed reactions. Notify crew and follow safety instructions.",
+        effects_critical: "Higher risk of impaired thinking. Follow crew emergency procedures.",
+        advice_ok: ["Stay seated, breathe evenly, hydrate if permitted.","If dizzy/short of breath: notify crew.","Always prioritize crew instructions."],
+        advice_warn: ["Avoid unnecessary standing/movement.","Slow, steady breathing; notify crew if needed.","Prepare to follow safety instructions."],
+        advice_danger: ["Stay calm, fasten seatbelt.","Notify crew immediately if symptoms are clear.","Be ready for oxygen mask if instructed."],
+        advice_critical: ["Follow emergency instructions immediately.","Use oxygen mask if instructed.","Help others after you're safe."],
+        techExplain: "Model: ISA (0–11 km) + pressure/alt conversion + O₂_avail ≈ P/P0 (educational simulation)",
+        ui_tabs_safety: "Safety",
+        ui_tabs_services: "Services",
+        ui_tabs_ife: "Entertainment",
+        ui_seat: "Seat",
+        ui_system: "System",
+        ui_time: "Time",
+        ui_settings: "⚙ Settings",
+        ui_cabin_params: "Cabin Parameters",
+        ui_cabin_hint: "Choose: Cabin altitude or Cabin pressure",
+        ui_alt: "Cabin altitude",
+        ui_press: "Cabin pressure",
+        ui_sim: "Simulation",
+        ui_pause: "Pause",
+        ui_resume: "Resume",
+        ui_reset: "Reset",
+        ui_stage_title: "Flight Simulation",
+        ui_effects_title: "Body Effects",
+        ui_effects_hint: "Impacts + guidance (simulated)",
+        ui_effects_h1: "At this oxygen/pressure level, you may feel:",
+        ui_effects_h2: "What you should do:",
+        ui_quick_explain:
+          "<b>Quick note:</b> “Available O₂” drops mainly because air pressure drops with altitude. O₂ concentration stays ~20.9%, but usable oxygen decreases.",
+        ui_svc_left_title: "Services",
+        ui_svc_left_hint: "Menu • order • status",
+        ui_search_ph: "Search meals, drinks, keywords...",
+        ui_clear: "Clear",
+        ui_order_state: "Order status",
+        ui_view_cart: "View cart",
+        ui_confirm: "Confirm",
+        ui_send: "Send to crew",
+        ui_clear_order: "Clear",
+        ui_note_ph: "e.g., less ice / no cheese / no onion...",
+        ui_svc_right_title: "Onboard menu",
+        ui_svc_right_hint: "Tap item → details → add to cart → send to crew",
+        ui_menu: "Menu",
+        ui_showcase: "Showcase",
+        ui_cart: "🛒 Cart",
+        ui_ife_launcher: "App Launcher",
+        ui_ife_launcher_hint: "Only opens domains in whitelist",
+        ui_player: "Inflight Player",
+        ui_player_hint: "Internal video / local file (demo)",
+        ui_pick_video: "Pick video",
+        ui_stop: "Stop",
+        ui_mode: "Mode",
+        ui_drop:
+          'Drag & drop a video here or click <strong>“Pick video”</strong>.<br/>(Real systems often play from an onboard server offline.)',
+        ui_theme_dark: "Theme: DARK",
+        ui_theme_light: "Theme: LIGHT"
+      }
+    };
+
+    // ---------- State ----------
+    const state = {
+      lang: "vi",
+      tab: "safety",
+      mode: "alt",
+      sim: "auto",
+      paused: false,
+      theme: "dark", // "dark" | "light"
+      cabinAlt_m: 2400,
+      cabinPress_hPa: 750,
+      t: 0,
+      cruise: true,
+      speed_kmh: 840,
+      oat_C: -45,
+      level: "ok",
+      config: loadConfig(),
+      seat: { id: "—", profile: "adult" },
+      svcCat: "meals",
+      currentVideoBlob: null 
+    };
+
+    function t(key){ return I18N[state.lang][key]; }
+    function pickLang(v){
+      if(v == null) return "";
+      if(typeof v === "object") return v[state.lang] ?? v.vi ?? v.en ?? "";
+      return String(v);
+    }
+
+    // ---------- Seat load/save ----------
+    function loadSeat(){
+      try{
+        const raw = localStorage.getItem(KEY.seat);
+        if(!raw) return;
+        const s = JSON.parse(raw);
+        state.seat.id = s.id ?? state.seat.id;
+        state.seat.profile = s.profile ?? state.seat.profile;
+        if(s.lang && (s.lang === "vi" || s.lang === "en")) state.lang = s.lang;
+        if(s.theme && (s.theme === "dark" || s.theme === "light")) state.theme = s.theme;
+      }catch{}
+    }
+    function saveSeat(){
+      localStorage.setItem(KEY.seat, JSON.stringify({
+        id: state.seat.id,
+        profile: state.seat.profile,
+        lang: state.lang,
+        theme: state.theme
+      }));
+      pushLog("seat_saved", { id: state.seat.id, profile: state.seat.profile, lang: state.lang });
+    }
+    function seatKey(){ return String(state.seat.id || "—").toUpperCase(); }
+
+    // ---------- Orders ----------
+    function getAllOrders(){ try{ return JSON.parse(localStorage.getItem(KEY.orders) || "{}"); }catch{ return {}; } }
+    function saveAllOrders(obj){ localStorage.setItem(KEY.orders, JSON.stringify(obj)); }
+    function loadOrder(){
+      const all = getAllOrders();
+      const k = seatKey();
+      return all[k] || { seat:k, status:"draft", items:[], note:"", updatedAt: nowISO() };
+    }
+    function saveOrder(order){
+      const all = getAllOrders();
+      const k = seatKey();
+      all[k] = { ...order, seat:k, updatedAt: nowISO() };
+      saveAllOrders(all);
+    }
+    function orderTotals(order){
+      const sum = (order.items||[]).reduce((acc,it)=>acc + (it.priceVnd*it.qty), 0);
+      const qty = (order.items||[]).reduce((acc,it)=>acc + it.qty, 0);
+      return { sum, qty };
+    }
+    function fmtMoney(vnd){
+      const n = Number(vnd||0);
+      return state.lang === "vi" ? `${Math.round(n).toLocaleString("vi-VN")}₫` : `$${(n/25000).toFixed(2)} (est.)`;
+    }
+
+    // ---------- DOM refs ----------
+    const el = {
+      clock: $("#clock"),
+      sysDot: $("#sysDot"),
+      sysState: $("#sysState"),
+      seatLabel: $("#seatLabel"),
+      profileLabel: $("#profileLabel"),
+      brandTitle: $("#brandTitle"),
+      brandSub: $("#brandSub"),
+      tabBtns: $$(".tabbtn"),
+      views: { safety: $("#view-safety"), projects: $("#view-projects"), ife: $("#view-ife") },
+      modeAlt: $("#modeAlt"), modePress: $("#modePress"),
+      altRange: $("#altRange"), pressRange: $("#pressRange"),
+      altLabel: $("#altLabel"), pressLabel: $("#pressLabel"),
+      kpiAlt: $("#kpiAlt"), kpiPress: $("#kpiPress"),
+      o2Avail: $("#o2Avail"), o2Eq: $("#o2Eq"),
+      statusBadge: $("#statusBadge"), statusText: $("#statusText"),
+      simLabel: $("#simLabel"),
+      hudCruise: $("#hudCruise"), hudSpeed: $("#hudSpeed"), hudOat: $("#hudOat"),
+      hudCabAlt: $("#hudCabAlt"), hudCabPress: $("#hudCabPress"), hudO2: $("#hudO2"),
+      overlay: $("#overlayAlert"), overlayTitle: $("#overlayTitle"), overlayMetric: $("#overlayMetric"),
+      overlayText: $("#overlayText"), overlaySteps: $("#overlaySteps"), ovToggle: $("#ovToggle"),
+      effectsText: $("#effectsText"), adviceList: $("#adviceList"), techExplain: $("#techExplain"), stageSub: $("#stageSub"),
+      btnSim: $("#btnSim"), btnPause: $("#btnPause"), btnReset: $("#btnReset"), btnLang: $("#btnLang"),
+      btnTheme: $("#btnTheme"),
+      svcSearch: $("#svcSearch"), btnClearSvcSearch: $("#btnClearSvcSearch"),
+      svcPills: $("#svcPills"), svcActive: $("#svcActive"), svcGrid: $("#svcGrid"),
+      entBtnMenu: $("#entBtnMenu"), entBtnShowcase: $("#entBtnShowcase"),
+      menuWrap: $("#menuWrap"), showcaseWrap: $("#showcaseWrap"), projCards: $("#projCards"),
+      entCatTitle: $("#entCatTitle"), entCatHint: $("#entCatHint"), entStepper: $("#entStepper"),
+      entSeatMini: $("#entSeatMini"), entCartBtn: $("#entCartBtn"), entCartCount: $("#entCartCount"),
+      orderStateVal: $("#orderStateVal"), orderStateSub: $("#orderStateSub"),
+      btnViewCart: $("#btnViewCart"), btnConfirmOrder: $("#btnConfirmOrder"),
+      btnSendOrder: $("#btnSendOrder"), btnClearOrder: $("#btnClearOrder"), orderNote: $("#orderNote"),
+      svcMask: $("#svcMask"), svcClose: $("#svcClose"), svcSeat: $("#svcSeat"),
+      svcImg: $("#svcImg"), svcName: $("#svcName"), svcDesc: $("#svcDesc"),
+      svcTags: $("#svcTags"), svcExtra: $("#svcExtra"),
+      qtyMinus: $("#qtyMinus"), qtyPlus: $("#qtyPlus"), qtyVal: $("#qtyVal"),
+      svcItemNote: $("#svcItemNote"), svcAdd: $("#svcAdd"), svcViewCart: $("#svcViewCart"),
+      appGrid: $("#appGrid"), btnPickVideo: $("#btnPickVideo"), btnStopVideo: $("#btnStopVideo"),
+      fileVideo: $("#fileVideo"), video: $("#video"), drop: $("#drop"),
+      ifeMode: $("#ifeMode"), mediaCount: $("#mediaCount"), mediaBtns: $("#mediaBtns"),
+      canvas: $("#sky"),
+      btnSettings: $("#btnSettings"), modalMask: $("#modalMask"), btnCloseSettings: $("#btnCloseSettings"),
+      navItems: $$(".navItem"), paneSeat: $("#paneSeat"), paneCMS: $("#paneCMS"),
+      paneSecurity: $("#paneSecurity"), paneLogs: $("#paneLogs"), storageState: $("#storageState"),
+      seatIdInput: $("#seatIdInput"), profileInput: $("#profileInput"), langInput: $("#langInput"),
+      btnSaveSeat: $("#btnSaveSeat"), btnResetSeat: $("#btnResetSeat"),
+      brandTitleInput: $("#brandTitleInput"), brandSubInput: $("#brandSubInput"),
+      configFile: $("#configFile"), configPreview: $("#configPreview"),
+      btnApplyBrand: $("#btnApplyBrand"), btnExport: $("#btnExport"), btnFactory: $("#btnFactory"),
+      whitelistInput: $("#whitelistInput"), btnSaveWhitelist: $("#btnSaveWhitelist"), btnTighten: $("#btnTighten"),
+      btnRefreshLogs: $("#btnRefreshLogs"), btnClearLogs: $("#btnClearLogs"), btnCopyLogs: $("#btnCopyLogs"), logsBox: $("#logsBox")
+    };
+
+    // ---------- Helpers ----------
+    function escapeHtml(str){
+      if (str == null) return "";
+      return String(str)
+        .replaceAll("&","&amp;") // FIX
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;");
+    }
+    function formatInt(n){ return Math.round(n).toLocaleString("en-US"); }
+    function format1(n){ return (Math.round(n*10)/10).toFixed(1); }
+
+    function debounce(fn, ms) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), ms);
+      };
+    }
+
+    // ---------- Tabs ----------
+    function setTab(tab){
+      state.tab = tab;
+      el.tabBtns.forEach(b => {
+        const active = b.dataset.tab === tab;
+        b.dataset.active = active ? "true" : "false";
+        b.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      Object.entries(el.views).forEach(([k,view]) => view.classList.toggle("active", k === tab));
+      location.hash = tab;
+      pushLog("tab_switch", { tab });
+    }
+    function initHash(){
+      const h = (location.hash || "#safety").replace("#","");
+      if(["safety","projects","ife"].includes(h)) setTab(h);
+    }
+
+    // ---------- Mode switch ----------
+    function setMode(mode){
+      state.mode = mode;
+      const alt = mode === "alt";
+      el.modeAlt.setAttribute("aria-pressed", alt ? "true" : "false");
+      el.modePress.setAttribute("aria-pressed", alt ? "false" : "true");
+      el.altRange.disabled = !alt;
+      el.pressRange.disabled = alt;
+      el.altRange.style.opacity = alt ? "1" : ".45";
+      el.pressRange.style.opacity = alt ? ".45" : "1";
+      pushLog("input_mode", { mode });
+    }
+
+    // ---------- Sim mode ----------
+    function setSim(sim){
+      state.sim = sim;
+      const isAuto = sim === "auto";
+      el.btnSim.textContent = isAuto ? "AUTO" : "MANUAL";
+      el.simLabel.textContent = isAuto ? "AUTO" : "MANUAL";
+      pushLog("sim_mode", { sim });
+    }
+
+    // ---------- Cabin model ----------
+    const ISA = { P0: 1013.25, T0: 288.15, L: 0.0065, g: 9.80665, R: 287.05287 };
+    function pressureFromAltitude_m(h){
+      const {P0,T0,L,g,R} = ISA;
+      const x = 1 - (L*h)/T0;
+      const exp = g/(R*L);
+      return P0 * Math.pow(clamp(x, 0.0001, 1), exp);
+    }
+    function altitudeFromPressure_hPa(P){
+      const {P0,T0,L,g,R} = ISA;
+      const exp = (R*L)/g;
+      const ratio = clamp(P/P0, 0.0001, 1.2);
+      const x = Math.pow(ratio, exp);
+      return (T0/L) * (1 - x);
+    }
+    function oxygenAvailability(P_hPa){
+      const ratio = clamp(P_hPa / ISA.P0, 0, 1.2);
+      const avail = ratio * 100;
+      const eqO2 = 20.9 * ratio;
+      return { ratio, avail, eqO2 };
+    }
+    const THRESH = { ok:{altMax:2500}, warn:{altMax:3500}, danger:{altMax:4500}, critical:{altMax:Infinity} };
+    function levelFromAlt(alt_m){
+      if(alt_m <= THRESH.ok.altMax) return "ok";
+      if(alt_m <= THRESH.warn.altMax) return "warn";
+      if(alt_m <= THRESH.danger.altMax) return "danger";
+      return "critical";
+    }
+
+    // ---------- Cabin sync ----------
+    function syncFromAltitude(alt_m){
+      state.cabinAlt_m = clamp(alt_m, 0, 11000);
+      state.cabinPress_hPa = clamp(pressureFromAltitude_m(state.cabinAlt_m), 200, 1200);
+      el.pressRange.value = Math.round(state.cabinPress_hPa);
+    }
+    function syncFromPressure(P_hPa){
+      state.cabinPress_hPa = clamp(P_hPa, 200, 1200);
+      state.cabinAlt_m = clamp(altitudeFromPressure_hPa(state.cabinPress_hPa), 0, 11000);
+      el.altRange.value = Math.round(state.cabinAlt_m / 50) * 50;
+    }
+
+    // ---------- Derived UI ----------
+    function statusFor(level){
+      const map = {
+        ok:       { badge: t("badge_ok"), class:"ok", text: t("status_ok"), overlayTitle: t("overlay_ok") },
+        warn:     { badge: t("badge_warn"), class:"warn", text: t("status_warn"), overlayTitle: t("overlay_warn") },
+        danger:   { badge: t("badge_danger"), class:"danger", text: t("status_danger"), overlayTitle: t("overlay_danger") },
+        critical: { badge: t("badge_critical"), class:"critical", text: t("status_critical"), overlayTitle: t("overlay_critical") }
+      };
+      return map[level];
+    }
+    function overlayStepsFor(level){ return I18N[state.lang]["steps_" + level]; }
+    function effectsFor(level){ return I18N[state.lang]["effects_" + level]; }
+    function adviceFor(level){ return I18N[state.lang]["advice_" + level]; }
+
+    function applyBrand(){
+      el.brandTitle.textContent = state.config.brand?.title || FACTORY.brand.title;
+      el.brandSub.textContent = state.config.brand?.subtitle || FACTORY.brand.subtitle;
+    }
+    function applySeatUI(){
+      el.seatLabel.textContent = state.seat.id || "—";
+      el.profileLabel.textContent = (state.seat.profile || "adult").toUpperCase();
+    }
+    
+    function applyLang(){
+      el.btnLang.textContent = state.lang.toUpperCase();
+      el.stageSub.textContent = t("stageSub");
+      el.techExplain.textContent = t("techExplain");
+      el.langInput.value = state.lang;
+      applyI18NStatic();
+    }
+
+    function applyTheme(){
+      document.documentElement.setAttribute("data-theme", state.theme || "dark");
+      if(el.btnTheme){
+        el.btnTheme.textContent = (state.theme === "light") ? t("ui_theme_light") : t("ui_theme_dark");
+      }
+    }
+
+    function applyI18NStatic(){
+      const tabs = $$(".tabbtn");
+      tabs.forEach(btn => {
+        const tab = btn.dataset.tab;
+        const label =
+          tab === "safety" ? t("ui_tabs_safety") :
+          tab === "projects" ? t("ui_tabs_services") :
+          t("ui_tabs_ife");
+
+        const last = btn.childNodes[btn.childNodes.length - 1];
+        if(last && last.nodeType === 3) last.textContent = " " + label;
+        else btn.appendChild(document.createTextNode(" " + label));
+      });
+
+      const pills = $$(".meta .pill");
+      if(pills[0]) pills[0].querySelector("span").textContent = t("ui_seat");
+      if(pills[1]) pills[1].querySelectorAll("span")[1].textContent = t("ui_system");
+      if(pills[2]) pills[2].querySelector("span").textContent = t("ui_time");
+
+      el.btnSettings.textContent = t("ui_settings");
+
+      const safetyLeftHeader = $("#view-safety .panel .panelHeader h2");
+      const safetyLeftHint = $("#view-safety .panel .panelHeader .hint");
+      if(safetyLeftHeader) safetyLeftHeader.textContent = t("ui_cabin_params");
+      if(safetyLeftHint) safetyLeftHint.textContent = t("ui_cabin_hint");
+
+      el.modeAlt.textContent = t("ui_alt");
+      el.modePress.textContent = t("ui_press");
+
+      const labels = $$("#view-safety .card .label");
+      if(labels[0]) labels[0].textContent = t("ui_alt");
+      if(labels[1]) labels[1].textContent = t("ui_press");
+      if(labels[2]) labels[2].textContent = t("ui_sim");
+
+      el.btnReset.textContent = t("ui_reset");
+      el.btnPause.textContent = state.paused ? t("ui_resume") : t("ui_pause");
+
+      $("#stageTitle").textContent = t("ui_stage_title");
+
+      $("#effectsTitle").textContent = t("ui_effects_title");
+      $("#effectsHint").textContent = t("ui_effects_hint");
+      $("#effectsH1").textContent = t("ui_effects_h1");
+      $("#effectsH2").textContent = t("ui_effects_h2");
+      $("#quickExplain").innerHTML = t("ui_quick_explain");
+
+      $("#svcLeftTitle").textContent = t("ui_svc_left_title");
+      $("#svcLeftHint").textContent = t("ui_svc_left_hint");
+      el.svcSearch.placeholder = t("ui_search_ph");
+      el.btnClearSvcSearch.textContent = t("ui_clear");
+
+      const orderLabel = $("#orderStatusCard .label");
+      if(orderLabel) orderLabel.textContent = t("ui_order_state");
+      el.btnViewCart.textContent = t("ui_view_cart");
+      el.btnConfirmOrder.textContent = t("ui_confirm");
+      el.btnSendOrder.textContent = t("ui_send");
+      el.btnClearOrder.textContent = t("ui_clear_order");
+      el.orderNote.placeholder = t("ui_note_ph");
+
+      $("#svcRightTitle").textContent = t("ui_svc_right_title");
+      $("#svcRightHint").textContent = t("ui_svc_right_hint");
+      el.entBtnMenu.textContent = t("ui_menu");
+      el.entBtnShowcase.textContent = t("ui_showcase");
+      el.entCartBtn.childNodes[0].textContent = t("ui_cart") + " ";
+
+      const ifeLeftH2 = $("#view-ife .ife .panel .panelHeader h2");
+      const ifeLeftHint = $("#view-ife .ife .panel .panelHeader .hint");
+      if(ifeLeftH2) ifeLeftH2.textContent = t("ui_ife_launcher");
+      if(ifeLeftHint) ifeLeftHint.textContent = t("ui_ife_launcher_hint");
+
+      const playerH2 = $("#view-ife .player .panelHeader h2");
+      const playerHint = $("#view-ife .player .panelHeader .hint");
+      if(playerH2) playerH2.textContent = t("ui_player");
+      if(playerHint) playerHint.textContent = t("ui_player_hint");
+
+      el.btnPickVideo.textContent = t("ui_pick_video");
+      el.btnStopVideo.textContent = t("ui_stop");
+      const modePillLabel = $("#view-ife .playerTop .pill span");
+      if(modePillLabel) modePillLabel.textContent = t("ui_mode");
+      el.drop.innerHTML = t("ui_drop");
+
+      if(el.btnTheme){
+        el.btnTheme.textContent = (state.theme === "light") ? t("ui_theme_light") : t("ui_theme_dark");
+      }
+    }
+
+    // ---------- Render (Safety) ----------
+    function renderSafety(){
+      const alt = state.cabinAlt_m;
+      const P = state.cabinPress_hPa;
+      const { avail, eqO2 } = oxygenAvailability(P);
+      const level = levelFromAlt(alt);
+      state.level = level;
+
+      el.altLabel.textContent = `${formatInt(alt)} m`;
+      el.pressLabel.textContent = `~ ${formatInt(P)} hPa`;
+      el.kpiAlt.textContent = `${formatInt(alt)} m`;
+      el.kpiPress.textContent = `~ ${formatInt(P)} hPa`;
+      el.o2Avail.textContent = `~ ${formatInt(avail)}%`;
+      el.o2Eq.textContent = `~ ${format1(eqO2)}%`;
+
+      el.hudCruise.textContent = state.cruise ? "ON" : "OFF";
+      el.hudSpeed.textContent = `~ ${formatInt(state.speed_kmh)} km/h`;
+      el.hudOat.textContent = `${state.oat_C > 0 ? "+" : ""}${formatInt(state.oat_C)}°C`;
+      el.hudCabAlt.textContent = `${formatInt(alt)} m`;
+      el.hudCabPress.textContent = `${formatInt(P)} hPa`;
+      el.hudO2.textContent = `${formatInt(avail)}%`;
+
+      const s = statusFor(level);
+      el.statusBadge.textContent = s.badge;
+      el.statusBadge.className = `badge ${s.class}`;
+      el.statusText.textContent = s.text;
+
+      el.overlay.dataset.level = level;
+      el.overlayTitle.textContent = s.overlayTitle;
+      el.overlayMetric.textContent = `O₂ ~ ${formatInt(avail)}%`;
+      el.overlaySteps.innerHTML = overlayStepsFor(level).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+
+      const overlayText = (level === "ok") 
+        ? (state.lang === "vi" ? "Cabin đang trong vùng an toàn mô phỏng." : "Cabin is within the simulated safe zone.")
+        : (level === "warn") 
+        ? (state.lang === "vi" ? "Cabin đang vào vùng cần chú ý." : "Cabin is entering a caution zone.")
+        : (level === "danger")
+        ? (state.lang === "vi" ? "Cabin đang ở mức cảnh báo." : "Cabin is in a warning zone.")
+        : (state.lang === "vi" ? "Cabin ở mức khẩn cấp." : "Cabin is critical.");
+      
+      el.overlayText.textContent = overlayText;
+      el.effectsText.textContent = effectsFor(level);
+      el.adviceList.innerHTML = adviceFor(level).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+
+      el.sysDot.style.background =
+        level === "ok" ? "var(--ok)" :
+        level === "warn" ? "var(--warn)" :
+        level === "danger" ? "var(--danger)" : "var(--critical)";
+      el.sysState.textContent =
+        level === "ok" ? "READY" :
+        level === "warn" ? "CAUTION" :
+        level === "danger" ? "WARNING" : "CRITICAL";
+    }
+
+    // ---------- Toast ----------
+    let toastTimer = null;
+    function toast(msg){
+      let node = $("#toast");
+      if(!node){
+        node = document.createElement("div");
+        node.id = "toast";
+        node.style.position = "fixed";
+        node.style.left = "50%";
+        node.style.bottom = "24px";
+        node.style.transform = "translateX(-50%)";
+        node.style.padding = "12px 14px";
+        node.style.borderRadius = "999px";
+        node.style.border = "1px solid rgba(255,255,255,.14)";
+        node.style.background = "rgba(0,0,0,.30)";
+        node.style.backdropFilter = "blur(12px)";
+        node.style.boxShadow = "0 14px 40px rgba(0,0,0,.45)";
+        node.style.color = "rgba(233,238,252,.95)";
+        node.style.fontWeight = "900";
+        node.style.letterSpacing = ".02em";
+        node.style.zIndex = 9999;
+        node.style.opacity = "0";
+        node.style.transition = "opacity .18s ease, transform .18s ease";
+        document.body.appendChild(node);
+      }
+      node.textContent = msg;
+      node.style.opacity = "1";
+      node.style.transform = "translateX(-50%) translateY(-2px)";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        node.style.opacity = "0";
+        node.style.transform = "translateX(-50%) translateY(6px)";
+      }, 1400);
+    }
+
+    // ---------- Clock ----------
+    function updateClock(){
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2,"0");
+      const mm = String(d.getMinutes()).padStart(2,"0");
+      const ss = String(d.getSeconds()).padStart(2,"0");
+      el.clock.textContent = `${hh}:${mm}:${ss}`;
+    }
+
+    // ---------- Simulation engine ----------
+    function tick(dt){
+      if(state.paused) return;
+      state.t += dt;
+
+      const wob = Math.sin(state.t*0.0012);
+      const wob2 = Math.sin(state.t*0.0007 + 1.2);
+      state.speed_kmh = 840 + wob*14 + wob2*8;
+      state.oat_C = -45 + wob2*2 - wob*1.2;
+
+      if(state.sim === "auto"){
+        if(state.mode === "alt"){
+          const base = parseFloat(el.altRange.value);
+          const drift = (Math.sin(state.t*0.0009)*14 + Math.sin(state.t*0.0017)*8);
+          syncFromAltitude(base + drift);
+        }else{
+          const base = parseFloat(el.pressRange.value);
+          const drift = (Math.sin(state.t*0.0011)*2 + Math.sin(state.t*0.0019)*1);
+          syncFromPressure(base + drift);
+        }
+      }
+    }
+
+    // ---------- Canvas ----------
+    const ctx = el.canvas.getContext("2d");
+    let DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    let stars = [];
+    const fontMono = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace";
+    const fontSans = "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial";
+
+    function resizeCanvas(){
+      const r = el.canvas.getBoundingClientRect();
+      el.canvas.width = Math.floor(r.width * DPR);
+      el.canvas.height = Math.floor(r.height * DPR);
+      seedStars();
+    }
+    window.addEventListener("resize", () => {
+      DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      resizeCanvas();
+    });
+    function seedStars(){
+      const w = el.canvas.width, h = el.canvas.height;
+      stars = [];
+      const n = Math.floor((w*h) / 45000);
+      for(let i=0;i<n;i++){
+        stars.push({
+          x: Math.random()*w,
+          y: Math.random()*h*0.65,
+          r: Math.random()*1.6 + 0.2,
+          a: Math.random()*0.6 + 0.2,
+          tw: Math.random()*0.9 + 0.1
+        });
+      }
+    }
+    function lerp(a,b,t){ return a + (b-a)*t; }
+    function quadBezierY(t, y0, y1, y2){
+      const inv = 1-t;
+      return inv*inv*y0 + 2*inv*t*y1 + t*t*y2;
+    }
+    function drawAircraft(x,y,u){
+      const w = el.canvas.width, h = el.canvas.height;
+      const du = 0.01;
+      const arcY = h*0.58;
+      const yA = quadBezierY(clamp(u-du,0,1), arcY, h*0.34, arcY);
+      const yB = quadBezierY(clamp(u+du,0,1), arcY, h*0.34, arcY);
+      const dx = lerp(w*0.10, w*0.90, u+du) - lerp(w*0.10, w*0.90, u-du);
+      const dy = yB - yA;
+      const ang = Math.atan2(dy, dx);
+
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.rotate(ang);
+
+      ctx.globalAlpha = .98;
+      ctx.fillStyle = "rgba(233,238,252,.90)";
+      ctx.strokeStyle = "rgba(0,0,0,.28)";
+      ctx.lineWidth = 1.4*DPR;
+
+      ctx.beginPath();
+      ctx.moveTo(-22*DPR, 0);
+      ctx.quadraticCurveTo(0, -10*DPR, 28*DPR, 0);
+      ctx.quadraticCurveTo(0, 10*DPR, -22*DPR, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(233,238,252,.82)";
+      ctx.beginPath();
+      ctx.moveTo(-2*DPR, 0);
+      ctx.lineTo(-18*DPR, -18*DPR);
+      ctx.lineTo(6*DPR, -4*DPR);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-2*DPR, 0);
+      ctx.lineTo(-18*DPR, 18*DPR);
+      ctx.lineTo(6*DPR, 4*DPR);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(233,238,252,.75)";
+      ctx.beginPath();
+      ctx.moveTo(-14*DPR, 0);
+      ctx.lineTo(-24*DPR, -10*DPR);
+      ctx.lineTo(-12*DPR, -6*DPR);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    }
+    function drawGauge(w,h){
+      const cx = w*0.5, cy = h*0.62;
+      const r0 = Math.min(w,h) * 0.23;
+
+      const P = state.cabinPress_hPa;
+      const alt = state.cabinAlt_m;
+      const { avail } = oxygenAvailability(P);
+
+      ctx.save();
+      ctx.translate(cx,cy);
+
+      ctx.globalAlpha = .95;
+      ctx.strokeStyle = "rgba(255,255,255,.10)";
+      ctx.lineWidth = 14*DPR;
+      ctx.beginPath();
+      ctx.arc(0,0,r0, Math.PI*0.95, Math.PI*2.05);
+      ctx.stroke();
+
+      const stress = clamp(alt/5000, 0, 1);
+      const start = Math.PI*0.95;
+      const end = start + (Math.PI*1.1) * stress;
+
+      const col =
+        state.level === "ok" ? "rgba(110,231,183,.70)" :
+        state.level === "warn" ? "rgba(251,191,36,.72)" :
+        state.level === "danger" ? "rgba(251,113,133,.75)" :
+        "rgba(244,63,94,.80)";
+
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 14*DPR;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.arc(0,0,r0, start, end);
+      ctx.stroke();
+
+      const ig = ctx.createRadialGradient(0,-r0*0.4, 10, 0,0, r0*1.3);
+      ig.addColorStop(0, "rgba(255,255,255,.10)");
+      ig.addColorStop(1, "rgba(0,0,0,.25)");
+      ctx.fillStyle = ig;
+      ctx.beginPath();
+      ctx.arc(0,0,r0*0.78, 0, Math.PI*2);
+      ctx.fill();
+
+      ctx.globalAlpha = .95;
+      ctx.fillStyle = "rgba(233,238,252,.92)";
+      ctx.font = `900 ${Math.floor(18*DPR)}px ${fontMono}`;
+      ctx.textAlign = "center";
+      ctx.fillText(`${Math.round(avail)}% O₂`, 0, -4*DPR);
+
+      ctx.font = `800 ${Math.floor(12*DPR)}px ${fontSans}`;
+      ctx.fillStyle = "rgba(169,179,214,.95)";
+      ctx.fillText(`Cabin ${Math.round(alt)} m • ${Math.round(P)} hPa`, 0, 18*DPR);
+
+      ctx.restore();
+      ctx.globalAlpha = 1;
+    }
+    function draw(){
+      if(document.hidden) {
+        requestAnimationFrame(draw);
+        return;
+      }
+
+      const w = el.canvas.width, h = el.canvas.height;
+      ctx.clearRect(0,0,w,h);
+
+      const g = ctx.createLinearGradient(0,0,0,h);
+      g.addColorStop(0, "rgba(8,10,18,1)");
+      g.addColorStop(0.55, "rgba(10,14,26,1)");
+      g.addColorStop(1, "rgba(7,8,14,1)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,w,h);
+
+      const hg = ctx.createRadialGradient(w*0.5,h*0.62, 10, w*0.5,h*0.62, w*0.9);
+      hg.addColorStop(0, (state.theme==="light") ? "rgba(34,211,238,.06)" : "rgba(139,92,246,.10)");
+      hg.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = hg;
+      ctx.fillRect(0,0,w,h);
+
+      for(const s of stars){
+        const tw = 0.5 + 0.5*Math.sin(state.t*0.001*s.tw + s.x*0.01);
+        ctx.globalAlpha = s.a * (0.6 + 0.4*tw);
+        ctx.fillStyle = "rgba(233,238,252,1)";
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r*DPR, 0, Math.PI*2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      const cloudAlpha = (state.theme==="light") ? 0.10 : 0.14;
+      for(let i=0;i<6;i++){
+        const px = (w*0.12) + i*(w*0.16) + Math.sin(state.t*0.0005 + i)*35*DPR;
+        const py = h*0.70 + Math.sin(state.t*0.0007 + i*1.7)*18*DPR;
+        const cg = ctx.createRadialGradient(px,py, 10, px,py, 180*DPR);
+        cg.addColorStop(0, `rgba(255,255,255,${cloudAlpha})`);
+        cg.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = cg;
+        ctx.fillRect(px-220*DPR, py-120*DPR, 440*DPR, 240*DPR);
+      }
+
+      const arcY = h*0.58;
+      ctx.globalAlpha = .30;
+      ctx.strokeStyle = (state.theme==="light") ? "rgba(34,211,238,.28)" : "rgba(139,92,246,.35)";
+      ctx.lineWidth = 2*DPR;
+      ctx.beginPath();
+      ctx.moveTo(w*0.10, arcY);
+      ctx.quadraticCurveTo(w*0.50, h*0.34, w*0.90, arcY);
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      const u = (0.5 + 0.5*Math.sin(state.t*0.00028));
+      const ax = lerp(w*0.10, w*0.90, u);
+      const ay = quadBezierY(u, arcY, h*0.34, arcY);
+
+      const glow =
+        state.level === "ok" ? "rgba(110,231,183,.25)" :
+        state.level === "warn" ? "rgba(251,191,36,.28)" :
+        state.level === "danger" ? "rgba(251,113,133,.30)" :
+        "rgba(244,63,94,.32)";
+
+      const ag = ctx.createRadialGradient(ax,ay, 10*DPR, ax,ay, 120*DPR);
+      ag.addColorStop(0, glow);
+      ag.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = ag;
+      ctx.fillRect(ax-130*DPR, ay-130*DPR, 260*DPR, 260*DPR);
+
+      drawAircraft(ax, ay, u);
+      drawGauge(w, h);
+
+      ctx.globalAlpha = .9;
+      const vg = ctx.createRadialGradient(w*0.5,h*0.55, w*0.15, w*0.5,h*0.55, w*0.8);
+      vg.addColorStop(0, "rgba(0,0,0,0)");
+      vg.addColorStop(1, "rgba(0,0,0,.55)");
+      ctx.fillStyle = vg;
+      ctx.fillRect(0,0,w,h);
+      ctx.globalAlpha = 1;
+    }
+
+    // ---------- Projects showcase ----------
+    let activeTag = "All";
+    function renderProjects(){
+      const q = ""; 
+      const list = (state.config.projects || []).filter(p => {
+        const tagOK = (activeTag === "All") || (p.tags || []).includes(activeTag);
+        const qOK = !q || ((p.title||"") + " " + (p.desc||"") + " " + (p.tags||[]).join(" ")).toLowerCase().includes(q);
+        return tagOK && qOK;
+      });
+
+      el.projCards.innerHTML = list.map(p => `
+        <div class="projCard">
+          <div class="inner">
+            <h3>${escapeHtml(p.title || "")}</h3>
+            <p>${escapeHtml(p.desc || "")}</p>
+            <div class="tags">${(p.tags || []).map(tg => `<span class="tag">${escapeHtml(tg)}</span>`).join("")}</div>
+            <div class="actions">
+              <button class="linkBtn" data-url="${escapeHtml(p.url || "#")}">${escapeHtml(p.cta || "Open")}</button>
+              <span class="small">• Premium showcase</span>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      $$(".linkBtn", el.projCards).forEach(btn => {
+        btn.addEventListener("click", () => safeOpen(btn.dataset.url));
+      });
+    }
+
+    // ---------- Services UI ----------
+    function thumbSvg(emoji){
+      const a1 = "rgba(139,92,246,.45)";
+      const a2 = "rgba(34,211,238,.25)";
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="${a1}"/>
+              <stop offset="1" stop-color="${a2}"/>
+            </linearGradient>
+          </defs>
+          <rect width="256" height="256" rx="44" fill="url(#g)"/>
+          <circle cx="188" cy="70" r="64" fill="rgba(255,255,255,.08)"/>
+          <circle cx="58" cy="206" r="74" fill="rgba(0,0,0,.18)"/>
+          <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                font-size="110" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji">${emoji||"🍽️"}</text>
+          <text x="50%" y="86%" dominant-baseline="middle" text-anchor="middle"
+                font-size="18" fill="rgba(255,255,255,.75)" font-family="${fontMono}">IN-FLIGHT</text>
+        </svg>
+      `.trim();
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
+    let order = loadOrder();
+    let modalItem = null;
+    let modalQty = 1;
+
+    function setStepper(step){
+      $$("#entStepper .step").forEach(s => s.classList.toggle("on", s.dataset.step === String(step)));
+    }
+
+    function syncOrderUI(){
+      order = loadOrder();
+      const { sum, qty } = orderTotals(order);
+      el.entCartCount.textContent = String(qty);
+      el.entSeatMini.textContent = `SEAT: ${seatKey()}`;
+
+    const label =
+      order.status === "sent" ? (state.lang==="vi" ? "ĐÃ GỬI" : "SENT") :
+      order.status === "confirmed" ? (state.lang==="vi" ? "ĐÃ XÁC NHẬN" : "CONFIRMED") :
+      (state.lang==="vi" ? "NHÁP" : "DRAFT");
+      el.orderStateVal.textContent = label;
+
+      el.orderStateSub.innerHTML = [
+        `Ghế: <b>${escapeHtml(seatKey())}</b>`,
+        `Giỏ: <b>${qty}</b> • <b>${escapeHtml(fmtMoney(sum))}</b>`,
+        `<span class="mono">${escapeHtml(order.updatedAt || "")}</span>`
+      ].join("<br/>");
+
+      el.orderNote.value = order.note || "";
+
+      if(order.status === "draft") setStepper(1);
+      if(order.status === "confirmed") setStepper(2);
+      if(order.status === "sent") setStepper(3);
+    }
+
+    function renderSvcPills(){
+      const cats = state.config.services?.categories || SERVICES_DEFAULT.categories;
+      el.svcPills.innerHTML = cats.map(c => {
+        const on = c.id === state.svcCat;
+        return `<button class="fp" aria-pressed="${on}" data-cat="${escapeHtml(c.id)}">${escapeHtml(c.icon)} ${escapeHtml(pickLang(c.name))}</button>`;
+      }).join("");
+      $$(".fp", el.svcPills).forEach(b => {
+        b.addEventListener("click", () => {
+          state.svcCat = b.dataset.cat;
+          renderSvcPills();
+          renderSvcGrid();
+        });
+      });
+
+      const current = cats.find(x => x.id === state.svcCat);
+      el.svcActive.textContent = current ? pickLang(current.name).toUpperCase() : "—";
+    }
+
+    function renderSvcGrid(){
+      const items = state.config.services?.items || SERVICES_DEFAULT.items;
+      const cats = state.config.services?.categories || SERVICES_DEFAULT.categories;
+      const q = (el.svcSearch.value || "").trim().toLowerCase();
+
+      const current = cats.find(x => x.id === state.svcCat);
+      el.entCatTitle.textContent = current ? pickLang(current.name) : "—";
+      el.entCatHint.textContent = state.lang === "vi"
+        ? "Chọn món → xem chi tiết → thêm vào giỏ"
+        : "Tap item → details → add to cart";
+
+      const list = items.filter(it => {
+        if(it.cat !== state.svcCat) return false;
+        const text = (pickLang(it.name) + " " + pickLang(it.desc) + " " + (it.allergens||[]).join(" ")).toLowerCase();
+        return !q || text.includes(q);
+      });
+
+      el.svcGrid.innerHTML = list.map(it => `
+        <div class="svcCard" tabindex="0" data-id="${escapeHtml(it.id)}">
+          <div class="svcInner">
+            <div class="svcThumb"><img alt="thumb" src="${thumbSvg(it.emoji)}"></div>
+            <div style="flex:1; min-width:0">
+              <h3 class="svcName">${escapeHtml(pickLang(it.name))}</h3>
+              <div class="svcDesc">${escapeHtml(pickLang(it.desc))}</div>
+              <div class="svcMeta">
+                <span class="svcPill">${escapeHtml(fmtMoney(it.priceVnd))}</span>
+                <span class="svcPill">${escapeHtml(String(it.kcal||0))} kcal</span>
+                ${(it.allergens||[]).slice(0,2).map(a=>`<span class="svcPill">${escapeHtml(a)}</span>`).join("")}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      $$(".svcCard", el.svcGrid).forEach(card => {
+        const open = () => openSvcModal(card.dataset.id);
+        card.addEventListener("click", open);
+        card.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } });
+      });
+    }
+
+    function openSvcModal(id){
+      const items = state.config.services?.items || SERVICES_DEFAULT.items;
+      const it = items.find(x => x.id === id);
+      if(!it) return;
+
+      modalItem = it;
+      modalQty = 1;
+
+      el.svcSeat.textContent = seatKey();
+      el.qtyVal.textContent = String(modalQty);
+      el.svcItemNote.value = "";
+
+      el.svcImg.src = thumbSvg(it.emoji);
+      el.svcName.textContent = pickLang(it.name);
+      el.svcDesc.textContent = pickLang(it.desc);
+
+      el.svcTags.innerHTML = [
+        `<span class="tag">${escapeHtml(fmtMoney(it.priceVnd))}</span>`,
+        `<span class="tag">${escapeHtml(String(it.kcal||0))} kcal</span>`,
+        ...(it.allergens||[]).map(a=>`<span class="tag">${escapeHtml(a)}</span>`)
+      ].join("");
+
+      el.svcExtra.innerHTML = `
+        <b>Thông tin:</b><br/>
+        • Danh mục: <span class="mono">${escapeHtml(it.cat)}</span><br/>
+        • Giá: <span class="mono">${escapeHtml(fmtMoney(it.priceVnd))}</span><br/>
+        • Số lượng: <span class="mono" id="svcExtraQty">${modalQty}</span><br/>
+        <div class="hr"></div>
+        <b>Gợi ý:</b> nếu có dị ứng thực phẩm, hãy báo tiếp viên trước khi dùng.
+      `;
+
+      showSvcModal(true);
+      pushLog("svc_open", { id });
+    }
+
+    function showSvcModal(on){
+      el.svcMask.classList.toggle("show", !!on);
+      el.svcMask.setAttribute("aria-hidden", on ? "false" : "true");
+    }
+
+    function addToCart(item, qty, note){
+      order = loadOrder();
+      const idx = (order.items||[]).findIndex(x => x.id === item.id);
+      if(idx >= 0){
+        order.items[idx].qty += qty;
+        if(note && note.trim()) order.items[idx].note = note.trim();
+      }else{
+        order.items.push({
+          id: item.id,
+          name: pickLang(item.name),
+          priceVnd: item.priceVnd,
+          qty,
+          note: (note||"").trim()
+        });
+      }
+      order.status = "draft";
+      saveOrder(order);
+      syncOrderUI();
+      toast("Đã thêm vào giỏ");
+      pushLog("cart_add", { id:item.id, qty });
+    }
+
+    function showCartToast(){
+      order = loadOrder();
+      const { sum, qty } = orderTotals(order);
+      if(qty === 0){
+        toast("Chưa có món nào.");
+        return;
+      }
+      const lines = order.items.slice(0, 6).map(it => `${it.qty}× ${it.name}`).join(" • ");
+      toast(`${qty} món • ${fmtMoney(sum)} • ${lines}`);
+    }
+
+    // ---------- Apps ----------
+    function renderApps(){
+      const apps = state.config.apps || [];
+      el.appGrid.innerHTML = apps.map(a => `
+        <button class="appTile" data-url="${escapeHtml(a.url || "#")}">
+          <div class="name">${escapeHtml(a.name || "")}</div>
+          <div class="desc">${escapeHtml(a.desc || "")}</div>
+          <div class="mini">${escapeHtml(a.hint || "")}</div>
+        </button>
+      `).join("");
+      $$(".appTile", el.appGrid).forEach(tile => {
+        tile.addEventListener("click", () => safeOpen(tile.dataset.url));
+      });
+    }
+
+    // ---------- Media library ----------
+    function renderMedia(){
+      const lib = state.config.ife?.library || [];
+      el.mediaCount.textContent = String(lib.length);
+      el.mediaBtns.innerHTML = lib.slice(0, 10).map((m,i) => `
+        <button class="btn" data-i="${i}">▶ ${escapeHtml(pickLang(m.title) || ("Media " + (i+1)))}</button>
+      `).join("");
+
+      $$(".btn", el.mediaBtns).forEach(b => {
+        b.addEventListener("click", () => {
+          const idx = parseInt(b.dataset.i, 10);
+          const item = lib[idx];
+          if(!item?.url){
+            toast("Media URL thiếu trong CMS.");
+            pushLog("media_blocked", { idx, reason:"missing_url" });
+            return;
+          }
+          if(/^https?:\/\//i.test(item.url)){
+            const host = normalizeHost(item.url);
+            if(!hostAllowed(host, state.config.whitelist || [])){
+              toast("Media bị chặn bởi whitelist.");
+              pushLog("media_blocked", { idx, url:item.url, host, reason:"not_in_whitelist" });
+              return;
+            }
+          }
+          el.ifeMode.textContent = "URL";
+          el.video.src = item.url;
+          el.video.play().catch(()=>{});
+          toast((state.lang==="vi" ? "Đang phát: " : "Playing: ") + (pickLang(item.title)||"Media"));
+          pushLog("media_play", { idx, title: pickLang(item.title), url:item.url });
+        });
+      });
+    }
+
+    // ---------- Video (local) ----------
+    function loadVideoFile(file){
+      if (state.currentVideoBlob) {
+        URL.revokeObjectURL(state.currentVideoBlob);
+      }
+      const url = URL.createObjectURL(file);
+      state.currentVideoBlob = url; 
+
+      el.ifeMode.textContent = "LOCAL";
+      el.video.src = url;
+      el.video.play().catch(()=>{});
+      toast(`Loaded: ${file.name}`);
+      pushLog("video_local_loaded", { name:file.name, size:file.size });
+    }
+    
+    function wireVideo(){
+      el.btnPickVideo.addEventListener("click", () => el.fileVideo.click());
+      el.fileVideo.addEventListener("change", (e) => {
+        const f = e.target.files && e.target.files[0];
+        if(!f) return;
+        loadVideoFile(f);
+      });
+
+      el.btnStopVideo.addEventListener("click", () => {
+        el.video.pause();
+        el.video.removeAttribute("src");
+        el.video.load();
+        
+        if(state.currentVideoBlob) {
+          URL.revokeObjectURL(state.currentVideoBlob);
+          state.currentVideoBlob = null;
+        }
+        
+        toast("Stopped");
+        pushLog("video_stop", {});
+      });
+
+      el.drop.addEventListener("dragover", (e) => { e.preventDefault(); el.drop.style.background = "rgba(255,255,255,.06)"; });
+      el.drop.addEventListener("dragleave", () => { el.drop.style.background = "rgba(0,0,0,.18)"; });
+      el.drop.addEventListener("drop", (e) => {
+        e.preventDefault();
+        el.drop.style.background = "rgba(0,0,0,.18)";
+        const f = e.dataTransfer.files && e.dataTransfer.files[0];
+        if(f) loadVideoFile(f);
+      });
+    }
+
+    // ---------- Settings modal ----------
+    function showSettings(on){
+      el.modalMask.classList.toggle("show", !!on);
+      el.modalMask.setAttribute("aria-hidden", on ? "false" : "true");
+      if(on){
+        el.seatIdInput.value = state.seat.id === "—" ? "" : state.seat.id;
+        el.profileInput.value = state.seat.profile || "adult";
+        el.langInput.value = state.lang;
+
+        el.brandTitleInput.value = state.config.brand?.title || "";
+        el.brandSubInput.value = state.config.brand?.subtitle || "";
+        el.whitelistInput.value = (state.config.whitelist || []).join("\n");
+
+        refreshExport();
+        refreshLogs();
+      }
+    }
+    function setPane(p){
+      const panes = { seat: el.paneSeat, cms: el.paneCMS, security: el.paneSecurity, logs: el.paneLogs };
+      Object.entries(panes).forEach(([k,node]) => node.style.display = (k === p) ? "block" : "none");
+      el.navItems.forEach(b => b.setAttribute("aria-pressed", b.dataset.pane === p ? "true" : "false"));
+    }
+    function refreshExport(){ el.configPreview.value = JSON.stringify(state.config, null, 2); }
+    function refreshLogs(){
+      const logs = getLogs();
+      el.logsBox.value = logs.map(x => `[${x.t}] ${x.type} ${JSON.stringify(x.meta)}`).join("\n");
+    }
+
+    // ---------- Wiring ----------
+    function wireUI(){
+      // Tabs
+      el.tabBtns.forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+      window.addEventListener("hashchange", initHash);
+
+      // Safety mode
+      el.modeAlt.addEventListener("click", () => setMode("alt"));
+      el.modePress.addEventListener("click", () => setMode("press"));
+
+      // Sliders -> manual
+      el.altRange.addEventListener("input", () => {
+        if(state.mode !== "alt") return;
+        setSim("manual");
+        syncFromAltitude(parseFloat(el.altRange.value));
+        renderSafety();
+      });
+      el.pressRange.addEventListener("input", () => {
+        if(state.mode !== "press") return;
+        setSim("manual");
+        syncFromPressure(parseFloat(el.pressRange.value));
+        renderSafety();
+      });
+
+      // Sim toggle
+      el.btnSim.addEventListener("click", () => {
+        setSim(state.sim === "auto" ? "manual" : "auto");
+        toast("Simulation: " + state.sim.toUpperCase());
+      });
+
+      // Pause
+      el.btnPause.addEventListener("click", () => {
+        state.paused = !state.paused;
+        el.btnPause.textContent = state.paused ? (state.lang==="vi"?"Tiếp tục":"Resume") : (state.lang==="vi"?"Tạm dừng":"Pause");
+        toast(state.paused ? "Paused" : "Resumed");
+        pushLog("pause_toggle", { paused: state.paused });
+      });
+
+      // Reset
+      el.btnReset.addEventListener("click", () => {
+        state.paused = false;
+        state.alertTest = false;
+        state.calm = false;
+        setMode("alt");
+        setSim("auto");
+        el.altRange.value = 2400;
+        el.pressRange.value = 750;
+        syncFromAltitude(2400);
+        el.btnPause.textContent = state.lang==="vi" ? "Tạm dừng" : "Pause";
+        toast("Reset");
+        pushLog("reset", {});
+        renderSafety();
+      });
+
+      // Language toggle
+      el.btnLang.addEventListener("click", () => {
+        state.lang = (state.lang === "vi") ? "en" : "vi";
+        applyLang();
+        applyTheme();
+        saveSeat();
+        toast(state.lang==="vi" ? "Đã chuyển VI" : "Switched to EN");
+      });
+
+      // Theme toggle
+      if(el.btnTheme){
+        el.btnTheme.addEventListener("click", () => {
+          state.theme = (state.theme === "light") ? "dark" : "light";
+          applyTheme();
+          saveSeat();
+          toast(state.theme === "light" ? "Giao diện: LIGHT" : "Giao diện: DARK");
+        });
+      }
+
+      // Overlay collapse
+      el.ovToggle.addEventListener("click", () => {
+        el.overlay.classList.toggle("min");
+        el.ovToggle.textContent = el.overlay.classList.contains("min") ? "▸" : "▾";
+        pushLog("overlay_toggle", { min: el.overlay.classList.contains("min") });
+      });
+
+      // Services search (Debounced)
+      el.btnClearSvcSearch.addEventListener("click", () => { el.svcSearch.value=""; renderSvcGrid(); });
+      el.svcSearch.addEventListener("input", debounce(renderSvcGrid, 250));
+
+      // Menu / Showcase seg
+      el.entBtnMenu.addEventListener("click", () => {
+        el.entBtnMenu.setAttribute("aria-pressed","true");
+        el.entBtnShowcase.setAttribute("aria-pressed","false");
+        el.menuWrap.style.display = "block";
+        el.showcaseWrap.style.display = "none";
+      });
+      el.entBtnShowcase.addEventListener("click", () => {
+        el.entBtnMenu.setAttribute("aria-pressed","false");
+        el.entBtnShowcase.setAttribute("aria-pressed","true");
+        el.menuWrap.style.display = "none";
+        el.showcaseWrap.style.display = "block";
+      });
+
+      // Cart quick view
+      el.entCartBtn.addEventListener("click", showCartToast);
+      el.btnViewCart.addEventListener("click", showCartToast);
+
+      // Order note
+      el.orderNote.addEventListener("input", () => {
+        order = loadOrder();
+        order.note = el.orderNote.value || "";
+        saveOrder(order);
+        syncOrderUI();
+      });
+
+      // Confirm / Send / Clear
+      el.btnConfirmOrder.addEventListener("click", () => {
+        order = loadOrder();
+        if((order.items||[]).length === 0){
+          toast("Giỏ trống.");
+          return;
+        }
+        order.status = "confirmed";
+        saveOrder(order);
+        syncOrderUI();
+        toast("Đã xác nhận");
+        pushLog("order_confirmed", { seat: seatKey() });
+      });
+
+      el.btnSendOrder.addEventListener("click", () => {
+        order = loadOrder();
+        if((order.items||[]).length === 0){
+          toast("Giỏ trống.");
+          return;
+        }
+        if(order.status !== "confirmed"){
+          toast("Hãy bấm “Xác nhận” trước.");
+          return;
+        }
+        order.status = "sent";
+        saveOrder(order);
+        syncOrderUI();
+        toast("Đã gửi (mô phỏng)");
+        pushLog("order_sent", { seat: seatKey(), items: order.items.length });
+      });
+
+      el.btnClearOrder.addEventListener("click", () => {
+        const all = getAllOrders();
+        delete all[seatKey()];
+        saveAllOrders(all);
+        syncOrderUI();
+        toast("Đã xóa đơn");
+        pushLog("order_cleared", { seat: seatKey() });
+      });
+
+      // Service modal
+      el.svcClose.addEventListener("click", () => showSvcModal(false));
+      el.svcMask.addEventListener("click", (e)=>{ if(e.target === el.svcMask) showSvcModal(false); });
+
+      el.qtyMinus.addEventListener("click", () => {
+        modalQty = Math.max(1, modalQty - 1);
+        el.qtyVal.textContent = String(modalQty);
+        const qn = $("#svcExtraQty");
+        if(qn) qn.textContent = String(modalQty);
+      });
+      el.qtyPlus.addEventListener("click", () => {
+        modalQty = Math.min(12, modalQty + 1);
+        el.qtyVal.textContent = String(modalQty);
+        const qn = $("#svcExtraQty");
+        if(qn) qn.textContent = String(modalQty);
+      });
+
+      el.svcAdd.addEventListener("click", () => {
+        if(!modalItem) return;
+        addToCart(modalItem, modalQty, el.svcItemNote.value || "");
+        showSvcModal(false);
+      });
+      el.svcViewCart.addEventListener("click", () => {
+        showSvcModal(false);
+        showCartToast();
+      });
+
+      // Video
+      wireVideo();
+
+      // Settings
+      el.btnSettings.addEventListener("click", () => showSettings(true));
+      el.btnCloseSettings.addEventListener("click", () => showSettings(false));
+      el.modalMask.addEventListener("click", (e) => { if(e.target === el.modalMask) showSettings(false); });
+      el.navItems.forEach(b => b.addEventListener("click", () => setPane(b.dataset.pane)));
+
+      // Seat save/reset
+      el.btnSaveSeat.addEventListener("click", () => {
+        state.seat.id = (el.seatIdInput.value || "").trim() || "—";
+        state.seat.profile = el.profileInput.value || "adult";
+        state.lang = el.langInput.value || "vi";
+        applySeatUI();
+        applyLang();
+        saveSeat();
+        syncOrderUI();
+        toast("Đã lưu ghế");
+      });
+      el.btnResetSeat.addEventListener("click", () => {
+        state.seat = { id:"—", profile:"adult" };
+        state.lang = "vi";
+        applySeatUI();
+        applyLang();
+        saveSeat();
+        syncOrderUI();
+        toast("Đã reset ghế");
+      });
+
+      // CMS import 
+      el.configFile.addEventListener("change", async (e) => {
+        const f = e.target.files && e.target.files[0];
+        if(!f) return;
+        try{
+          const txt = await f.text(); 
+          const incoming = JSON.parse(txt);
+          state.config = mergeConfig(structuredCloneSafe(FACTORY), incoming);
+          saveConfig(state.config);
+          applyBrand();
+          renderProjects();
+          renderApps();
+          renderMedia();
+          renderSvcPills();
+          renderSvcGrid();
+          el.brandTitleInput.value = state.config.brand?.title || "";
+          el.brandSubInput.value = state.config.brand?.subtitle || "";
+          el.whitelistInput.value = (state.config.whitelist || []).join("\n");
+          refreshExport();
+          toast("Đã import config");
+          pushLog("config_import", { name: f.name, size: f.size });
+        }catch(err){
+          toast("Import thất bại (JSON lỗi).");
+          pushLog("config_import_failed", { err: String(err) });
+        }finally{
+          e.target.value = "";
+        }
+      });
+
+      // Apply brand
+      el.btnApplyBrand.addEventListener("click", () => {
+        state.config.brand = state.config.brand || {};
+        state.config.brand.title = (el.brandTitleInput.value || "").trim() || FACTORY.brand.title;
+        state.config.brand.subtitle = (el.brandSubInput.value || "").trim() || FACTORY.brand.subtitle;
+        saveConfig(state.config);
+        applyBrand();
+        refreshExport();
+        toast("Đã áp dụng brand");
+      });
+
+      el.btnExport.addEventListener("click", () => { refreshExport(); toast("Đã làm mới export"); });
+
+      el.btnFactory.addEventListener("click", () => {
+        state.config = structuredCloneSafe(FACTORY);
+        saveConfig(state.config);
+        applyBrand();
+        renderProjects();
+        renderApps();
+        renderMedia();
+        renderSvcPills();
+        renderSvcGrid();
+        el.brandTitleInput.value = state.config.brand.title;
+        el.brandSubInput.value = state.config.brand.subtitle;
+        el.whitelistInput.value = (state.config.whitelist || []).join("\n");
+        refreshExport();
+        toast("Đã khôi phục mặc định");
+        pushLog("factory_defaults", {});
+      });
+
+      // Whitelist save
+      el.btnSaveWhitelist.addEventListener("click", () => {
+        const list = (el.whitelistInput.value || "")
+          .split("\n").map(x => x.trim()).filter(Boolean);
+        state.config.whitelist = Array.from(new Set(list));
+        if(!state.config.whitelist.includes("upload.wikimedia.org")) state.config.whitelist.push("upload.wikimedia.org");
+        saveConfig(state.config);
+        refreshExport();
+        toast("Đã lưu whitelist");
+        pushLog("whitelist_saved", { count: state.config.whitelist.length });
+      });
+
+      el.btnTighten.addEventListener("click", () => {
+        state.config.whitelist = ["intranet.airline.local"];
+        el.whitelistInput.value = state.config.whitelist.join("\n");
+        saveConfig(state.config);
+        refreshExport();
+        toast("Đã siết whitelist");
+        pushLog("whitelist_tighten", {});
+      });
+
+      // Logs
+      el.btnRefreshLogs.addEventListener("click", () => { refreshLogs(); toast("Đã làm mới log"); });
+      el.btnClearLogs.addEventListener("click", () => {
+        localStorage.setItem(KEY.logs, "[]");
+        refreshLogs();
+        toast("Đã xóa log");
+      });
+      el.btnCopyLogs.addEventListener("click", async () => {
+        try{
+          await navigator.clipboard.writeText(el.logsBox.value || "");
+          toast("Copied");
+        }catch{
+          toast("Copy failed");
+        }
+      });
+
+      // ESC closes modals
+      window.addEventListener("keydown", (e) => {
+        if(e.key === "Escape"){
+          if(el.modalMask.classList.contains("show")) showSettings(false);
+          if(el.svcMask.classList.contains("show")) showSvcModal(false);
+        }
+      });
+    }
+
+    // ---------- Boot ----------
+    function initSeatAndLang(){
+      applyTheme();
+      loadSeat();
+      applySeatUI();
+      applyLang();
+      el.profileInput.value = state.seat.profile || "adult";
+      el.langInput.value = state.lang;
+    }
+
+    function boot(){
+      applyTheme();
+      initHash();
+      initSeatAndLang();
+      applyBrand();
+
+      // init safety
+      setMode("alt");
+      setSim("auto");
+      syncFromAltitude(state.cabinAlt_m);
+
+      // canvas
+      DPR = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      resizeCanvas();
+
+      // views
+      renderProjects();
+      renderApps();
+      renderMedia();
+      renderSvcPills();
+      renderSvcGrid();
+      syncOrderUI();
+
+      // wire
+      wireUI();
+
+      // clock
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // loop
+      requestAnimationFrame(loop);
+      pushLog("boot", { v: "3" });
+    }
+
+    let last = performance.now();
+    function loop(now){
+      const dt = now - last;
+      last = now;
+
+      tick(dt);
+      renderSafety();
+      draw();
+
+      requestAnimationFrame(loop);
+    }
+
+    boot();
+  </script>
 </body>
 </html>
