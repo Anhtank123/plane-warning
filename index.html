@@ -1210,7 +1210,255 @@
       .svcModalBody{ grid-template-columns: 1fr; }
       .svcModalLeft{ border-right:0; border-bottom: 1px solid rgba(255,255,255,.10); }
     }
-  </style>
+  
+
+/* MONTEREY BLUE LIGHT THEME v1 */
+/* Visual goals:
+   - White content, soft gray chrome, deep black text, blue highlights.
+   - Desktop-app clarity: borders + spacing + subtle shadow, not neon.
+   - Strong readability: override legacy "dark" text colors when in light mode.
+*/
+
+:root[data-theme="light"]{
+  color-scheme: light;
+
+  /* neutrals */
+  --bg0: #F2F3F5;
+  --bg1: #FFFFFF;
+
+  --ink: #0B0C0F;
+  --muted: #2E3138;
+  --dim: #6B7280;
+
+  --line: rgba(15, 18, 28, .10);
+
+  /* accents */
+  --accent: #0A84FF;
+  --accent2: #007AFF;
+
+  /* status (system-like) */
+  --ok:#34C759;
+  --warn:#FF9F0A;
+  --danger:#FF453A;
+  --critical:#FF3B30;
+
+  /* focus ring */
+  --focus: 0 0 0 4px rgba(10,132,255,.22);
+
+  /* material */
+  --glass: rgba(255,255,255,.80);
+  --glass-solid: rgba(255,255,255,.92);
+
+  /* shadows */
+  --shadow-soft: 0 18px 60px rgba(0,0,0,.10);
+  --shadow-card: 0 10px 28px rgba(0,0,0,.10);
+  --shadow-float: 0 22px 70px rgba(0,0,0,.14);
+}
+
+/* App background: clean + subtle depth */
+:root[data-theme="light"] body{
+  color: var(--ink) !important;
+  background:
+    radial-gradient(1200px 700px at 20% 0%, rgba(10,132,255,.08), transparent 55%),
+    radial-gradient(900px 600px at 80% 15%, rgba(0,0,0,.05), transparent 55%),
+    linear-gradient(180deg, #FFFFFF, var(--bg0)) !important;
+}
+
+/* Tone down FX */
+:root[data-theme="light"] .fx{
+  opacity: .06 !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Remove dark-mode neon pseudo layers */
+:root[data-theme="light"] .topbar::before,
+:root[data-theme="light"] .panel::before,
+:root[data-theme="light"] .appTile::before,
+:root[data-theme="light"] .svcCard::before,
+:root[data-theme="light"] .projCard::before{ opacity:0 !important; }
+
+/* Topbar / panels: like app window chrome */
+:root[data-theme="light"] .topbar,
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .modal,
+:root[data-theme="light"] .svcModal,
+:root[data-theme="light"] .overlayAlert{
+  background: var(--glass) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: var(--shadow-soft) !important;
+  backdrop-filter: blur(22px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.2) !important;
+}
+
+/* Cards: white content */
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .appTile,
+:root[data-theme="light"] .svcCard,
+:root[data-theme="light"] .projCard,
+:root[data-theme="light"] .navItem{
+  background: var(--glass-solid) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+:root[data-theme="light"] .svcCard:hover,
+:root[data-theme="light"] .appTile:hover,
+:root[data-theme="light"] .navItem:hover{
+  box-shadow: var(--shadow-float) !important;
+}
+
+/* Typography: force contrast everywhere */
+:root[data-theme="light"] .brand h1,
+:root[data-theme="light"] .panelHeader h2,
+:root[data-theme="light"] .stageTop h2,
+:root[data-theme="light"] .modalTop h3,
+:root[data-theme="light"] .svcModalTop h3,
+:root[data-theme="light"] h3,
+:root[data-theme="light"] strong,
+:root[data-theme="light"] .svcName,
+:root[data-theme="light"] .value,
+:root[data-theme="light"] .v,
+:root[data-theme="light"] .n{
+  color: var(--ink) !important;
+}
+
+:root[data-theme="light"] .brand .sub,
+:root[data-theme="light"] .panelHeader .hint,
+:root[data-theme="light"] .label,
+:root[data-theme="light"] .micro,
+:root[data-theme="light"] .kpi .t,
+:root[data-theme="light"] .kpi .s,
+:root[data-theme="light"] .svcDesc,
+:root[data-theme="light"] .pill span{
+  color: var(--dim) !important;
+}
+
+:root[data-theme="light"] .small,
+:root[data-theme="light"] .status p,
+:root[data-theme="light"] .callout,
+:root[data-theme="light"] .mutedBox{
+  color: var(--muted) !important;
+}
+
+:root[data-theme="light"] .hr{ background: rgba(0,0,0,.08) !important; }
+
+/* Tabs: macOS segmented look (white thumb) */
+:root[data-theme="light"] .tabs,
+:root[data-theme="light"] .seg{
+  background: rgba(0,0,0,.06) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7) !important;
+}
+
+:root[data-theme="light"] .tabbtn{
+  color: rgba(0,0,0,.55) !important;
+}
+:root[data-theme="light"] .tabbtn:hover{ color: var(--ink) !important; }
+
+:root[data-theme="light"] .tabbtn[data-active="true"],
+:root[data-theme="light"] .seg button[aria-pressed="true"]{
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,.12) !important;
+  color: var(--ink) !important;
+}
+
+/* Tab icons */
+:root[data-theme="light"] .tabicon path{ stroke: rgba(0,0,0,.55) !important; }
+:root[data-theme="light"] .tabicon path[fill]{ fill: rgba(0,0,0,.55) !important; stroke:none !important; }
+:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path{ stroke: var(--ink) !important; }
+:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path[fill]{ fill: var(--ink) !important; }
+
+/* Inputs */
+:root[data-theme="light"] input,
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] .svcNote,
+:root[data-theme="light"] .searchBox,
+:root[data-theme="light"] .drop{
+  background: rgba(0,0,0,.03) !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+  color: var(--ink) !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.03) !important;
+}
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder,
+:root[data-theme="light"] .svcNote::placeholder{ color: var(--dim) !important; }
+
+/* Buttons */
+:root[data-theme="light"] .btn,
+:root[data-theme="light"] .svcBtn,
+:root[data-theme="light"] .qtyBtn,
+:root[data-theme="light"] .ovToggle,
+:root[data-theme="light"] .linkBtn{
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 6px 14px rgba(0,0,0,.10) !important;
+}
+
+:root[data-theme="light"] .btn:hover,
+:root[data-theme="light"] .svcBtn:hover,
+:root[data-theme="light"] .linkBtn:hover{
+  background: rgba(245,245,247,.96) !important;
+}
+
+:root[data-theme="light"] .btn.primary,
+:root[data-theme="light"] .svcBtn.primary,
+:root[data-theme="light"] .cartPillBtn{
+  background: var(--accent2) !important;
+  color: #fff !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 14px 28px rgba(0,122,255,.22) !important;
+}
+
+/* Pills/chips/tags: Monterey list chips */
+:root[data-theme="light"] .pill,
+:root[data-theme="light"] .chip,
+:root[data-theme="light"] .tag,
+:root[data-theme="light"] .svcPill,
+:root[data-theme="light"] .fp,
+:root[data-theme="light"] .badge{
+  background: rgba(255,255,255,.88) !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08) !important;
+}
+
+/* Modal sidebars (Monterey vibe) */
+:root[data-theme="light"] .modalNav,
+:root[data-theme="light"] .svcModalLeft{
+  background: rgba(0,0,0,.03) !important;
+}
+:root[data-theme="light"] .navItem[aria-pressed="true"]{
+  background: rgba(10,132,255,.14) !important;
+  border-color: rgba(10,132,255,.28) !important;
+  box-shadow: none !important;
+}
+
+/* Overlay alert */
+:root[data-theme="light"] .overlayAlert{
+  background: rgba(255,255,255,.92) !important;
+}
+:root[data-theme="light"] .overlayAlert .head{ border-bottom: 1px solid rgba(0,0,0,.08) !important; }
+:root[data-theme="light"] .overlayAlert .body{ color: var(--muted) !important; }
+:root[data-theme="light"] .overlayAlert .steps,
+:root[data-theme="light"] .overlayAlert .steps li{ color: var(--ink) !important; }
+
+/* Canvas frame */
+:root[data-theme="light"] canvas#sky{
+  border: 1px solid rgba(0,0,0,.12) !important;
+  box-shadow: var(--shadow-card) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(245,246,248,.95)) !important;
+}
+
+/* Scrollbar */
+:root[data-theme="light"] .panelBody::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.16) !important;
+  border: 2px solid rgba(255,255,255,.72) !important;
+}
+
+
+</style>
 </head>
 
 <body>
@@ -2560,10 +2808,14 @@ function applyI18NTextNodes(lang) {
 
     function applyTheme(){
       document.documentElement.setAttribute("data-theme", state.theme || "dark");
+      // remove any variant attrs from previous patches
+      document.documentElement.removeAttribute("data-light-variant");
+
       if(el.btnTheme){
-        el.btnTheme.textContent = (state.theme === "light") ? t("ui_theme_light") : t("ui_theme_dark");
+        el.btnTheme.textContent = (state.theme === "light") ? "Theme: LIGHT" : "Theme: DARK";
       }
     }
+
 
     
     function applyI18NStatic(){
@@ -3173,7 +3425,7 @@ function toast(msg){
       ctx.translate(cx,cy);
 
       ctx.globalAlpha = .95;
-      ctx.strokeStyle = "rgba(255,255,255,.10)";
+      ctx.strokeStyle = (state.theme==="light") ? "rgba(0,0,0,.10)" : "rgba(255,255,255,.10)";
       ctx.lineWidth = 14*DPR;
       ctx.beginPath();
       ctx.arc(0,0,r0, Math.PI*0.95, Math.PI*2.05);
@@ -3227,13 +3479,18 @@ function toast(msg){
       ctx.clearRect(0,0,w,h);
 
       const g = ctx.createLinearGradient(0,0,0,h);
-      g.addColorStop(0, "rgba(8,10,18,1)");
-      g.addColorStop(0.55, "rgba(10,14,26,1)");
-      g.addColorStop(1, "rgba(7,8,14,1)");
+      if(state.theme==="light"){
+        g.addColorStop(0, "rgba(255,255,255,1)");
+        g.addColorStop(0.55, "rgba(245,246,248,1)");
+        g.addColorStop(1, "rgba(236,238,242,1)");
+      }else{
+        g.addColorStop(0, "rgba(8,10,18,1)");
+        g.addColorStop(0.55, "rgba(10,14,26,1)");
+        g.addColorStop(1, "rgba(7,8,14,1)");
+      }
       ctx.fillStyle = g;
       ctx.fillRect(0,0,w,h);
-
-      const hg = ctx.createRadialGradient(w*0.5,h*0.62, 10, w*0.5,h*0.62, w*0.9);
+const hg = ctx.createRadialGradient(w*0.5,h*0.62, 10, w*0.5,h*0.62, w*0.9);
       hg.addColorStop(0, (state.theme==="light") ? "rgba(34,211,238,.06)" : "rgba(139,92,246,.10)");
       hg.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = hg;
@@ -3242,7 +3499,7 @@ function toast(msg){
       for(const s of stars){
         const tw = 0.5 + 0.5*Math.sin(state.t*0.001*s.tw + s.x*0.01);
         ctx.globalAlpha = s.a * (0.6 + 0.4*tw);
-        ctx.fillStyle = "rgba(233,238,252,1)";
+        ctx.fillStyle = (state.theme==="light") ? "rgba(0,0,0,0.18)" : "rgba(233,238,252,1)";
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r*DPR, 0, Math.PI*2);
         ctx.fill();
@@ -3292,7 +3549,7 @@ function toast(msg){
       ctx.globalAlpha = .9;
       const vg = ctx.createRadialGradient(w*0.5,h*0.55, w*0.15, w*0.5,h*0.55, w*0.8);
       vg.addColorStop(0, "rgba(0,0,0,0)");
-      vg.addColorStop(1, "rgba(0,0,0,.55)");
+      vg.addColorStop(1, (state.theme==="light") ? "rgba(0,0,0,.18)" : "rgba(0,0,0,.55)");
       ctx.fillStyle = vg;
       ctx.fillRect(0,0,w,h);
       ctx.globalAlpha = 1;
@@ -3886,9 +4143,11 @@ el.btnPause.textContent = state.lang==="vi" ? "Tạm dừng" : "Pause";
           state.theme = (state.theme === "light") ? "dark" : "light";
           applyTheme();
           saveSeat();
-          toast(state.theme === "light" ? "Giao diện: LIGHT" : "Giao diện: DARK");
+          toast(state.theme === "light"
+            ? (state.lang==="vi" ? "Giao diện: LIGHT" : "Theme: LIGHT")
+            : (state.lang==="vi" ? "Giao diện: DARK" : "Theme: DARK"));
         });
-      }
+}
 
       // Overlay collapse
       el.ovToggle.addEventListener("click", () => {
