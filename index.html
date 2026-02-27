@@ -1259,12 +1259,11 @@
       </div>
 
       <div class="meta">
-        <div class="pill" data-i18n="ui_pill_seat_personalization" data-i18n-attr="title" title="Seat personalization">
+        <div class="pill" title="Seat personalization">
           <span>Ghế</span>
           <strong id="seatLabel">—</strong>
           <span class="mono" id="profileLabel">ADULT</span>
         </div>
-
         <div class="pill" title="System Health">
           <span class="dot" id="sysDot"></span>
           <span>Hệ thống</span>
@@ -1273,7 +1272,7 @@
         <div class="pill" title="Local Time">
           <span>Giờ</span>
           <strong id="clock">--:--:--</strong>
-        </div><h3 id="settingsTitle" data-i18n="ui_settings_title">Cài đặt • CMS • Chính sách</h3>
+        </div>
         <button class="btn" id="btnSettings" title="Settings / CMS / Policy">⚙ Cài đặt</button>
       </div>
     </div>
@@ -1298,7 +1297,7 @@
                   <div class="value" id="altLabel">2,400 m</div>
                 </div>
                 <div class="rangeBox">
-                  <input id="altRange" type="range" min="0" max="9000" value="2400" step="50" />
+                  <input id="altRange" type="range" min="0" max="9000" value="2400" step="1" />
                   <div class="micro">0 → 9,000 m (mô phỏng). Cabin thường ~ 1,800–2,500 m.</div>
                 </div>
 
@@ -1361,7 +1360,7 @@
               </div>
 
               <div class="callout">
-                <div data-i18n="ui_safety_callout" data-i18n-mode="html"></div>
+                <b>Nguyên tắc vàng:</b> Nếu có cảnh báo áp suất/oxy — <b>đeo mặt nạ oxy khi được yêu cầu</b>, thắt dây an toàn, và <b>làm theo hướng dẫn tiếp viên</b>.
               </div>
             </div>
           </div>
@@ -1492,7 +1491,7 @@
             <div class="hr"></div>
 
             <div class="callout">
-              <span data-i18n="ui_hint_order_flow" data-i18n-mode="html"></span>
+              <b>Gợi ý:</b> Bấm “Xác nhận” trước, sau đó “Gửi tiếp viên” để mô phỏng quy trình 3 bước.
             </div>
           </div>
         </div>
@@ -1525,7 +1524,7 @@
               <div class="svcGrid" id="svcGrid"></div>
 
               <div class="hr"></div>
-              <div class="callout" data-i18n="ui_policy_whitelist" data-i18n-mode="html"></div>
+              <div class="callout"><b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log.</div>
             </div>
 
             <div id="showcaseWrap" style="display:none">
@@ -1546,7 +1545,9 @@
           <div class="panelBody">
             <div class="appGrid" id="appGrid"></div>
             <div class="hr"></div>
-            <div class="callout" data-i18n="ui_policy_whitelist" data-i18n-mode="html"></div>
+            <div class="callout">
+              <b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log.
+            </div>
 
             <div class="hr"></div>
 
@@ -1596,7 +1597,6 @@
     <div class="modal" role="dialog" aria-modal="true">
       <div class="modalTop">
         <h3 id="settingsTitle">Cài đặt • CMS • Chính sách</h3>
-          <h3 id="settingsTitle" data-i18n="ui_settings_title">Cài đặt • CMS • Chính sách</h3>
         <div class="right">
           <div class="pill"><span>Lưu trữ</span><strong id="storageState">LOCAL</strong></div>
           <button class="btn" id="btnCloseSettings">Đóng</button>
@@ -1613,24 +1613,24 @@
 
         <div class="modalPane" id="paneSeat">
           <div class="mutedBox">
-            <span data-i18n="ui_muted_seat_personalization" data-i18n-mode="html"></span>
+            <b>Seat personalization</b>: lưu offline (localStorage). Dùng để hiển thị Seat ID / profile / language.
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_seat">Mã ghế</label>
+            <label>Mã ghế</label>
             <input id="seatIdInput" placeholder="VD: 1A / 12C / VIP-01" />
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_profile">Hồ sơ hành khách</label>
+            <label>Hồ sơ hành khách</label>
             <select id="profileInput">
-              <option value="adult" data-i18n="ui_profile_adult">Adult</option>
-              <option value="kid" data-i18n="ui_profile_kid">Kid</option>
+              <option value="adult">Adult</option>
+              <option value="kid">Kid</option>
             </select>
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_language">Ngôn ngữ</label>
+            <label>Ngôn ngữ</label>
             <select id="langInput">
               <option value="vi">VI</option>
               <option value="en">EN</option>
@@ -1638,8 +1638,8 @@
           </div>
 
           <div class="inlineBtns">
-            <button class="btn primary" id="btnSaveSeat" data-i18n="ui_save_seat">Lưu</button>
-            <button class="btn" id="btnResetSeat" data-i18n="ui_reset_seat">Reset ghế</button>
+            <button class="btn primary" id="btnSaveSeat">Lưu</button>
+            <button class="btn" id="btnResetSeat">Reset ghế</button>
           </div>
         </div>
 
@@ -1650,28 +1650,28 @@
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_brand_title">Tên thương hiệu</label>
+            <label>Tên thương hiệu</label>
             <input id="brandTitleInput" placeholder="AERO•PORTAL" />
           </div>
           <div class="field">
-            <label data-i18n="ui_label_brand_sub">Mô tả thương hiệu</label>
+            <label>Mô tả thương hiệu</label>
             <input id="brandSubInput" placeholder="Cabin Safety • Premium IFE" />
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_import_json">Nhập JSON</label>
+            <label>Nhập JSON</label>
             <input type="file" id="configFile" accept="application/json" />
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_export_json">Xuất JSON</label>
+            <label>Xuất JSON</label>
             <textarea id="configPreview" spellcheck="false"></textarea>
           </div>
 
           <div class="inlineBtns">
-            <button class="btn primary" id="btnApplyBrand" data-i18n="ui_apply_brand">Áp dụng</button>
-            <button class="btn" id="btnExport" data-i18n="ui_refresh_export">Làm mới</button>
-            <button class="btn" id="btnFactory" data-i18n="ui_factory_defaults">Khôi phục mặc định</button>
+            <button class="btn primary" id="btnApplyBrand">Áp dụng</button>
+            <button class="btn" id="btnExport">Làm mới</button>
+            <button class="btn" id="btnFactory">Khôi phục mặc định</button>
           </div>
         </div>
 
@@ -1682,15 +1682,15 @@
           </div>
 
           <div class="field">
-            <label data-i18n="ui_label_whitelist">Whitelist domains</label>
+            <label>Whitelist domains</label>
             <textarea id="whitelistInput" spellcheck="false" placeholder="youtube.com
 netflix.com
 intranet.airline.local"></textarea>
           </div>
 
           <div class="inlineBtns">
-            <button class="btn primary" id="btnSaveWhitelist" data-i18n="ui_save_whitelist">Lưu</button>
-            <button class="btn" id="btnTighten" data-i18n="ui_tighten_whitelist">Siết whitelist (an toàn)</button>
+            <button class="btn primary" id="btnSaveWhitelist">Lưu</button>
+            <button class="btn" id="btnTighten">Siết whitelist (an toàn)</button>
           </div>
 
           <div class="hr"></div>
@@ -1705,9 +1705,9 @@ intranet.airline.local"></textarea>
           </div>
 
           <div class="inlineBtns">
-            <button class="btn" id="btnRefreshLogs" data-i18n="ui_refresh_logs">Làm mới</button>
-            <button class="btn" id="btnClearLogs" data-i18n="ui_clear_logs">Xóa log</button>
-            <button class="btn primary" id="btnCopyLogs" data-i18n="ui_copy_logs">Copy</button>
+            <button class="btn" id="btnRefreshLogs">Làm mới</button>
+            <button class="btn" id="btnClearLogs">Xóa log</button>
+            <button class="btn primary" id="btnCopyLogs">Copy</button>
           </div>
 
           <div class="field" style="grid-template-columns:1fr">
@@ -1805,24 +1805,24 @@ intranet.airline.local"></textarea>
     }
     function safeOpen(url){
       if(url === "#"){
-        toast(t("ui_toast_internal_link"));
+        toast("Link nội bộ (#) — hãy thay URL thật trong CMS.");
         pushLog("open_blocked", { url, reason:"placeholder" });
         return;
       }
       if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        toast(t("ui_toast_invalid_protocol"));
+        toast("Blocked: Invalid protocol");
         pushLog("open_blocked", { url, reason:"invalid_protocol" });
         return;
       }
 
       const host = normalizeHost(url);
       if(!host){
-        toast(t("ui_toast_invalid_url"));
+        toast("URL không hợp lệ.");
         pushLog("open_blocked", { url, reason:"invalid_url" });
         return;
       }
       if(!hostAllowed(host, state.config.whitelist || [])){
-        toast(t("ui_toast_blocked_whitelist"));
+        toast("Bị chặn bởi policy (whitelist).");
         pushLog("open_blocked", { url, host, reason:"not_in_whitelist" });
         return;
       }
@@ -1919,8 +1919,20 @@ intranet.airline.local"></textarea>
     }
 
     // ---------- I18N ----------
+    
+    // ---------- I18N ----------
     const I18N = {
       vi: {
+        doc_title: "AERO•PORTAL — Cabin Safety + Premium IFE (v3 Patched)",
+        ui_seat_title: "Cá nhân hóa ghế",
+        ui_system_title: "Tình trạng hệ thống",
+        ui_time_title: "Giờ địa phương",
+        ui_settings_title: "Cài đặt / CMS / Chính sách",
+        ui_storage: "Lưu trữ",
+        ui_close: "Đóng",
+        ui_sim_auto: "AUTO",
+        ui_sim_manual: "MANUAL",
+
         stageSub: "Mô phỏng bay • HUD cabin • cảnh báo theo ngưỡng",
         badge_ok: "OK",
         badge_warn: "CHÚ Ý",
@@ -1947,6 +1959,7 @@ intranet.airline.local"></textarea>
         advice_danger: ["Giữ bình tĩnh, thắt dây an toàn.","Báo tiếp viên ngay nếu có triệu chứng rõ.","Sẵn sàng đeo mặt nạ oxy khi được yêu cầu."],
         advice_critical: ["Tuân thủ hướng dẫn khẩn cấp ngay lập tức.","Đeo mặt nạ oxy khi được yêu cầu.","Hỗ trợ người khác sau khi bạn đã an toàn."],
         techExplain: "Model: ISA (0–11 km) + quy đổi áp suất/độ cao + O₂_avail ≈ P/P0 (mô phỏng giáo dục)",
+
         ui_tabs_safety: "An toàn",
         ui_tabs_services: "Dịch vụ",
         ui_tabs_ife: "Giải trí",
@@ -1969,6 +1982,7 @@ intranet.airline.local"></textarea>
         ui_effects_h2: "Bạn nên làm gì:",
         ui_quick_explain:
           "<b>Giải thích nhanh:</b> “O₂ khả dụng” giảm chủ yếu vì <b>áp suất</b> giảm theo độ cao. Nồng độ O₂ vẫn ~20.9%, nhưng “lượng O₂ hữu ích” giảm.",
+
         ui_svc_left_title: "Dịch vụ",
         ui_svc_left_hint: "Menu • đặt món • trạng thái đơn",
         ui_search_ph: "Tìm món ăn, đồ uống, từ khóa...",
@@ -1979,11 +1993,17 @@ intranet.airline.local"></textarea>
         ui_send: "Gửi tiếp viên",
         ui_clear_order: "Xóa",
         ui_note_ph: "VD: ít đá / không phô mai / không hành...",
+        ui_note_for_crew: "Ghi chú cho tiếp viên",
         ui_svc_right_title: "Menu trên máy bay",
         ui_svc_right_hint: "Bấm món → xem chi tiết → thêm vào giỏ → gửi tiếp viên",
         ui_menu: "Menu",
         ui_showcase: "Showcase",
         ui_cart: "🛒 Giỏ",
+        ui_step_1: "1) Chọn món",
+        ui_step_2: "2) Xác nhận",
+        ui_step_3: "3) Gửi tiếp viên",
+        ui_policy_callout: "<b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log.",
+
         ui_ife_launcher: "App Launcher",
         ui_ife_launcher_hint: "Chỉ mở domain trong whitelist",
         ui_player: "Trình phát trên máy bay",
@@ -1993,157 +2013,64 @@ intranet.airline.local"></textarea>
         ui_mode: "Chế độ",
         ui_drop:
           'Kéo-thả file video vào đây hoặc bấm <strong>“Chọn video”</strong>.<br/>(Bản thật thường phát từ <strong>server nội bộ</strong> để offline.)',
+        ui_internal_library: "Thư viện nội bộ",
+        ui_internal_library_hint:
+          "Danh sách video demo/đào tạo — cấu hình trong Cài đặt → CMS (IFE library).",
         ui_theme_dark: "Theme: DARK",
-        ui_theme_light: "Theme: LIGHT"
-        ,ui_mode_local: "LOCAL"
-        ,ui_mode_url: "URL"
-        ,ui_toast_reset: "Đặt lại"
-        ,ui_auto: "AUTO"
-        ,ui_manual: "MANUAL"
-        ,ui_playing_prefix: "Playing: "
-        ,ui_loaded_prefix: "Loaded: "
-        ,ui_stopped: "Stopped"
-        ,ui_simulation_prefix: "Simulation: "
-        ,ui_paused: "Paused"
-        ,ui_resumed: "Resumed"
-        ,ui_lang_switched_vi: "Switched to VI"
-        ,ui_lang_switched_en: "Switched to EN"
-        ,ui_theme_changed_light: "Theme: LIGHT"
-        ,ui_theme_changed_dark: "Theme: DARK"
-        ,ui_order_sent: "SENT"
-        ,ui_order_confirmed: "CONFIRMED"
-        ,ui_order_draft: "DRAFT"
-        ,ui_ent_cat_hint: "Tap item → details → add to cart"
-        ,ui_toast_added_to_cart: "Added to cart"
-        ,ui_toast_cart_empty: "No items yet."
-        ,ui_toast_confirmed: "Confirmed"
-        ,ui_toast_sent: "Sent (simulated)"
-        ,ui_toast_cleared_order: "Order cleared"
-        ,ui_toast_media_missing: "Media URL missing in CMS."
-        ,ui_toast_media_blocked: "Media blocked by whitelist."
-        ,ui_toast_invalid_protocol: "Blocked: Invalid protocol"
-        ,ui_toast_invalid_url: "Invalid URL."
-        ,ui_toast_internal_link: "Internal link (#) — replace with a real URL in CMS."
-        ,ui_toast_blocked_whitelist: "Blocked by whitelist policy."
-        ,ui_toast_added_to_cart: "Added to cart"
-        ,ui_toast_cart_empty: "No items yet."
-        ,ui_toast_confirmed: "Confirmed"
-        ,ui_toast_sent: "Sent (simulated)"
-        ,ui_toast_cleared_order: "Order cleared"
-        ,ui_toast_saved_seat: "Seat saved"
-        ,ui_toast_reset_seat: "Seat reset"
-        ,ui_toast_config_imported: "Config imported"
-        ,ui_toast_config_import_failed: "Import failed (invalid JSON)."
-        ,ui_toast_brand_applied: "Brand applied"
-        ,ui_toast_export_refreshed: "Export refreshed"
-        ,ui_toast_factory_defaults: "Factory defaults restored"
-        ,ui_toast_whitelist_saved: "Whitelist saved"
-        ,ui_toast_whitelist_tightened: "Whitelist tightened"
-        ,ui_toast_logs_cleared: "Logs cleared"
-        ,ui_toast_copied: "Copied"
-        ,ui_toast_copy_failed: "Copy failed"
-        ,ui_toast_confirm_first: "Please confirm first."
-        ,ui_toast_blocked_whitelist: "Blocked by whitelist policy."
-        ,ui_auto: "AUTO"
-        ,ui_manual: "MANUAL"
-        ,ui_playing_prefix: "Đang phát: "
-        ,ui_loaded_prefix: "Đã tải: "
-        ,ui_stopped: "Đã dừng"
-        ,ui_simulation_prefix: "Mô phỏng: "
-        ,ui_paused: "Tạm dừng"
-        ,ui_resumed: "Tiếp tục"
-        ,ui_lang_switched_vi: "Đã chuyển VI"
-        ,ui_lang_switched_en: "Switched to EN"
-        ,ui_theme_changed_light: "Giao diện: LIGHT"
-        ,ui_theme_changed_dark: "Giao diện: DARK"
-        ,ui_order_sent: "ĐÃ GỬI"
-        ,ui_order_confirmed: "ĐÃ XÁC NHẬN"
-        ,ui_order_draft: "NHÁP"
-        ,ui_ent_cat_hint: "Chọn món → xem chi tiết → thêm vào giỏ"
-        ,ui_toast_added_to_cart: "Đã thêm vào giỏ"
-        ,ui_toast_cart_empty: "Chưa có món nào."
-        ,ui_toast_confirmed: "Đã xác nhận"
-        ,ui_toast_sent: "Đã gửi (mô phỏng)"
-        ,ui_toast_cleared_order: "Đã xóa đơn"
-        ,ui_toast_media_missing: "Media URL thiếu trong CMS."
-        ,ui_toast_media_blocked: "Media bị chặn bởi whitelist."
-        ,ui_toast_invalid_protocol: "Bị chặn: giao thức không hợp lệ"
-        ,ui_toast_invalid_url: "URL không hợp lệ."
-        ,ui_toast_internal_link: "Link nội bộ (#) — hãy thay URL thật trong CMS."
-        ,ui_toast_blocked_whitelist: "Bị chặn bởi policy (whitelist)."
-        ,ui_toast_added_to_cart: "Đã thêm vào giỏ"
-        ,ui_toast_cart_empty: "Chưa có món nào."
-        ,ui_toast_confirmed: "Đã xác nhận"
-        ,ui_toast_sent: "Đã gửi (mô phỏng)"
-        ,ui_toast_cleared_order: "Đã xóa đơn"
-        ,ui_toast_saved_seat: "Đã lưu ghế"
-        ,ui_toast_reset_seat: "Đã reset ghế"
-        ,ui_toast_config_imported: "Đã import config"
-        ,ui_toast_config_import_failed: "Import thất bại (JSON lỗi)."
-        ,ui_toast_brand_applied: "Đã áp dụng brand"
-        ,ui_toast_export_refreshed: "Đã làm mới export"
-        ,ui_toast_factory_defaults: "Đã khôi phục mặc định"
-        ,ui_toast_whitelist_saved: "Đã lưu whitelist"
-        ,ui_toast_whitelist_tightened: "Đã siết whitelist"
-        ,ui_toast_logs_cleared: "Đã xóa log"
-        ,ui_toast_copied: "Copied"
-        ,ui_toast_copy_failed: "Copy failed"
-        ,ui_toast_confirm_first: "Hãy bấm “Xác nhận” trước."
-        ,ui_toast_blocked_whitelist: "Bị chặn bởi policy (whitelist)."
-      // additional generic labels (for translation improvement)
-      ,ui_safety_callout: "<b>Golden rule:</b> If you see a pressure/oxygen alert — <b>put on your oxygen mask when instructed</b>, fasten your seatbelt, and <b>follow crew directions</b>."
-      ,ui_hint_order_flow: "<b>Hint:</b> Tap “Confirm” first, then “Send to crew” to simulate the 3‑step flow."
-      ,ui_policy_whitelist: "<b>Policy:</b> if the domain isn’t on the whitelist the system will <b>block</b> it and log the event."
-      ,ui_settings_title: "Settings • CMS • Policy"
-      ,ui_label_seat: "Seat code"
-      ,ui_label_profile: "Passenger profile"
-      ,ui_label_language: "Language"
-      ,ui_profile_adult: "Adult"
-      ,ui_profile_kid: "Kid"
-      ,ui_save_seat: "Save"
-      ,ui_reset_seat: "Reset seat"
-      ,ui_label_brand_title: "Brand name"
-      ,ui_label_brand_sub: "Brand description"
-      ,ui_label_import_json: "Import JSON"
-      ,ui_label_export_json: "Export JSON"
-      ,ui_label_whitelist: "Whitelist domains"
-      ,ui_apply_brand: "Apply"
-      ,ui_refresh_export: "Refresh"
-      ,ui_pill_seat_personalization: "Seat personalization"
-      ,ui_muted_seat_personalization: "<b>Seat personalization</b>: lưu offline (localStorage). Dùng để hiển thị Seat ID / profile / language."
-      ,ui_factory_defaults: "Factory defaults"
-      ,ui_save_whitelist: "Save"
-      ,ui_tighten_whitelist: "Tighten whitelist (safe)"
-      ,ui_refresh_logs: "Refresh"
-      ,ui_clear_logs: "Clear log"
-      ,ui_copy_logs: "Copy"
-        // additional generic labels (for translation improvement)
-        ,ui_safety_callout: "<b>Nguyên tắc vàng:</b> Nếu có cảnh báo áp suất/oxy — <b>đeo mặt nạ oxy khi được yêu cầu</b>, thắt dây an toàn, và <b>làm theo hướng dẫn tiếp viên</b>."
-        ,ui_hint_order_flow: "<b>Gợi ý:</b> Bấm “Xác nhận” trước, sau đó “Gửi tiếp viên” để mô phỏng quy trình 3 bước."
-        ,ui_policy_whitelist: "<b>Chính sách:</b> nếu domain không nằm trong whitelist, hệ thống sẽ <b>chặn</b> và ghi log."
-        ,ui_settings_title: "Cài đặt • CMS • Chính sách"
-        ,ui_label_seat: "Mã ghế"
-        ,ui_label_profile: "Hồ sơ hành khách"
-        ,ui_label_language: "Ngôn ngữ"
-        ,ui_profile_adult: "Adult"
-        ,ui_profile_kid: "Kid"
-        ,ui_save_seat: "Lưu"
-        ,ui_reset_seat: "Reset ghế"
-        ,ui_label_brand_title: "Tên thương hiệu"
-        ,ui_label_brand_sub: "Mô tả thương hiệu"
-        ,ui_label_import_json: "Nhập JSON"
-        ,ui_label_export_json: "Xuất JSON"
-        ,ui_label_whitelist: "Whitelist domains"
-        ,ui_apply_brand: "Áp dụng"
-        ,ui_refresh_export: "Làm mới"
-        ,ui_factory_defaults: "Khôi phục mặc định"
-        ,ui_save_whitelist: "Lưu"
-        ,ui_tighten_whitelist: "Siết whitelist (an toàn)"
-        ,ui_refresh_logs: "Làm mới"
-        ,ui_clear_logs: "Xóa log"
-        ,ui_copy_logs: "Copy"
+        ui_theme_light: "Theme: LIGHT",
+
+        svc_detail_title: "CHI TIẾT",
+        svc_qty: "Số lượng",
+        svc_add_cart: "Thêm vào giỏ",
+        svc_view_cart2: "🛒 Xem giỏ",
+
+        settings_title: "Cài đặt • CMS • Chính sách",
+        settings_nav_seat: "Ghế",
+        settings_nav_cms: "CMS",
+        settings_nav_security: "Bảo mật",
+        settings_nav_logs: "Nhật ký",
+        settings_seat_box:
+          "<b>Seat personalization</b>: lưu offline (localStorage). Dùng để hiển thị Seat ID / profile / language.",
+        settings_seat_id: "Mã ghế",
+        settings_seat_id_ph: "VD: 1A / 12C / VIP-01",
+        settings_profile: "Hồ sơ hành khách",
+        settings_language: "Ngôn ngữ",
+        settings_save: "Lưu",
+        settings_reset_seat: "Reset ghế",
+        settings_cms_box:
+          "<b>CMS JSON</b>: Import/Export toàn bộ cấu hình (Brand/Services/Projects/Apps/Whitelist/IFE).<br/><span class=\"mono\">Tip:</span> Import là “đổi hệ thống” trong 3 giây.",
+        settings_brand_title: "Tên thương hiệu",
+        settings_brand_sub: "Mô tả thương hiệu",
+        settings_import_json: "Nhập JSON",
+        settings_export_json: "Xuất JSON",
+        settings_apply_brand: "Áp dụng",
+        settings_refresh_export: "Làm mới",
+        settings_factory: "Khôi phục mặc định",
+        settings_security_box:
+          "<b>Whitelist Policy</b>: chỉ cho phép mở URL nếu domain match whitelist.<br/>Mỗi lần mở / bị chặn sẽ ghi vào Logs.",
+        settings_whitelist: "Whitelist domains",
+        settings_save_whitelist: "Lưu",
+        settings_tighten: "Siết whitelist (an toàn)",
+        settings_security_note:
+          "<b>Security note</b>: kiosk thật thường dùng thêm layer hệ điều hành (kiosk mode) + proxy nội bộ.",
+        settings_logs_box:
+          "<b>Event Logs</b>: lưu local, giới hạn 200 entries.",
+        settings_logs_refresh: "Làm mới",
+        settings_logs_clear: "Xóa log",
+        settings_logs_copy: "Copy"
       },
+
       en: {
+        doc_title: "AERO•PORTAL — Cabin Safety + Premium IFE (v3 Patched)",
+        ui_seat_title: "Seat personalization",
+        ui_system_title: "System health",
+        ui_time_title: "Local time",
+        ui_settings_title: "Settings / CMS / Policy",
+        ui_storage: "Storage",
+        ui_close: "Close",
+        ui_sim_auto: "AUTO",
+        ui_sim_manual: "MANUAL",
+
         stageSub: "Flight simulation • cabin HUD • threshold-based alerts",
         badge_ok: "OK",
         badge_warn: "CAUTION",
@@ -2170,6 +2097,7 @@ intranet.airline.local"></textarea>
         advice_danger: ["Stay calm, fasten seatbelt.","Notify crew immediately if symptoms are clear.","Be ready for oxygen mask if instructed."],
         advice_critical: ["Follow emergency instructions immediately.","Use oxygen mask if instructed.","Help others after you're safe."],
         techExplain: "Model: ISA (0–11 km) + pressure/alt conversion + O₂_avail ≈ P/P0 (educational simulation)",
+
         ui_tabs_safety: "Safety",
         ui_tabs_services: "Services",
         ui_tabs_ife: "Entertainment",
@@ -2192,6 +2120,7 @@ intranet.airline.local"></textarea>
         ui_effects_h2: "What you should do:",
         ui_quick_explain:
           "<b>Quick note:</b> “Available O₂” drops mainly because air pressure drops with altitude. O₂ concentration stays ~20.9%, but usable oxygen decreases.",
+
         ui_svc_left_title: "Services",
         ui_svc_left_hint: "Menu • order • status",
         ui_search_ph: "Search meals, drinks, keywords...",
@@ -2202,11 +2131,17 @@ intranet.airline.local"></textarea>
         ui_send: "Send to crew",
         ui_clear_order: "Clear",
         ui_note_ph: "e.g., less ice / no cheese / no onion...",
+        ui_note_for_crew: "Note for crew",
         ui_svc_right_title: "Onboard menu",
         ui_svc_right_hint: "Tap item → details → add to cart → send to crew",
         ui_menu: "Menu",
         ui_showcase: "Showcase",
         ui_cart: "🛒 Cart",
+        ui_step_1: "1) Pick items",
+        ui_step_2: "2) Confirm",
+        ui_step_3: "3) Send to crew",
+        ui_policy_callout: "<b>Policy:</b> if the domain is not whitelisted, the system will <b>block</b> and log it.",
+
         ui_ife_launcher: "App Launcher",
         ui_ife_launcher_hint: "Only opens domains in whitelist",
         ui_player: "Inflight Player",
@@ -2216,17 +2151,128 @@ intranet.airline.local"></textarea>
         ui_mode: "Mode",
         ui_drop:
           'Drag & drop a video here or click <strong>“Pick video”</strong>.<br/>(Real systems often play from an onboard server offline.)',
+        ui_internal_library: "Internal library",
+        ui_internal_library_hint:
+          "Demo/training videos — configure in Settings → CMS (IFE library).",
         ui_theme_dark: "Theme: DARK",
-        ui_theme_light: "Theme: LIGHT"
-      ,ui_mode_local: "LOCAL"
-      ,ui_mode_url: "URL"
-      ,ui_toast_reset: "Reset"
+        ui_theme_light: "Theme: LIGHT",
+
+        svc_detail_title: "DETAILS",
+        svc_qty: "Quantity",
+        svc_add_cart: "Add to cart",
+        svc_view_cart2: "🛒 View cart",
+
+        settings_title: "Settings • CMS • Policy",
+        settings_nav_seat: "Seat",
+        settings_nav_cms: "CMS",
+        settings_nav_security: "Security",
+        settings_nav_logs: "Logs",
+        settings_seat_box:
+          "<b>Seat personalization</b>: stored offline (localStorage). Used for Seat ID / profile / language.",
+        settings_seat_id: "Seat ID",
+        settings_seat_id_ph: "e.g., 1A / 12C / VIP-01",
+        settings_profile: "Passenger profile",
+        settings_language: "Language",
+        settings_save: "Save",
+        settings_reset_seat: "Reset seat",
+        settings_cms_box:
+          "<b>CMS JSON</b>: Import/Export full configuration (Brand/Services/Projects/Apps/Whitelist/IFE).<br/><span class=\"mono\">Tip:</span> Import swaps the system in seconds.",
+        settings_brand_title: "Brand title",
+        settings_brand_sub: "Brand subtitle",
+        settings_import_json: "Import JSON",
+        settings_export_json: "Export JSON",
+        settings_apply_brand: "Apply",
+        settings_refresh_export: "Refresh",
+        settings_factory: "Factory defaults",
+        settings_security_box:
+          "<b>Whitelist Policy</b>: only open URL when domain matches whitelist.<br/>Every open/block is recorded to Logs.",
+        settings_whitelist: "Whitelist domains",
+        settings_save_whitelist: "Save",
+        settings_tighten: "Tighten whitelist",
+        settings_security_note:
+          "<b>Security note</b>: real kiosks usually add OS kiosk mode + onboard proxy layers.",
+        settings_logs_box:
+          "<b>Event Logs</b>: stored locally, capped at 200 entries.",
+        settings_logs_refresh: "Refresh",
+        settings_logs_clear: "Clear",
+        settings_logs_copy: "Copy"
       }
     };
 
+const TEXT_I18N_PAIRS = [
+  { vi: "(Bản thật thường phát từ", en: "(In production these usually play from an" },
+  { vi: ", thắt dây an toàn, và", en: ", fasten your seat belt, and" },
+  { vi: "0 → 9,000 m (mô phỏng). Cabin thường ~ 1,800–2,500 m.", en: "0 → 9,000 m (simulated). Cabin typically ~ 1,800–2,500 m." },
+  { vi: "350 → 1013 hPa (mô phỏng). 1013 hPa ≈ mực nước biển.", en: "350 → 1013 hPa (simulated). 1013 hPa ≈ sea‑level pressure." },
+  { vi: ": Import/Export toàn bộ cấu hình (Brand/Services/Projects/Apps/Whitelist/IFE).", en: ": Import/Export all configuration (Brand/Services/Projects/Apps/Whitelist/IFE)." },
+  { vi: ": chỉ cho phép mở URL nếu domain match whitelist.", en: ": only allow URLs whose domain matches the whitelist." },
+  { vi: ": kiosk thật thường dùng thêm layer hệ điều hành (kiosk mode) + proxy nội bộ.", en: ": real kiosks usually add an OS kiosk mode and internal proxy." },
+  { vi: ": lưu local, giới hạn 200 entries.", en: ": stored locally, limited to 200 entries." },
+  { vi: ": lưu offline (localStorage). Dùng để hiển thị Seat ID / profile / language.", en: ": stored offline (localStorage). Used to show Seat ID / profile / language." },
+  { vi: "Bấm “Xác nhận” trước, sau đó “Gửi tiếp viên” để mô phỏng quy trình 3 bước.", en: "Click “Confirm” first, then “Send to crew” to simulate the three‑step flow." },
+  { vi: "Chính sách:", en: "Policy:" },
+  { vi: "Danh mục", en: "Category" },
+  { vi: "Giải thích nhanh:", en: "Quick note:" },
+  { vi: "Gợi ý:", en: "Tip:" },
+  { vi: "Hành trình", en: "Cruise" },
+  { vi: "Import là “đổi hệ thống” trong 3 giây.", en: "Import is like “switching systems” in three seconds." },
+  { vi: "Kéo-thả file video vào đây hoặc bấm", en: "Drag and drop a video file here or click" },
+  { vi: "Model: ISA (0–11 km) + quy đổi áp suất/độ cao + O₂_avail ≈ P/P0", en: "Model: ISA (0–11 km) + pressure/altitude conversion + O₂_avail ≈ P/P0" },
+  { vi: "Mỗi lần mở / bị chặn sẽ ghi vào Logs.", en: "Every open / block is written to Logs." },
+  { vi: "NHÁP", en: "DRAFT" },
+  { vi: "Ngoài trời", en: "Outside" },
+  { vi: "Nguyên tắc vàng:", en: "Golden rule:" },
+  { vi: "Nếu có cảnh báo áp suất/oxy —", en: "If there is a pressure/oxygen alert —" },
+  { vi: "O₂ khả dụng", en: "Available O₂" },
+  { vi: "O₂ tương đương", en: "Equivalent O₂" },
+  { vi: "So với mực nước biển (ước tính theo áp suất).", en: "Compared with sea level (estimated from pressure)." },
+  { vi: "Thường là ít ảnh hưởng ở phần lớn hành khách. Một số người nhạy cảm có thể hơi mệt/khó chịu nhẹ.", en: "Usually little effect for most passengers. Some sensitive people may feel slightly tired or uncomfortable." },
+  { vi: "Tốc độ", en: "Speed" },
+  { vi: "Từ slider / mô phỏng ISA.", en: "From the slider / ISA simulation." },
+  { vi: "Từ slider / quy đổi áp suất.", en: "From the slider / pressure conversion." },
+  { vi: "chặn", en: "block" },
+  { vi: "giảm theo độ cao. Nồng độ O₂ vẫn ~20.9%, nhưng “lượng O₂ hữu ích” giảm.", en: "as altitude increases. O₂ concentration stays ~20.9%, but the “useful O₂” amount decreases." },
+  { vi: "làm theo hướng dẫn tiếp viên", en: "follow crew instructions" },
+  { vi: "nếu domain không nằm trong whitelist, hệ thống sẽ", en: "if a domain isn’t on the whitelist, the system will" },
+  { vi: "server nội bộ", en: "an internal server" },
+  { vi: "và ghi log.", en: "and write a log entry." },
+  { vi: "áp suất", en: "pressure" },
+  { vi: "đeo mặt nạ oxy khi được yêu cầu", en: "put on the oxygen mask when instructed" },
+  { vi: "để offline.)", en: "for offline use.)" },
+  { vi: "“Chọn video”", en: "“Select video”" },
+  { vi: "“Cảm giác” tương đương nồng độ O₂ ở mực nước biển.", en: "“Feeling” equivalent to O₂ concentration at sea level." },
+  { vi: "“O₂ khả dụng” giảm chủ yếu vì", en: "“Available O₂” drops mainly because" }
+];
+
+
+const TEXT_I18N_LOOKUP = {};
+TEXT_I18N_PAIRS.forEach(p => {
+  TEXT_I18N_LOOKUP[p.vi] = p;
+  TEXT_I18N_LOOKUP[p.en] = p;
+});
+
+function applyI18NTextNodes(lang) {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  let node;
+  while ((node = walker.nextNode())) {
+    const raw = node.textContent.trim();
+    if (!raw) continue;
+    const entry = TEXT_I18N_LOOKUP[raw];
+    if (entry && entry[lang]) {
+      node.textContent = entry[lang];
+    }
+  }
+}
+
+
+
+
     // ---------- State ----------
     const state = {
+      autoT0: 0,
       lang: "vi",
+      isAdmin: false,
+      isAdmin: false,
       tab: "safety",
       mode: "alt",
       sim: "auto",
@@ -2396,23 +2442,38 @@ intranet.airline.local"></textarea>
     function setMode(mode){
       state.mode = mode;
       const alt = mode === "alt";
+
       el.modeAlt.setAttribute("aria-pressed", alt ? "true" : "false");
       el.modePress.setAttribute("aria-pressed", alt ? "false" : "true");
+
       el.altRange.disabled = !alt;
       el.pressRange.disabled = alt;
+
       el.altRange.style.opacity = alt ? "1" : ".45";
       el.pressRange.style.opacity = alt ? ".45" : "1";
+
+      // ✅ FIX: đổi mode thì sync ngay theo slider đang active để không bị “nhảy”
+      if (alt) {
+        syncFromAltitude(parseFloat(el.altRange.value));
+      } else {
+        syncFromPressure(parseFloat(el.pressRange.value));
+      }
+
+      renderSafety();
       pushLog("input_mode", { mode });
     }
 
     // ---------- Sim mode ----------
+    
     function setSim(sim){
       state.sim = sim;
       const isAuto = sim === "auto";
-      el.btnSim.textContent = isAuto ? t("ui_auto") : t("ui_manual");
-      el.simLabel.textContent = isAuto ? t("ui_auto") : t("ui_manual");
+      const label = isAuto ? t("ui_sim_auto") : t("ui_sim_manual");
+      el.btnSim.textContent = label;
+      el.simLabel.textContent = label;
       pushLog("sim_mode", { sim });
     }
+
 
     // ---------- Cabin model ----------
     const ISA = { P0: 1013.25, T0: 288.15, L: 0.0065, g: 9.80665, R: 287.05287 };
@@ -2452,7 +2513,7 @@ intranet.airline.local"></textarea>
     function syncFromPressure(P_hPa){
       state.cabinPress_hPa = clamp(P_hPa, 200, 1200);
       state.cabinAlt_m = clamp(altitudeFromPressure_hPa(state.cabinPress_hPa), 0, 11000);
-      el.altRange.value = Math.round(state.cabinAlt_m / 50) * 50;
+      el.altRange.value = Math.round(state.cabinAlt_m);
     }
 
     // ---------- Derived UI ----------
@@ -2478,13 +2539,24 @@ intranet.airline.local"></textarea>
       el.profileLabel.textContent = (state.seat.profile || "adult").toUpperCase();
     }
     
+    
     function applyLang(){
       el.btnLang.textContent = state.lang.toUpperCase();
-      el.stageSub.textContent = t("stageSub");
-      el.techExplain.textContent = t("techExplain");
       el.langInput.value = state.lang;
+
+      setSim(state.sim);
+      el.btnPause.textContent = state.paused ? t("ui_resume") : t("ui_pause");
+
       applyI18NStatic();
+
+      // Re-render dynamic lists that use pickLang()
+      renderSvcPills();
+      renderSvcGrid();
+      renderMedia();
+      syncOrderUI();
+      applyI18NTextNodes(state.lang);
     }
+
 
     function applyTheme(){
       document.documentElement.setAttribute("data-theme", state.theme || "dark");
@@ -2493,27 +2565,56 @@ intranet.airline.local"></textarea>
       }
     }
 
+    
     function applyI18NStatic(){
-      const tabs = $$(".tabbtn");
-      tabs.forEach(btn => {
+      document.documentElement.lang = state.lang || "vi";
+      document.title = t("doc_title") || document.title;
+
+      // Tabs: stable label span (no duplicate text nodes)
+      el.tabBtns.forEach(btn => {
         const tab = btn.dataset.tab;
         const label =
           tab === "safety" ? t("ui_tabs_safety") :
           tab === "projects" ? t("ui_tabs_services") :
           t("ui_tabs_ife");
 
-        const last = btn.childNodes[btn.childNodes.length - 1];
-        if(last && last.nodeType === 3) last.textContent = " " + label;
-        else btn.appendChild(document.createTextNode(" " + label));
+        Array.from(btn.childNodes).forEach(n => { if(n.nodeType === 3) n.textContent = ""; });
+
+        let span = btn.querySelector(".tabLabel");
+        if(!span){
+          span = document.createElement("span");
+          span.className = "tabLabel";
+          const svg = btn.querySelector("svg");
+          if(svg && svg.nextSibling) btn.insertBefore(span, svg.nextSibling);
+          else btn.appendChild(span);
+        }
+        span.textContent = label;
+        btn.setAttribute("aria-label", label);
       });
 
+      // Top pills titles/labels
       const pills = $$(".meta .pill");
-      if(pills[0]) pills[0].querySelector("span").textContent = t("ui_seat");
-      if(pills[1]) pills[1].querySelectorAll("span")[1].textContent = t("ui_system");
-      if(pills[2]) pills[2].querySelector("span").textContent = t("ui_time");
+      if(pills[0]){
+        pills[0].setAttribute("title", t("ui_seat_title"));
+        const sp = pills[0].querySelector("span");
+        if(sp) sp.textContent = t("ui_seat");
+      }
+      if(pills[1]){
+        pills[1].setAttribute("title", t("ui_system_title"));
+        const spans = pills[1].querySelectorAll("span");
+        if(spans && spans[1]) spans[1].textContent = t("ui_system");
+      }
+      if(pills[2]){
+        pills[2].setAttribute("title", t("ui_time_title"));
+        const sp = pills[2].querySelector("span");
+        if(sp) sp.textContent = t("ui_time");
+      }
 
+      // Settings button
       el.btnSettings.textContent = t("ui_settings");
+      el.btnSettings.setAttribute("title", t("ui_settings_title"));
 
+      // Safety headers
       const safetyLeftHeader = $("#view-safety .panel .panelHeader h2");
       const safetyLeftHint = $("#view-safety .panel .panelHeader .hint");
       if(safetyLeftHeader) safetyLeftHeader.textContent = t("ui_cabin_params");
@@ -2522,10 +2623,13 @@ intranet.airline.local"></textarea>
       el.modeAlt.textContent = t("ui_alt");
       el.modePress.textContent = t("ui_press");
 
-      const labels = $$("#view-safety .card .label");
-      if(labels[0]) labels[0].textContent = t("ui_alt");
-      if(labels[1]) labels[1].textContent = t("ui_press");
-      if(labels[2]) labels[2].textContent = t("ui_sim");
+      // Avoid index-based label selection
+      const altRowLabel = el.altLabel?.closest(".row")?.querySelector(".label");
+      const pressRowLabel = el.pressLabel?.closest(".row")?.querySelector(".label");
+      const simRowLabel = el.simLabel?.closest(".row")?.querySelector(".label");
+      if(altRowLabel) altRowLabel.textContent = t("ui_alt");
+      if(pressRowLabel) pressRowLabel.textContent = t("ui_press");
+      if(simRowLabel) simRowLabel.textContent = t("ui_sim");
 
       el.btnReset.textContent = t("ui_reset");
       el.btnPause.textContent = state.paused ? t("ui_resume") : t("ui_pause");
@@ -2538,6 +2642,14 @@ intranet.airline.local"></textarea>
       $("#effectsH2").textContent = t("ui_effects_h2");
       $("#quickExplain").innerHTML = t("ui_quick_explain");
 
+      el.stageSub.textContent = t("stageSub");
+      el.techExplain.textContent = t("techExplain");
+
+      if(el.btnTheme){
+        el.btnTheme.textContent = (state.theme === "light") ? t("ui_theme_light") : t("ui_theme_dark");
+      }
+
+      // Services
       $("#svcLeftTitle").textContent = t("ui_svc_left_title");
       $("#svcLeftHint").textContent = t("ui_svc_left_hint");
       el.svcSearch.placeholder = t("ui_search_ph");
@@ -2551,12 +2663,36 @@ intranet.airline.local"></textarea>
       el.btnClearOrder.textContent = t("ui_clear_order");
       el.orderNote.placeholder = t("ui_note_ph");
 
+      const orderNoteTitle = $("#orderStatusCard .small b");
+      if(orderNoteTitle) orderNoteTitle.textContent = t("ui_note_for_crew");
+
       $("#svcRightTitle").textContent = t("ui_svc_right_title");
       $("#svcRightHint").textContent = t("ui_svc_right_hint");
       el.entBtnMenu.textContent = t("ui_menu");
       el.entBtnShowcase.textContent = t("ui_showcase");
-      el.entCartBtn.childNodes[0].textContent = t("ui_cart") + " ";
 
+      if(el.entCartBtn && el.entCartCount){
+        const countNode = el.entCartCount;
+        el.entCartBtn.textContent = "";
+        el.entCartBtn.appendChild(document.createTextNode(t("ui_cart") + " "));
+        el.entCartBtn.appendChild(countNode);
+      }
+
+      const s1 = $("#entStepper .step[data-step='1']");
+      const s2 = $("#entStepper .step[data-step='2']");
+      const s3 = $("#entStepper .step[data-step='3']");
+      if(s1) s1.textContent = t("ui_step_1");
+      if(s2) s2.textContent = t("ui_step_2");
+      if(s3) s3.textContent = t("ui_step_3");
+
+      // Policy callouts (best-effort)
+      const policyCallouts = $$(".callout").filter(n => {
+        const txt = (n.textContent || "").toLowerCase();
+        return txt.includes("whitelist") || txt.includes("policy") || txt.includes("chính sách");
+      });
+      policyCallouts.forEach(n => { n.innerHTML = t("ui_policy_callout"); });
+
+      // IFE
       const ifeLeftH2 = $("#view-ife .ife .panel .panelHeader h2");
       const ifeLeftHint = $("#view-ife .ife .panel .panelHeader .hint");
       if(ifeLeftH2) ifeLeftH2.textContent = t("ui_ife_launcher");
@@ -2573,40 +2709,96 @@ intranet.airline.local"></textarea>
       if(modePillLabel) modePillLabel.textContent = t("ui_mode");
       el.drop.innerHTML = t("ui_drop");
 
-      if(el.btnTheme){
-        el.btnTheme.textContent = (state.theme === "light") ? t("ui_theme_light") : t("ui_theme_dark");
-      }
+      const libLabel = el.mediaCount?.closest(".row")?.querySelector(".label");
+      if(libLabel) libLabel.textContent = t("ui_internal_library");
+      const mediaHint = $("#mediaHint");
+      if(mediaHint) mediaHint.textContent = t("ui_internal_library_hint");
 
-      // generic data-i18n support
-      translateAll();
-    }
+      // Service modal
+      const svcModalTitle = $("#svcModalTitle");
+      if(svcModalTitle) svcModalTitle.textContent = t("svc_detail_title");
+      const svcClose = $("#svcClose");
+      if(svcClose) svcClose.textContent = t("ui_close");
+      const svcSeatLabel = $("#svcMask .svcModalTop .pill span");
+      if(svcSeatLabel) svcSeatLabel.textContent = t("ui_seat");
+      const qtyLabel = $("#svcMask .qtyRow .label");
+      if(qtyLabel) qtyLabel.textContent = t("svc_qty");
+      const svcNoteLabel = $("#svcMask .svcModalLeft .small b");
+      if(svcNoteLabel) svcNoteLabel.textContent = t("ui_note_for_crew");
+      const svcAdd = $("#svcAdd");
+      const svcViewCart = $("#svcViewCart");
+      if(svcAdd) svcAdd.textContent = t("svc_add_cart");
+      if(svcViewCart) svcViewCart.textContent = t("svc_view_cart2");
 
-    // apply translations to any element with data-i18n attribute
-    function translateAll(){
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        const mode = el.getAttribute("data-i18n-mode") || "text";
-        const attr = el.getAttribute("data-i18n-attr");
-        const txt = t(key);
-        if(attr){
-          el.setAttribute(attr, txt);
-          return;
-        }
-        switch(mode){
-          case "html":
-            el.innerHTML = txt;
-            break;
-          case "placeholder":
-            el.placeholder = txt;
-            break;
-          case "value":
-            el.value = txt;
-            break;
-          default:
-            el.textContent = txt;
-        }
+      // Settings modal
+      const settingsTitle = $("#settingsTitle");
+      if(settingsTitle) settingsTitle.textContent = t("settings_title");
+      const storagePillLabel = $("#modalMask .modalTop .pill span");
+      if(storagePillLabel) storagePillLabel.textContent = t("ui_storage");
+      const closeSettings = $("#btnCloseSettings");
+      if(closeSettings) closeSettings.textContent = t("ui_close");
+
+      $$(".navItem").forEach(b => {
+        const p = b.dataset.pane;
+        if(p === "seat") b.textContent = t("settings_nav_seat");
+        if(p === "cms") b.textContent = t("settings_nav_cms");
+        if(p === "security") b.textContent = t("settings_nav_security");
+        if(p === "logs") b.textContent = t("settings_nav_logs");
       });
+
+      const seatBox = $("#paneSeat .mutedBox");
+      if(seatBox) seatBox.innerHTML = t("settings_seat_box");
+      const seatIdLabel = $("#seatIdInput")?.closest(".field")?.querySelector("label");
+      if(seatIdLabel) seatIdLabel.textContent = t("settings_seat_id");
+      const seatIdInput = $("#seatIdInput");
+      if(seatIdInput) seatIdInput.placeholder = t("settings_seat_id_ph");
+      const profileLabel = $("#profileInput")?.closest(".field")?.querySelector("label");
+      if(profileLabel) profileLabel.textContent = t("settings_profile");
+      const langLabel = $("#langInput")?.closest(".field")?.querySelector("label");
+      if(langLabel) langLabel.textContent = t("settings_language");
+      const saveSeat = $("#btnSaveSeat");
+      if(saveSeat) saveSeat.textContent = t("settings_save");
+      const resetSeat = $("#btnResetSeat");
+      if(resetSeat) resetSeat.textContent = t("settings_reset_seat");
+
+      const cmsBox = $("#paneCMS .mutedBox");
+      if(cmsBox) cmsBox.innerHTML = t("settings_cms_box");
+      const brandTitleLabel = $("#brandTitleInput")?.closest(".field")?.querySelector("label");
+      if(brandTitleLabel) brandTitleLabel.textContent = t("settings_brand_title");
+      const brandSubLabel = $("#brandSubInput")?.closest(".field")?.querySelector("label");
+      if(brandSubLabel) brandSubLabel.textContent = t("settings_brand_sub");
+      const importLabel = $("#configFile")?.closest(".field")?.querySelector("label");
+      if(importLabel) importLabel.textContent = t("settings_import_json");
+      const exportLabel = $("#configPreview")?.closest(".field")?.querySelector("label");
+      if(exportLabel) exportLabel.textContent = t("settings_export_json");
+      const applyBrand = $("#btnApplyBrand");
+      if(applyBrand) applyBrand.textContent = t("settings_apply_brand");
+      const refreshExport = $("#btnExport");
+      if(refreshExport) refreshExport.textContent = t("settings_refresh_export");
+      const factoryBtn = $("#btnFactory");
+      if(factoryBtn) factoryBtn.textContent = t("settings_factory");
+
+      const secBox = $("#paneSecurity .mutedBox");
+      if(secBox) secBox.innerHTML = t("settings_security_box");
+      const wlLabel = $("#whitelistInput")?.closest(".field")?.querySelector("label");
+      if(wlLabel) wlLabel.textContent = t("settings_whitelist");
+      const saveWL = $("#btnSaveWhitelist");
+      if(saveWL) saveWL.textContent = t("settings_save_whitelist");
+      const tightenWL = $("#btnTighten");
+      if(tightenWL) tightenWL.textContent = t("settings_tighten");
+      const secNote = $("#paneSecurity .hr + .mutedBox");
+      if(secNote) secNote.innerHTML = t("settings_security_note");
+
+      const logsBox = $("#paneLogs .mutedBox");
+      if(logsBox) logsBox.innerHTML = t("settings_logs_box");
+      const logsRefresh = $("#btnRefreshLogs");
+      if(logsRefresh) logsRefresh.textContent = t("settings_logs_refresh");
+      const logsClear = $("#btnClearLogs");
+      if(logsClear) logsClear.textContent = t("settings_logs_clear");
+      const logsCopy = $("#btnCopyLogs");
+      if(logsCopy) logsCopy.textContent = t("settings_logs_copy");
     }
+
 
     // ---------- Render (Safety) ----------
     function renderSafety(){
@@ -2640,8 +2832,15 @@ intranet.airline.local"></textarea>
       el.overlayMetric.textContent = `O₂ ~ ${formatInt(avail)}%`;
       el.overlaySteps.innerHTML = overlayStepsFor(level).map(x => `<li>${escapeHtml(x)}</li>`).join("");
 
-      // use localized status text
-      el.overlayText.textContent = s.text;
+      const overlayText = (level === "ok") 
+        ? (state.lang === "vi" ? "Cabin đang trong vùng an toàn mô phỏng." : "Cabin is within the simulated safe zone.")
+        : (level === "warn") 
+        ? (state.lang === "vi" ? "Cabin đang vào vùng cần chú ý." : "Cabin is entering a caution zone.")
+        : (level === "danger")
+        ? (state.lang === "vi" ? "Cabin đang ở mức cảnh báo." : "Cabin is in a warning zone.")
+        : (state.lang === "vi" ? "Cabin ở mức khẩn cấp." : "Cabin is critical.");
+      
+      el.overlayText.textContent = overlayText;
       el.effectsText.textContent = effectsFor(level);
       el.adviceList.innerHTML = adviceFor(level).map(x => `<li>${escapeHtml(x)}</li>`).join("");
 
@@ -2657,7 +2856,47 @@ intranet.airline.local"></textarea>
 
     // ---------- Toast ----------
     let toastTimer = null;
-    function toast(msg){
+    const TOAST_I18N = {
+  "AUTO: OFF": { vi: "AUTO: TẮT", en: "AUTO: OFF" },
+  "AUTO: ON": { vi: "AUTO: BẬT", en: "AUTO: ON" },
+  "Blocked: Invalid protocol": { vi: "Bị chặn: Giao thức không hợp lệ.", en: "Blocked: Invalid protocol" },
+  "Bị chặn bởi policy (whitelist).": { vi: "Bị chặn bởi policy (whitelist).", en: "Blocked by policy (whitelist)." },
+  "Chưa có món nào.": { vi: "Chưa có món nào.", en: "No items yet." },
+  "Copied": { vi: "Đã copy.", en: "Copied" },
+  "Copy failed": { vi: "Copy thất bại.", en: "Copy failed" },
+  "Giỏ trống.": { vi: "Giỏ trống.", en: "Cart is empty." },
+  "Hãy bấm “Xác nhận” trước.": { vi: "Hãy bấm “Xác nhận” trước.", en: "Please click “Confirm” first." },
+  "Import thất bại (JSON lỗi).": { vi: "Import thất bại (JSON lỗi).", en: "Import failed (invalid JSON)." },
+  "Link nội bộ (#) — hãy thay URL thật trong CMS.": { vi: "Link nội bộ (#) — hãy thay URL thật trong CMS.", en: "Internal link (#) — please replace with a real URL in the CMS." },
+  "Media URL thiếu trong CMS.": { vi: "Media URL thiếu trong CMS.", en: "Media URL is missing in the CMS." },
+  "Media bị chặn bởi whitelist.": { vi: "Media bị chặn bởi whitelist.", en: "Media blocked by whitelist." },
+  "Reset": { vi: "Reset", en: "Reset" },
+  "Stopped": { vi: "Đã dừng.", en: "Stopped" },
+  "URL không hợp lệ.": { vi: "URL không hợp lệ.", en: "Invalid URL." },
+  "Đã gửi (mô phỏng)": { vi: "Đã gửi (mô phỏng).", en: "Sent (simulated)." },
+  "Đã import config": { vi: "Đã import config.", en: "Configuration imported." },
+  "Đã khôi phục mặc định": { vi: "Đã khôi phục mặc định.", en: "Defaults restored." },
+  "Đã làm mới export": { vi: "Đã làm mới export.", en: "Export refreshed." },
+  "Đã làm mới log": { vi: "Đã làm mới log.", en: "Log refreshed." },
+  "Đã lưu ghế": { vi: "Đã lưu ghế.", en: "Seat preferences saved." },
+  "Đã lưu whitelist": { vi: "Đã lưu whitelist.", en: "Whitelist saved." },
+  "Đã reset ghế": { vi: "Đã reset ghế.", en: "Seat preferences reset." },
+  "Đã siết whitelist": { vi: "Đã siết whitelist.", en: "Whitelist tightened." },
+  "Đã thêm vào giỏ": { vi: "Đã thêm vào giỏ.", en: "Added to cart." },
+  "Đã xác nhận": { vi: "Đã xác nhận.", en: "Confirmed." },
+  "Đã xóa log": { vi: "Đã xóa log.", en: "Log cleared." },
+  "Đã xóa đơn": { vi: "Đã xóa đơn.", en: "Order cleared." },
+  "Đã áp dụng brand": { vi: "Đã áp dụng brand.", en: "Brand applied." }
+};
+
+
+function translateToast(msg) {
+  const entry = TOAST_I18N[msg];
+  if (!entry) return msg;
+  return state.lang === "vi" ? entry.vi : entry.en;
+}
+
+function toast(msg){
       let node = $("#toast");
       if(!node){
         node = document.createElement("div");
@@ -2690,6 +2929,83 @@ intranet.airline.local"></textarea>
       }, 1400);
     }
 
+
+
+    // ---------- Admin UI Login (Injected) ----------
+    const ADMIN_PASS = "1811"; // change if needed
+
+    function adminMaskEls(){
+      return {
+        mask: document.getElementById("adminMask"),
+        pass: document.getElementById("adminPassInput"),
+        err:  document.getElementById("adminError"),
+        close: document.getElementById("adminCloseBtn"),
+        cancel: document.getElementById("adminCancelBtn"),
+        unlock: document.getElementById("adminUnlockBtn"),
+        title: document.getElementById("adminTitle"),
+        hint: document.getElementById("adminHint"),
+        label: document.getElementById("adminPassLabel")
+      };
+    }
+
+    function adminI18N(){
+      const isVI = state.lang === "vi";
+      const E = adminMaskEls();
+      if(!E.title) return;
+      E.title.textContent = isVI ? "Truy cập Admin" : "Admin Access";
+      E.hint.innerHTML = isVI
+        ? "<b>Giới hạn</b>: CMS / Whitelist / Logs chỉ dành cho tiếp viên/admin."
+        : "<b>Restricted</b>: CMS / Whitelist / Logs are for crew/admin only.";
+      E.label.textContent = isVI ? "Mật khẩu" : "Password";
+      E.pass.placeholder = "••••";
+      E.close.textContent = isVI ? "Đóng" : "Close";
+      E.cancel.textContent = isVI ? "Hủy" : "Cancel";
+      E.unlock.textContent = isVI ? "Mở khóa" : "Unlock";
+      E.err.textContent = isVI ? "Sai mật khẩu." : "Invalid password.";
+    }
+
+    function showAdminLogin(onSuccess){
+      const E = adminMaskEls();
+      if(!E.mask) {
+        toast(state.lang === "vi" ? "Thiếu panel admin (HTML)." : "Admin panel missing (HTML).");
+        return;
+      }
+
+      adminI18N();
+      E.err.style.display = "none";
+      E.pass.value = "";
+
+      E.mask.classList.add("show");
+      E.mask.setAttribute("aria-hidden","false");
+      setTimeout(() => E.pass.focus(), 50);
+
+      const close = () => {
+        E.mask.classList.remove("show");
+        E.mask.setAttribute("aria-hidden","true");
+      };
+
+      const submit = () => {
+        const v = (E.pass.value || "").trim();
+        if(v === ADMIN_PASS){
+          state.isAdmin = true;
+          sessionStorage.setItem("aero.admin","1");
+          pushLog("admin_login_ok", {});
+          close();
+          if(typeof onSuccess === "function") onSuccess();
+          toast(state.lang === "vi" ? "Đã mở khóa admin" : "Admin unlocked");
+        } else {
+          E.err.style.display = "block";
+          pushLog("admin_login_fail", { len: v.length });
+        }
+      };
+
+      E.close.onclick = close;
+      E.cancel.onclick = close;
+      E.unlock.onclick = submit;
+      E.mask.onclick = (ev) => { if(ev.target === E.mask) close(); };
+      E.pass.onkeydown = (ev) => { if(ev.key === "Enter") { ev.preventDefault(); submit(); } };
+    }
+
     // ---------- Clock ----------
     function updateClock(){
       const d = new Date();
@@ -2700,6 +3016,38 @@ intranet.airline.local"></textarea>
     }
 
     // ---------- Simulation engine ----------
+      // ===== AUTO ENGINE (triangle wave like your poster demo) =====
+  const AUTO = {
+    T: 24000,                 // 24s / cycle
+    altMin: 0,
+    altMax: 9000,             // match altRange max
+    pressMin: 350,            // match pressRange min
+    pressMax: 1013            // match pressRange max
+  };
+
+  // time->triangle [0..1..0]
+  function tri01(nowMs, t0Ms, T){
+    const phase = ((nowMs - t0Ms) % T + T) % T;
+    const p = phase / T;                  // 0..1
+    return (p < 0.5) ? (p * 2) : (1 - (p - 0.5) * 2);
+  }
+
+  // align t0 so that current value continues smoothly
+  function setAutoT0FromCurrent(){
+    const now = state.t; // state.t is our running clock (ms)
+    let tri = 0;
+
+    if (state.mode === "alt") {
+      const alt = clamp(state.cabinAlt_m, AUTO.altMin, AUTO.altMax);
+      const percent = (alt - AUTO.altMin) / (AUTO.altMax - AUTO.altMin); // 0..1
+      // tri is 0..1..0; mapping in poster uses t0 = now - currentPercent*T/2
+      state.autoT0 = now - (percent * AUTO.T / 2);
+    } else {
+      const P = clamp(state.cabinPress_hPa, AUTO.pressMin, AUTO.pressMax);
+      const percent = (P - AUTO.pressMin) / (AUTO.pressMax - AUTO.pressMin);
+      state.autoT0 = now - (percent * AUTO.T / 2);
+    }
+  }
     function tick(dt){
       if(state.paused) return;
       state.t += dt;
@@ -2709,15 +3057,18 @@ intranet.airline.local"></textarea>
       state.speed_kmh = 840 + wob*14 + wob2*8;
       state.oat_C = -45 + wob2*2 - wob*1.2;
 
-      if(state.sim === "auto"){
-        if(state.mode === "alt"){
-          const base = parseFloat(el.altRange.value);
-          const drift = (Math.sin(state.t*0.0009)*14 + Math.sin(state.t*0.0017)*8);
-          syncFromAltitude(base + drift);
-        }else{
-          const base = parseFloat(el.pressRange.value);
-          const drift = (Math.sin(state.t*0.0011)*2 + Math.sin(state.t*0.0019)*1);
-          syncFromPressure(base + drift);
+      if (state.sim === "auto") {
+        const tri = tri01(state.t, state.autoT0 || 0, AUTO.T); // 0..1..0
+
+        if (state.mode === "alt") {
+          const alt = AUTO.altMin + tri * (AUTO.altMax - AUTO.altMin);
+          // keep slider in sync with auto value
+          el.altRange.value = Math.round(alt);
+          syncFromAltitude(parseFloat(el.altRange.value));
+        } else {
+          const P = AUTO.pressMin + tri * (AUTO.pressMax - AUTO.pressMin);
+          el.pressRange.value = Math.round(P);
+          syncFromPressure(parseFloat(el.pressRange.value));
         }
       }
     }
@@ -2868,8 +3219,8 @@ intranet.airline.local"></textarea>
       ctx.globalAlpha = 1;
     }
     function draw(){
-      if(document.hidden) {
-        requestAnimationFrame(draw);
+        if(document.hidden) {
+          requestAnimationFrame(draw);
         return;
       }
 
@@ -3016,10 +3367,10 @@ intranet.airline.local"></textarea>
       el.entSeatMini.textContent = `SEAT: ${seatKey()}`;
 
     const label =
-      order.status === "sent" ? t("ui_order_sent") :
-      order.status === "confirmed" ? t("ui_order_confirmed") :
-      t("ui_order_draft");
-    el.orderStateVal.textContent = label;
+      order.status === "sent" ? (state.lang==="vi" ? "ĐÃ GỬI" : "SENT") :
+      order.status === "confirmed" ? (state.lang==="vi" ? "ĐÃ XÁC NHẬN" : "CONFIRMED") :
+      (state.lang==="vi" ? "NHÁP" : "DRAFT");
+      el.orderStateVal.textContent = label;
 
       el.orderStateSub.innerHTML = [
         `Ghế: <b>${escapeHtml(seatKey())}</b>`,
@@ -3059,7 +3410,9 @@ intranet.airline.local"></textarea>
 
       const current = cats.find(x => x.id === state.svcCat);
       el.entCatTitle.textContent = current ? pickLang(current.name) : "—";
-      el.entCatHint.textContent = t("ui_ent_cat_hint");
+      el.entCatHint.textContent = state.lang === "vi"
+        ? "Chọn món → xem chi tiết → thêm vào giỏ"
+        : "Tap item → details → add to cart";
 
       const list = items.filter(it => {
         if(it.cat !== state.svcCat) return false;
@@ -3149,7 +3502,7 @@ intranet.airline.local"></textarea>
       order.status = "draft";
       saveOrder(order);
       syncOrderUI();
-      toast(t("ui_toast_added_to_cart"));
+      toast("Đã thêm vào giỏ");
       pushLog("cart_add", { id:item.id, qty });
     }
 
@@ -3157,7 +3510,7 @@ intranet.airline.local"></textarea>
       order = loadOrder();
       const { sum, qty } = orderTotals(order);
       if(qty === 0){
-        toast(t("ui_toast_cart_empty"));
+        toast("Chưa có món nào.");
         return;
       }
       const lines = order.items.slice(0, 6).map(it => `${it.qty}× ${it.name}`).join(" • ");
@@ -3192,22 +3545,22 @@ intranet.airline.local"></textarea>
           const idx = parseInt(b.dataset.i, 10);
           const item = lib[idx];
           if(!item?.url){
-            toast(t("ui_toast_media_missing"));
+            toast("Media URL thiếu trong CMS.");
             pushLog("media_blocked", { idx, reason:"missing_url" });
             return;
           }
           if(/^https?:\/\//i.test(item.url)){
             const host = normalizeHost(item.url);
             if(!hostAllowed(host, state.config.whitelist || [])){
-              toast(t("ui_toast_media_blocked"));
+              toast("Media bị chặn bởi whitelist.");
               pushLog("media_blocked", { idx, url:item.url, host, reason:"not_in_whitelist" });
               return;
             }
           }
-          el.ifeMode.textContent = t("ui_mode_url") || "URL";
+          el.ifeMode.textContent = "URL";
           el.video.src = item.url;
           el.video.play().catch(()=>{});
-          toast(t("ui_playing_prefix") + (pickLang(item.title)||"Media"));
+          toast((state.lang==="vi" ? "Đang phát: " : "Playing: ") + (pickLang(item.title)||"Media"));
           pushLog("media_play", { idx, title: pickLang(item.title), url:item.url });
         });
       });
@@ -3221,10 +3574,10 @@ intranet.airline.local"></textarea>
       const url = URL.createObjectURL(file);
       state.currentVideoBlob = url; 
 
-      el.ifeMode.textContent = t("ui_mode_local") || "LOCAL";
+      el.ifeMode.textContent = "LOCAL";
       el.video.src = url;
       el.video.play().catch(()=>{});
-      toast(t("ui_loaded_prefix") + file.name);
+      toast(`Loaded: ${file.name}`);
       pushLog("video_local_loaded", { name:file.name, size:file.size });
     }
     
@@ -3246,7 +3599,7 @@ intranet.airline.local"></textarea>
           state.currentVideoBlob = null;
         }
         
-        toast(t("ui_stopped"));
+        toast("Stopped");
         pushLog("video_stop", {});
       });
 
@@ -3314,41 +3667,58 @@ intranet.airline.local"></textarea>
 
       // Sim toggle
       el.btnSim.addEventListener("click", () => {
-        setSim(state.sim === "auto" ? "manual" : "auto");
-        toast(t("ui_simulation_prefix") + (state.sim === "auto" ? t("ui_auto") : t("ui_manual")));
+        const next = (state.sim === "auto") ? "manual" : "auto";
+
+        if (next === "auto") {
+          // ✅ start auto from current value
+          setAutoT0FromCurrent();
+          setSim("auto");
+          toast("AUTO: ON");
+        } else {
+          setSim("manual");
+          toast("AUTO: OFF");
+        }
+
+        // make sure state matches UI immediately
+        if (state.mode === "alt") syncFromAltitude(parseFloat(el.altRange.value));
+        else syncFromPressure(parseFloat(el.pressRange.value));
+
+        renderSafety();
       });
 
       // Pause
       el.btnPause.addEventListener("click", () => {
         state.paused = !state.paused;
-        el.btnPause.textContent = state.paused ? t("ui_resumed") : t("ui_paused");
-        toast(state.paused ? t("ui_paused") : t("ui_resumed"));
+        el.btnPause.textContent = state.paused ? (state.lang==="vi"?"Tiếp tục":"Resume") : (state.lang==="vi"?"Tạm dừng":"Pause");
+        toast(state.paused ? "Paused" : "Resumed");
         pushLog("pause_toggle", { paused: state.paused });
       });
 
       // Reset
       el.btnReset.addEventListener("click", () => {
-        state.paused = false;
-        state.alertTest = false;
+state.paused = false;
+                state.t = 0;
+        state.autoT0 = 0;
+state.alertTest = false;
         state.calm = false;
         setMode("alt");
         setSim("auto");
         el.altRange.value = 2400;
         el.pressRange.value = 750;
         syncFromAltitude(2400);
-        el.btnPause.textContent = t("ui_paused");
-        toast(t("ui_toast_reset") || "Reset");
+        if(typeof setAutoT0FromCurrent === "function") setAutoT0FromCurrent();
+el.btnPause.textContent = state.lang==="vi" ? "Tạm dừng" : "Pause";
+        toast("Reset");
         pushLog("reset", {});
         renderSafety();
       });
-
-      // Language toggle
+// Language toggle
       el.btnLang.addEventListener("click", () => {
         state.lang = (state.lang === "vi") ? "en" : "vi";
         applyLang();
         applyTheme();
         saveSeat();
-        toast(t('ui_lang_switched_' + state.lang));
+        toast(state.lang==="vi" ? "Đã chuyển VI" : "Switched to EN");
       });
 
       // Theme toggle
@@ -3357,7 +3727,7 @@ intranet.airline.local"></textarea>
           state.theme = (state.theme === "light") ? "dark" : "light";
           applyTheme();
           saveSeat();
-          toast(state.theme === "light" ? t('ui_theme_changed_light') : t('ui_theme_changed_dark'));
+          toast(state.theme === "light" ? "Giao diện: LIGHT" : "Giao diện: DARK");
         });
       }
 
@@ -3402,30 +3772,30 @@ intranet.airline.local"></textarea>
       el.btnConfirmOrder.addEventListener("click", () => {
         order = loadOrder();
         if((order.items||[]).length === 0){
-            toast(t("ui_toast_cart_empty"));
+          toast("Giỏ trống.");
           return;
         }
-          order.status = "confirmed";
-          saveOrder(order);
-          syncOrderUI();
-          toast(t("ui_toast_confirmed"));
+        order.status = "confirmed";
+        saveOrder(order);
+        syncOrderUI();
+        toast("Đã xác nhận");
         pushLog("order_confirmed", { seat: seatKey() });
       });
 
       el.btnSendOrder.addEventListener("click", () => {
         order = loadOrder();
         if((order.items||[]).length === 0){
-          toast(t("ui_toast_cart_empty"));
+          toast("Giỏ trống.");
           return;
         }
         if(order.status !== "confirmed"){
-          toast(t("ui_toast_confirm_first") || "Please confirm first.");
+          toast("Hãy bấm “Xác nhận” trước.");
           return;
         }
         order.status = "sent";
         saveOrder(order);
         syncOrderUI();
-        toast(t("ui_toast_sent"));
+        toast("Đã gửi (mô phỏng)");
         pushLog("order_sent", { seat: seatKey(), items: order.items.length });
       });
 
@@ -3434,7 +3804,7 @@ intranet.airline.local"></textarea>
         delete all[seatKey()];
         saveAllOrders(all);
         syncOrderUI();
-        toast(t("ui_toast_cleared_order"));
+        toast("Đã xóa đơn");
         pushLog("order_cleared", { seat: seatKey() });
       });
 
@@ -3469,8 +3839,16 @@ intranet.airline.local"></textarea>
       wireVideo();
 
       // Settings
-      el.btnSettings.addEventListener("click", () => showSettings(true));
-      el.btnCloseSettings.addEventListener("click", () => showSettings(false));
+      el.btnSettings.addEventListener("click", () => {
+        const unlocked = state.isAdmin || sessionStorage.getItem("aero.admin")==="1";
+        if(unlocked){
+          state.isAdmin = true;
+          showSettings(true);
+        }else{
+          showAdminLogin(() => showSettings(true));
+        }
+      });
+el.btnCloseSettings.addEventListener("click", () => showSettings(false));
       el.modalMask.addEventListener("click", (e) => { if(e.target === el.modalMask) showSettings(false); });
       el.navItems.forEach(b => b.addEventListener("click", () => setPane(b.dataset.pane)));
 
@@ -3483,7 +3861,7 @@ intranet.airline.local"></textarea>
         applyLang();
         saveSeat();
         syncOrderUI();
-        toast(t("ui_toast_saved_seat") || "Đã lưu ghế");
+        toast("Đã lưu ghế");
       });
       el.btnResetSeat.addEventListener("click", () => {
         state.seat = { id:"—", profile:"adult" };
@@ -3492,7 +3870,7 @@ intranet.airline.local"></textarea>
         applyLang();
         saveSeat();
         syncOrderUI();
-        toast(t("ui_toast_reset_seat") || "Đã reset ghế");
+        toast("Đã reset ghế");
       });
 
       // CMS import 
@@ -3514,11 +3892,10 @@ intranet.airline.local"></textarea>
           el.brandSubInput.value = state.config.brand?.subtitle || "";
           el.whitelistInput.value = (state.config.whitelist || []).join("\n");
           refreshExport();
-          toast(t("ui_toast_config_imported") || "Đã import config");
+          toast("Đã import config");
           pushLog("config_import", { name: f.name, size: f.size });
         }catch(err){
-          toast(t("ui_toast_config_import_failed") || "Import thất bại (JSON lỗi)."
-          );
+          toast("Import thất bại (JSON lỗi).");
           pushLog("config_import_failed", { err: String(err) });
         }finally{
           e.target.value = "";
@@ -3533,10 +3910,10 @@ intranet.airline.local"></textarea>
         saveConfig(state.config);
         applyBrand();
         refreshExport();
-        toast(t("ui_toast_brand_applied") || "Đã áp dụng brand");
+        toast("Đã áp dụng brand");
       });
 
-      el.btnExport.addEventListener("click", () => { refreshExport(); toast(t("ui_toast_export_refreshed") || "Đã làm mới export"); });
+      el.btnExport.addEventListener("click", () => { refreshExport(); toast("Đã làm mới export"); });
 
       el.btnFactory.addEventListener("click", () => {
         state.config = structuredCloneSafe(FACTORY);
@@ -3551,7 +3928,7 @@ intranet.airline.local"></textarea>
         el.brandSubInput.value = state.config.brand.subtitle;
         el.whitelistInput.value = (state.config.whitelist || []).join("\n");
         refreshExport();
-        toast(t("ui_toast_factory_defaults") || "Đã khôi phục mặc định");
+        toast("Đã khôi phục mặc định");
         pushLog("factory_defaults", {});
       });
 
@@ -3563,7 +3940,7 @@ intranet.airline.local"></textarea>
         if(!state.config.whitelist.includes("upload.wikimedia.org")) state.config.whitelist.push("upload.wikimedia.org");
         saveConfig(state.config);
         refreshExport();
-        toast(t("ui_toast_whitelist_saved") || "Đã lưu whitelist");
+        toast("Đã lưu whitelist");
         pushLog("whitelist_saved", { count: state.config.whitelist.length });
       });
 
@@ -3572,7 +3949,7 @@ intranet.airline.local"></textarea>
         el.whitelistInput.value = state.config.whitelist.join("\n");
         saveConfig(state.config);
         refreshExport();
-        toast(t("ui_toast_whitelist_tightened") || "Đã siết whitelist");
+        toast("Đã siết whitelist");
         pushLog("whitelist_tighten", {});
       });
 
@@ -3581,14 +3958,14 @@ intranet.airline.local"></textarea>
       el.btnClearLogs.addEventListener("click", () => {
         localStorage.setItem(KEY.logs, "[]");
         refreshLogs();
-        toast(t("ui_toast_logs_cleared") || "Đã xóa log");
+        toast("Đã xóa log");
       });
       el.btnCopyLogs.addEventListener("click", async () => {
         try{
           await navigator.clipboard.writeText(el.logsBox.value || "");
-          toast(t("ui_toast_copied") || "Copied");
+          toast("Copied");
         }catch{
-          toast(t("ui_toast_copy_failed") || "Copy failed");
+          toast("Copy failed");
         }
       });
 
@@ -3660,5 +4037,54 @@ intranet.airline.local"></textarea>
 
     boot();
   </script>
+<div class="modalPane" style="padding:20px">
+      <div class="field" style="grid-template-columns:1fr">
+        <label style="margin-bottom:6px">Enter password</label>
+        <input type="password" id="adminPass" placeholder="••••••" />
+      </div>
+      <div id="adminError" style="color:#fb7185;font-size:12px;margin-top:8px;display:none">
+        Invalid password
+      </div>
+      <div class="inlineBtns" style="margin-top:14px">
+        <button class="btn" id="adminCancel">Cancel</button>
+        <button class="btn primary" id="adminUnlock">Unlock</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ADMIN LOGIN MODAL (Injected) -->
+  <div class="modalMask" id="adminMask" aria-hidden="true" style="z-index:10000">
+    <div class="modal" role="dialog" aria-modal="true" style="width:min(520px,96vw);height:auto;max-height:92vh">
+      <div class="modalTop">
+        <h3 id="adminTitle" style="margin:0;letter-spacing:.18em;text-transform:uppercase;font-size:13px">Admin Access</h3>
+        <div class="right">
+          <button class="btn" id="adminCloseBtn" title="Close">Đóng</button>
+        </div>
+      </div>
+
+      <div class="modalPane" style="padding:16px 16px 18px">
+        <div class="mutedBox" id="adminHint" style="margin-bottom:12px">
+          <b>Restricted</b>: CMS / Whitelist / Logs are for crew/admin only.
+        </div>
+
+        <div class="field" style="grid-template-columns:1fr;gap:8px">
+          <label id="adminPassLabel" style="margin:0">Password</label>
+          <input id="adminPassInput" type="password" placeholder="••••" autocomplete="off" />
+        </div>
+
+        <div id="adminError" class="mutedBox" style="margin-top:10px;border-color:rgba(251,113,133,.35);color:rgba(251,113,133,.95);display:none">
+          Invalid password.
+        </div>
+
+        <div class="inlineBtns" style="margin-top:14px">
+          <button class="btn" id="adminCancelBtn">Hủy</button>
+          <button class="btn primary" id="adminUnlockBtn">Mở khóa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
