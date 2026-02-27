@@ -1504,7 +1504,7 @@
           <div class="panelBody">
             <div class="seg" style="margin-bottom:12px">
               <button id="entBtnMenu" aria-pressed="true">Menu</button>
-              <button id="entBtnShowcase" aria-pressed="false">Showcase</button>
+              <button id="entBtnShowcase" aria-pressed="false">Đơn của tôi</button>
               <button class="cartPillBtn" id="entCartBtn" style="flex:0 0 auto;">🛒 Giỏ <span class="mono" id="entCartCount">0</span></button>
             </div>
 
@@ -2669,9 +2669,8 @@ function applyI18NTextNodes(lang) {
       $("#svcRightTitle").textContent = t("ui_svc_right_title");
       $("#svcRightHint").textContent = t("ui_svc_right_hint");
       el.entBtnMenu.textContent = t("ui_menu");
-      el.entBtnShowcase.textContent = t("ui_showcase");
-
-      if(el.entCartBtn && el.entCartCount){
+      el.entBtnShowcase.textContent = (state.lang==="vi" ? "Đơn của tôi" : "My order");
+if(el.entCartBtn && el.entCartCount){
         const countNode = el.entCartCount;
         el.entCartBtn.textContent = "";
         el.entCartBtn.appendChild(document.createTextNode(t("ui_cart") + " "));
@@ -3361,7 +3360,7 @@ function toast(msg){
     }
 
     function syncOrderUI(){
-      order = loadOrder();
+order = loadOrder();
       const { sum, qty } = orderTotals(order);
       el.entCartCount.textContent = String(qty);
       el.entSeatMini.textContent = `SEAT: ${seatKey()}`;
@@ -3383,6 +3382,10 @@ function toast(msg){
       if(order.status === "draft") setStepper(1);
       if(order.status === "confirmed") setStepper(2);
       if(order.status === "sent") setStepper(3);
+
+      // keep Order Hub in sync
+      if(typeof renderOrderHub === "function") renderOrderHub();
+
     }
 
     function renderSvcPills(){
@@ -3517,6 +3520,162 @@ function toast(msg){
       toast(`${qty} món • ${fmtMoney(sum)} • ${lines}`);
     }
 
+
+    // ---------- Services: Order Hub (Injected) ----------
+    function clampInt(n, a, b){
+      const x = Math.round(Number(n||0));
+      return Math.max(a, Math.min(b, x));
+    }
+
+    function orderStatusLabel(st){
+      const vi = { draft:"NHÁP", confirmed:"ĐÃ XÁC NHẬN", sent:"ĐÃ GỬI" };
+      const en = { draft:"DRAFT", confirmed:"CONFIRMED", sent:"SENT" };
+      const map = (state.lang==="vi") ? vi : en;
+      return map[st] || map.draft;
+    }
+
+    function setOrderNoteFromHub(v){
+      const o = loadOrder();
+      o.note = String(v||"");
+      saveOrder(o);
+      if(el.orderNote) el.orderNote.value = o.note || "";
+      syncOrderUI();
+    }
+
+    function updateOrderItemQty(id, delta){
+      const o = loadOrder();
+      const idx = (o.items||[]).findIndex(x => x.id === id);
+      if(idx < 0) return;
+      const next = clampInt((o.items[idx].qty||1) + delta, 0, 12);
+      if(next <= 0){
+        o.items.splice(idx, 1);
+      } else {
+        o.items[idx].qty = next;
+      }
+      o.status = "draft";
+      saveOrder(o);
+      syncOrderUI();
+      toast(state.lang==="vi" ? "Đã cập nhật giỏ" : "Cart updated");
+    }
+
+    function removeOrderItem(id){
+      const o = loadOrder();
+      o.items = (o.items||[]).filter(x => x.id !== id);
+      o.status = "draft";
+      saveOrder(o);
+      syncOrderUI();
+      toast(state.lang==="vi" ? "Đã xóa món" : "Item removed");
+    }
+
+    function clearOrderForSeat(){
+      const all = getAllOrders();
+      delete all[seatKey()];
+      saveAllOrders(all);
+      syncOrderUI();
+      toast(state.lang==="vi" ? "Đã xóa đơn" : "Order cleared");
+      pushLog("order_cleared", { seat: seatKey() });
+    }
+
+    function confirmOrderForSeat(){
+      const o = loadOrder();
+      if((o.items||[]).length === 0){
+        toast(state.lang==="vi" ? "Giỏ trống." : "Cart is empty.");
+        return;
+      }
+      o.status = "confirmed";
+      saveOrder(o);
+      syncOrderUI();
+      toast(state.lang==="vi" ? "Đã xác nhận" : "Confirmed");
+      pushLog("order_confirmed", { seat: seatKey() });
+    }
+
+    function sendOrderForSeat(){
+      const o = loadOrder();
+      if((o.items||[]).length === 0){
+        toast(state.lang==="vi" ? "Giỏ trống." : "Cart is empty.");
+        return;
+      }
+      if(o.status !== "confirmed"){
+        toast(state.lang==="vi" ? "Hãy bấm “Xác nhận” trước." : "Please confirm first.");
+        return;
+      }
+      o.status = "sent";
+      saveOrder(o);
+      syncOrderUI();
+      toast(state.lang==="vi" ? "Đã gửi (mô phỏng)" : "Sent (simulated)");
+      pushLog("order_sent", { seat: seatKey(), items: (o.items||[]).length });
+    }
+
+    function renderOrderHub(){
+      if(!el.projCards) return;
+      const o = loadOrder();
+      const totals = orderTotals(o);
+      const sum = totals.sum;
+      const qty = totals.qty;
+
+      const title = (state.lang==="vi") ? "ĐƠN CỦA TÔI" : "MY ORDER";
+      const emptyTitle = (state.lang==="vi") ? "Giỏ trống" : "Cart is empty";
+      const emptyHint = (state.lang==="vi")
+        ? "Hãy chuyển qua tab Menu để chọn món rồi quay lại đây để chỉnh sửa / gửi tiếp viên."
+        : "Go to Menu to add items, then return here to edit / send to crew.";
+
+      const noteLabel = (state.lang==="vi") ? "Ghi chú cho tiếp viên" : "Note for crew";
+      const notePh = (state.lang==="vi") ? "VD: ít đá / không hành / không phô mai..." : "e.g., less ice / no onion / no cheese...";
+      const sumLabel = (state.lang==="vi") ? "Tổng" : "Total";
+      const itemsLabel = (state.lang==="vi") ? "Món" : "Items";
+      const seatLbl = (state.lang==="vi") ? "Ghế" : "Seat";
+      const statusLbl = (state.lang==="vi") ? "Trạng thái" : "Status";
+
+      const btnConfirm = (state.lang==="vi") ? "Xác nhận" : "Confirm";
+      const btnSend = (state.lang==="vi") ? "Gửi tiếp viên" : "Send to crew";
+      const btnClear = (state.lang==="vi") ? "Xóa đơn" : "Clear";
+      const btnBack = (state.lang==="vi") ? "← Quay lại Menu" : "← Back to Menu";
+
+      const list = (o.items||[]);
+      if(list.length === 0){
+        el.projCards.innerHTML = '<div class="projCard"><div class="inner"><h3>' + escapeHtml(title) + ' • ' + escapeHtml(emptyTitle) + '</h3><p>' + escapeHtml(emptyHint) + '</p><div class="actions"><button class="linkBtn" id="hubBackBtn">' + escapeHtml(btnBack) + '</button></div></div></div>';
+        const back = document.getElementById("hubBackBtn");
+        if(back) back.onclick = () => { el.entBtnMenu.click(); };
+        return;
+      }
+
+      const itemCards = list.map(it => {
+        const line = fmtMoney((it.priceVnd||0) * (it.qty||0));
+        const note = (it.note||"").trim();
+        const noteText = note ? note : (state.lang==="vi" ? "Không có ghi chú cho món này." : "No item note.");
+        return '<div class="projCard"><div class="inner"><h3>' + escapeHtml(it.name || it.id || "") + '</h3><p>' + escapeHtml(noteText) + '</p><div class="tags"><span class="tag">' + escapeHtml(String(it.qty||0)) + '×</span><span class="tag">' + escapeHtml(fmtMoney(it.priceVnd||0)) + '</span><span class="tag">' + escapeHtml(line) + '</span></div><div class="actions"><button class="linkBtn" data-act="dec" data-id="' + escapeHtml(it.id) + '">−</button><button class="linkBtn" data-act="inc" data-id="' + escapeHtml(it.id) + '">+</button><button class="linkBtn" data-act="rm" data-id="' + escapeHtml(it.id) + '">' + escapeHtml(state.lang==="vi" ? "Xóa" : "Remove") + '</button><span class="small">• ' + escapeHtml(state.lang==="vi" ? "Chỉnh số lượng" : "Edit qty") + '</span></div></div></div>';
+      }).join("");
+
+      el.projCards.innerHTML = '<div class="projCard"><div class="inner"><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(seatLbl) + ': <span class="mono">' + escapeHtml(seatKey()) + '</span> • ' + escapeHtml(statusLbl) + ': <span class="mono">' + escapeHtml(orderStatusLabel(o.status)) + '</span> • ' + escapeHtml(itemsLabel) + ': <span class="mono">' + escapeHtml(String(qty)) + '</span> • ' + escapeHtml(sumLabel) + ': <span class="mono">' + escapeHtml(fmtMoney(sum)) + '</span></p><div class="hr"></div><div class="small"><b>' + escapeHtml(noteLabel) + '</b></div><textarea id="hubNote" class="svcNote" placeholder="' + escapeHtml(notePh) + '">' + escapeHtml(o.note||"") + '</textarea><div class="actions" style="margin-top:10px"><button class="linkBtn" id="hubConfirmBtn">' + escapeHtml(btnConfirm) + '</button><button class="linkBtn" id="hubSendBtn">' + escapeHtml(btnSend) + '</button><button class="linkBtn" id="hubClearBtn">' + escapeHtml(btnClear) + '</button><button class="linkBtn" id="hubBackBtn">' + escapeHtml(btnBack) + '</button></div></div></div>' + itemCards;
+
+      const note = document.getElementById("hubNote");
+      if(note){
+        note.addEventListener("input", debounce(() => setOrderNoteFromHub(note.value), 200));
+      }
+
+      const back = document.getElementById("hubBackBtn");
+      if(back) back.onclick = () => { el.entBtnMenu.click(); };
+
+      const c = document.getElementById("hubConfirmBtn");
+      if(c) c.onclick = confirmOrderForSeat;
+
+      const send = document.getElementById("hubSendBtn");
+      if(send) send.onclick = sendOrderForSeat;
+
+      const clr = document.getElementById("hubClearBtn");
+      if(clr) clr.onclick = clearOrderForSeat;
+
+      Array.from(el.projCards.querySelectorAll('[data-act]')).forEach(b => {
+        b.addEventListener('click', () => {
+          const act = b.getAttribute('data-act');
+          const id = b.getAttribute('data-id');
+          if(!id) return;
+          if(act === "dec") updateOrderItemQty(id, -1);
+          if(act === "inc") updateOrderItemQty(id, +1);
+          if(act === "rm") removeOrderItem(id);
+        });
+      });
+    }
     // ---------- Apps ----------
     function renderApps(){
       const apps = state.config.apps || [];
@@ -3750,13 +3909,13 @@ el.btnPause.textContent = state.lang==="vi" ? "Tạm dừng" : "Pause";
         el.showcaseWrap.style.display = "none";
       });
       el.entBtnShowcase.addEventListener("click", () => {
-        el.entBtnMenu.setAttribute("aria-pressed","false");
+el.entBtnMenu.setAttribute("aria-pressed","false");
         el.entBtnShowcase.setAttribute("aria-pressed","true");
         el.menuWrap.style.display = "none";
         el.showcaseWrap.style.display = "block";
+        if(typeof renderOrderHub==="function") renderOrderHub();
       });
-
-      // Cart quick view
+// Cart quick view
       el.entCartBtn.addEventListener("click", showCartToast);
       el.btnViewCart.addEventListener("click", showCartToast);
 
@@ -3883,7 +4042,7 @@ el.btnCloseSettings.addEventListener("click", () => showSettings(false));
           state.config = mergeConfig(structuredCloneSafe(FACTORY), incoming);
           saveConfig(state.config);
           applyBrand();
-          renderProjects();
+      renderOrderHub();
           renderApps();
           renderMedia();
           renderSvcPills();
