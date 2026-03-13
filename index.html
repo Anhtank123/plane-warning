@@ -39,237 +39,6 @@
     :root[data-theme="dark"]{ color-scheme: dark; }
 
     /* ========================================================
-       APPLE-LIKE LIGHT THEME OVERRIDES (State-of-the-Art)
-       ======================================================== */
-    :root[data-theme="light"] {
-      color-scheme: light;
-
-      /* Core Apple Colors */
-      --bg0: #FBFBFD; /* Classic Apple Off-White */
-      --bg1: #F5F5F7; /* Classic Apple Gray Background */
-      --ink: #1D1D1F; /* Signature Apple Dark Text */
-      --muted: #86868B;
-      --dim: #A1A1A6;
-
-      /* Glass & Surfaces */
-      --glass: rgba(255, 255, 255, 0.65);
-      --glass-solid: rgba(255, 255, 255, 0.95);
-      --surface-track: rgba(0, 0, 0, 0.05);
-      --surface-thumb: #FFFFFF;
-
-      /* Delicate Apple Borders & Shadows */
-      --line: rgba(0, 0, 0, 0.08);
-      --border-glass: rgba(0, 0, 0, 0.05);
-      --inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-      --shadow-apple-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-      --shadow-apple-card: 0 4px 14px -4px rgba(0, 0, 0, 0.06);
-      --shadow-apple-float: 0 20px 60px -15px rgba(0, 0, 0, 0.12);
-
-      --focus: 0 0 0 4px rgba(0, 125, 250, 0.25); /* Apple Focus Blue */
-    }
-
-    /* Background Gradient Tuning (Ultra Soft) */
-    :root[data-theme="light"] body {
-      background:
-        radial-gradient(1200px 800px at 20% 20%, rgba(139, 92, 246, 0.05), transparent 60%),
-        radial-gradient(900px 700px at 80% 25%, rgba(34, 211, 238, 0.05), transparent 55%),
-        radial-gradient(800px 700px at 55% 80%, rgba(251, 191, 36, 0.03), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-    }
-
-    /* Force Light Mode Text Color Override for Hardcoded White Text */
-    :root[data-theme="light"] .brand h1,
-    :root[data-theme="light"] .panelHeader h2,
-    :root[data-theme="light"] .stageTop h2,
-    :root[data-theme="light"] .value,
-    :root[data-theme="light"] .v,
-    :root[data-theme="light"] .n,
-    :root[data-theme="light"] strong,
-    :root[data-theme="light"] .callout b,
-    :root[data-theme="light"] .step.on,
-    :root[data-theme="light"] .svcName,
-    :root[data-theme="light"] h3,
-    :root[data-theme="light"] .modalTop h3 {
-      color: var(--ink) !important;
-    }
-
-    /* Fix SVG strokes inside buttons for Light Mode */
-    :root[data-theme="light"] .tabicon path { stroke: var(--ink); }
-    :root[data-theme="light"] .tabicon path[fill] { fill: var(--ink); stroke: none; }
-    :root[data-theme="light"] .logo svg path[fill="rgba(255,255,255,.92)"] { fill: #ffffff; }
-
-    /* Frosted Glass Panels & Modals */
-    :root[data-theme="light"] .topbar,
-    :root[data-theme="light"] .panel,
-    :root[data-theme="light"] .modal,
-    :root[data-theme="light"] .svcModal,
-    :root[data-theme="light"] .overlayAlert {
-      background: var(--glass);
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-      border: 1px solid var(--border-glass);
-      box-shadow: var(--shadow-apple-soft), var(--inner-glow);
-    }
-
-    /* Remove excessive pseudo-element noise in light mode */
-    :root[data-theme="light"] .topbar::before,
-    :root[data-theme="light"] .panel::before,
-    :root[data-theme="light"] .appTile::before,
-    :root[data-theme="light"] .svcCard::before,
-    :root[data-theme="light"] .projCard::before {
-      opacity: 0;
-    }
-
-    /* Solid White Cards with soft shadow */
-    :root[data-theme="light"] .card,
-    :root[data-theme="light"] .appTile,
-    :root[data-theme="light"] .svcCard,
-    :root[data-theme="light"] .projCard,
-    :root[data-theme="light"] .navItem {
-      background: var(--glass-solid);
-      border: 1px solid var(--border-glass);
-      box-shadow: var(--shadow-apple-card), var(--inner-glow);
-    }
-    :root[data-theme="light"] .svcCard:hover,
-    :root[data-theme="light"] .appTile:hover,
-    :root[data-theme="light"] .navItem:hover {
-      background: #FFFFFF;
-      box-shadow: var(--shadow-apple-float);
-    }
-
-    /* Inputs, Textareas, Drops */
-    :root[data-theme="light"] input,
-    :root[data-theme="light"] select,
-    :root[data-theme="light"] textarea,
-    :root[data-theme="light"] .svcNote,
-    :root[data-theme="light"] .searchBox,
-    :root[data-theme="light"] .drop {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      color: var(--ink);
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
-    }
-    :root[data-theme="light"] input::placeholder,
-    :root[data-theme="light"] textarea::placeholder,
-    :root[data-theme="light"] .svcNote::placeholder {
-      color: var(--dim);
-    }
-
-    /* Segmented Controls & Tabs (iOS Style) */
-    :root[data-theme="light"] .tabs,
-    :root[data-theme="light"] .seg {
-      background: var(--surface-track);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    :root[data-theme="light"] .tabbtn[data-active="true"],
-    :root[data-theme="light"] .seg button[aria-pressed="true"] {
-      background: var(--surface-thumb);
-      color: var(--ink) !important;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0,0,0,0.04);
-    }
-    :root[data-theme="light"] .tabbtn:hover:not([data-active="true"]),
-    :root[data-theme="light"] .seg button:hover:not([aria-pressed="true"]) {
-      background: rgba(0, 0, 0, 0.03);
-      color: var(--ink);
-    }
-
-    /* Buttons */
-    :root[data-theme="light"] .btn,
-    :root[data-theme="light"] .svcBtn,
-    :root[data-theme="light"] .qtyBtn,
-    :root[data-theme="light"] .ovToggle,
-    :root[data-theme="light"] .linkBtn {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      color: var(--ink);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    :root[data-theme="light"] .btn:hover,
-    :root[data-theme="light"] .svcBtn:hover,
-    :root[data-theme="light"] .linkBtn:hover {
-      background: #F5F5F7;
-    }
-    /* Primary buttons (keep colorful gradient, ensure text is pure white) */
-    :root[data-theme="light"] .btn.primary,
-    :root[data-theme="light"] .svcBtn.primary,
-    :root[data-theme="light"] .cartPillBtn {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.85), rgba(34, 211, 238, 0.85));
-      color: #FFFFFF !important;
-      border: 1px solid rgba(0,0,0,0.05);
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-    }
-
-    /* Pills, Tags, Chips, Steps */
-    :root[data-theme="light"] .pill,
-    :root[data-theme="light"] .tag,
-    :root[data-theme="light"] .chip,
-    :root[data-theme="light"] .step,
-    :root[data-theme="light"] .badge,
-    :root[data-theme="light"] .fp,
-    :root[data-theme="light"] .svcPill {
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      color: var(--ink);
-      backdrop-filter: blur(10px);
-      box-shadow: none;
-    }
-    :root[data-theme="light"] .step.on {
-       background: #ffffff;
-       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-       border-color: rgba(0,0,0,0.08);
-    }
-    :root[data-theme="light"] .fp[aria-pressed="true"] {
-      background: #ffffff;
-      color: var(--ink);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    /* Internal Borders/Dividers */
-    :root[data-theme="light"] .panelHeader,
-    :root[data-theme="light"] .stageTop,
-    :root[data-theme="light"] .modalTop,
-    :root[data-theme="light"] .svcModalTop,
-    :root[data-theme="light"] .svcModalLeft,
-    :root[data-theme="light"] .modalNav {
-      border-color: rgba(0, 0, 0, 0.06);
-    }
-    :root[data-theme="light"] .hr {
-      background: rgba(0, 0, 0, 0.06);
-    }
-
-    /* Misc Apple Adjustments */
-    :root[data-theme="light"] .kpi,
-    :root[data-theme="light"] .mutedBox,
-    :root[data-theme="light"] .callout {
-      background: rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      color: var(--muted);
-    }
-    :root[data-theme="light"] .svcThumb,
-    :root[data-theme="light"] .svcBigThumb {
-      background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    :root[data-theme="light"] video {
-      background: #000;
-      border: 1px solid rgba(0,0,0,0.1);
-      box-shadow: var(--shadow-apple-card);
-    }
-    :root[data-theme="light"] .modalMask,
-    :root[data-theme="light"] .svcMask {
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    :root[data-theme="light"] .fx {
-      opacity: 0.15; /* Tone down background FX */
-    }
-
-    /* ========================================================
        GLOBAL / DARK MODE RULES (Your original untouched)
        ======================================================== */
     *{ box-sizing:border-box; }
@@ -1212,112 +981,400 @@
     }
   
 
-/* MONTEREY BLUE LIGHT THEME v1 */
-/* Visual goals:
-   - White content, soft gray chrome, deep black text, blue highlights.
-   - Desktop-app clarity: borders + spacing + subtle shadow, not neon.
-   - Strong readability: override legacy "dark" text colors when in light mode.
-*/
 
-:root[data-theme="light"]{
+/* ================================================================
+   AERO•PORTAL — macOS Sonoma/Sequoia Native Light Theme
+   Apple HIG-compliant. Replaces all previous [data-theme="light"] blocks.
+   ================================================================ */
+
+:root[data-theme="light"] {
   color-scheme: light;
 
-  /* neutrals */
-  --bg0: #F2F3F5;
-  --bg1: #FFFFFF;
+  /* === Core Palette (Apple Human Interface Guidelines) === */
+  --bg0: #F5F5F7;        /* macOS window background */
+  --bg1: #FFFFFF;        /* content surface / card */
+  --ink: #1D1D1F;        /* Apple primary text — never pure #000 */
+  --muted: #3C3C43;      /* secondary label */
+  --dim: #86868B;        /* tertiary label / placeholder */
+  --line: rgba(0, 0, 0, 0.08);
 
-  --ink: #0B0C0F;
-  --muted: #2E3138;
-  --dim: #6B7280;
-
-  --line: rgba(15, 18, 28, .10);
-
-  /* accents */
-  --accent: #0A84FF;
+  /* === Accents === */
+  --accent: #007AFF;     /* Apple Blue */
   --accent2: #007AFF;
+  --ok: #34C759;         /* Apple Green */
+  --warn: #FF9F0A;       /* Apple Orange */
+  --danger: #FF453A;     /* Apple Red */
+  --critical: #FF3B30;
 
-  /* status (system-like) */
-  --ok:#34C759;
-  --warn:#FF9F0A;
-  --danger:#FF453A;
-  --critical:#FF3B30;
+  /* === Focus ring (Apple-exact) === */
+  --focus: 0 0 0 3px rgba(0, 122, 255, 0.35);
 
-  /* focus ring */
-  --focus: 0 0 0 4px rgba(10,132,255,.22);
+  /* === Material tokens === */
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-solid: rgba(255, 255, 255, 0.96);
+  --glass-sidebar: rgba(246, 246, 248, 0.82);
 
-  /* material */
-  --glass: rgba(255,255,255,.80);
-  --glass-solid: rgba(255,255,255,.92);
+  /* === Shadow system (multi-layered, spring-like) === */
+  --shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.06),
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    0 20px 48px rgba(0, 0, 0, 0.07);
+  --shadow2:
+    0 0 0 0.5px rgba(0, 0, 0, 0.05),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.06);
 
-  /* shadows */
-  --shadow-soft: 0 18px 60px rgba(0,0,0,.10);
-  --shadow-card: 0 10px 28px rgba(0,0,0,.10);
-  --shadow-float: 0 22px 70px rgba(0,0,0,.14);
+  /* === Typography (Apple SF stack) === */
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+          "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "SF Mono", "Menlo", "Monaco", "Cascadia Code", "Consolas",
+          "Liberation Mono", "Courier New", monospace;
 }
 
-/* App background: clean + subtle depth */
-:root[data-theme="light"] body{
-  color: var(--ink) !important;
+/* ----------------------------------------------------------------
+   Body & App background
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] body {
+  color: var(--ink);
+  font-family: var(--sans);
   background:
-    radial-gradient(1200px 700px at 20% 0%, rgba(10,132,255,.08), transparent 55%),
-    radial-gradient(900px 600px at 80% 15%, rgba(0,0,0,.05), transparent 55%),
-    linear-gradient(180deg, #FFFFFF, var(--bg0)) !important;
+    radial-gradient(1000px 600px at 15% 0%, rgba(0, 122, 255, 0.04), transparent 60%),
+    radial-gradient(800px 500px at 85% 0%, rgba(0, 122, 255, 0.03), transparent 55%),
+    linear-gradient(180deg, #FFFFFF 0%, #F5F5F7 100%);
 }
 
-/* Tone down FX */
-:root[data-theme="light"] .fx{
-  opacity: .06 !important;
-  mix-blend-mode: normal !important;
+/* Kill the animated noise overlay — looks jarring in light mode */
+:root[data-theme="light"] .fx {
+  opacity: 0.03 !important;
+  mix-blend-mode: multiply !important;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.015) 0 1px,
+    transparent 1px 3px
+  );
+  animation: none;
 }
 
-/* Remove dark-mode neon pseudo layers */
+/* ----------------------------------------------------------------
+   Remove all dark-mode neon pseudo-layers
+   ---------------------------------------------------------------- */
 :root[data-theme="light"] .topbar::before,
 :root[data-theme="light"] .panel::before,
 :root[data-theme="light"] .appTile::before,
 :root[data-theme="light"] .svcCard::before,
-:root[data-theme="light"] .projCard::before{ opacity:0 !important; }
-
-/* Topbar / panels: like app window chrome */
-:root[data-theme="light"] .topbar,
-:root[data-theme="light"] .panel,
-:root[data-theme="light"] .modal,
-:root[data-theme="light"] .svcModal,
-:root[data-theme="light"] .overlayAlert{
-  background: var(--glass) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  box-shadow: var(--shadow-soft) !important;
-  backdrop-filter: blur(22px) saturate(1.2) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(1.2) !important;
+:root[data-theme="light"] .projCard::before {
+  opacity: 0 !important;
+  display: none;
 }
 
-/* Cards: white content */
+/* ----------------------------------------------------------------
+   Topbar — macOS toolbar / chrome
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .topbar {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(50px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(50px) saturate(180%) !important;
+  border: none !important;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  border-radius: var(--radius) !important;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ----------------------------------------------------------------
+   Panels — frosted glass window panes
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .modal,
+:root[data-theme="light"] .svcModal {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(50px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(50px) saturate(180%) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* ----------------------------------------------------------------
+   Cards — white content surfaces
+   ---------------------------------------------------------------- */
 :root[data-theme="light"] .card,
 :root[data-theme="light"] .appTile,
 :root[data-theme="light"] .svcCard,
-:root[data-theme="light"] .projCard,
-:root[data-theme="light"] .navItem{
-  background: var(--glass-solid) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  box-shadow: var(--shadow-card) !important;
-}
-:root[data-theme="light"] .svcCard:hover,
-:root[data-theme="light"] .appTile:hover,
-:root[data-theme="light"] .navItem:hover{
-  box-shadow: var(--shadow-float) !important;
+:root[data-theme="light"] .projCard {
+  background: #FFFFFF !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 6px 18px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Typography: force contrast everywhere */
+:root[data-theme="light"] .svcCard:hover,
+:root[data-theme="light"] .appTile:hover {
+  background: #FFFFFF !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 4px 12px rgba(0, 0, 0, 0.07),
+    0 12px 32px rgba(0, 0, 0, 0.09) !important;
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------------
+   Overlay alert
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .overlayAlert {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(40px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(160%) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  box-shadow: var(--shadow2) !important;
+}
+
+:root[data-theme="light"] .overlayAlert .head {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+:root[data-theme="light"] .overlayAlert .body {
+  color: var(--muted) !important;
+}
+
+:root[data-theme="light"] .overlayAlert .steps,
+:root[data-theme="light"] .overlayAlert .steps li {
+  color: var(--ink) !important;
+}
+
+/* ----------------------------------------------------------------
+   Segmented Controls — iOS/macOS pill tabs
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .tabs {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] .seg {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+
+:root[data-theme="light"] .tabbtn {
+  color: rgba(28, 28, 30, 0.55) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .tabbtn:hover {
+  color: var(--ink) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] .tabbtn[data-active="true"] {
+  background: #FFFFFF !important;
+  color: var(--ink) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.10),
+    0 1px 1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+:root[data-theme="light"] .seg button {
+  color: rgba(28, 28, 30, 0.55) !important;
+  background: transparent !important;
+}
+
+:root[data-theme="light"] .seg button:hover {
+  color: var(--ink) !important;
+}
+
+:root[data-theme="light"] .seg button[aria-pressed="true"] {
+  background: #FFFFFF !important;
+  color: var(--ink) !important;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.10),
+    0 1px 1px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Tab icons */
+:root[data-theme="light"] .tabicon path {
+  stroke: rgba(28, 28, 30, 0.55) !important;
+}
+
+:root[data-theme="light"] .tabicon path[fill]:not([fill="none"]) {
+  fill: rgba(28, 28, 30, 0.55) !important;
+  stroke: none !important;
+}
+
+:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path {
+  stroke: var(--ink) !important;
+}
+
+:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path[fill]:not([fill="none"]) {
+  fill: var(--ink) !important;
+  stroke: none !important;
+}
+
+/* ----------------------------------------------------------------
+   Buttons
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .btn,
+:root[data-theme="light"] .svcBtn,
+:root[data-theme="light"] .qtyBtn,
+:root[data-theme="light"] .ovToggle,
+:root[data-theme="light"] .linkBtn {
+  background: #FFFFFF !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.12) !important;
+  color: var(--ink) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] .btn:hover,
+:root[data-theme="light"] .svcBtn:hover,
+:root[data-theme="light"] .linkBtn:hover {
+  background: #F5F5F7 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 4px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Primary CTA — Apple Blue, no gradient */
+:root[data-theme="light"] .btn.primary,
+:root[data-theme="light"] .svcBtn.primary,
+:root[data-theme="light"] .cartPillBtn {
+  background: #007AFF !important;
+  color: #FFFFFF !important;
+  border: 0.5px solid rgba(0, 80, 200, 0.25) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 2px 6px rgba(0, 122, 255, 0.28),
+    0 6px 16px rgba(0, 122, 255, 0.18) !important;
+}
+
+:root[data-theme="light"] .btn.primary:hover,
+:root[data-theme="light"] .svcBtn.primary:hover {
+  background: #0071EB !important;
+}
+
+/* ----------------------------------------------------------------
+   Pills, chips, tags, badges — macOS label chips
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .pill,
+:root[data-theme="light"] .chip,
+:root[data-theme="light"] .tag,
+:root[data-theme="light"] .svcPill,
+:root[data-theme="light"] .fp,
+:root[data-theme="light"] .badge,
+:root[data-theme="light"] .step {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  color: var(--ink) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: none !important;
+}
+
+:root[data-theme="light"] .fp[aria-pressed="true"] {
+  background: rgba(0, 122, 255, 0.10) !important;
+  border-color: rgba(0, 122, 255, 0.30) !important;
+  color: #007AFF !important;
+  box-shadow: 0 1px 3px rgba(0, 122, 255, 0.12) !important;
+}
+
+:root[data-theme="light"] .step.on {
+  background: #FFFFFF !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  color: var(--ink) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Badge states retain semantic color, muted to Apple specs */
+:root[data-theme="light"] .badge.ok     { color: #1F7A1F !important; background: rgba(52, 199, 89, 0.12) !important; border-color: rgba(52, 199, 89, 0.25) !important; box-shadow: none !important; }
+:root[data-theme="light"] .badge.warn   { color: #7D4E00 !important; background: rgba(255, 159, 10, 0.12) !important; border-color: rgba(255, 159, 10, 0.25) !important; box-shadow: none !important; }
+:root[data-theme="light"] .badge.danger  { color: #8B0000 !important; background: rgba(255, 69, 58, 0.10) !important; border-color: rgba(255, 69, 58, 0.22) !important; box-shadow: none !important; }
+:root[data-theme="light"] .badge.critical { color: #7A0000 !important; background: rgba(255, 59, 48, 0.10) !important; border-color: rgba(255, 59, 48, 0.22) !important; box-shadow: none !important; }
+
+/* ----------------------------------------------------------------
+   Inputs, Textareas, Selects
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] input:not([type="range"]):not([type="file"]):not([type="checkbox"]),
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea,
+:root[data-theme="light"] .svcNote {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: var(--ink) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] input:not([type="range"]):focus,
+:root[data-theme="light"] select:focus,
+:root[data-theme="light"] textarea:focus,
+:root[data-theme="light"] .svcNote:focus {
+  border-color: #007AFF !important;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.02),
+    0 0 0 3px rgba(0, 122, 255, 0.30) !important;
+  outline: none;
+}
+
+:root[data-theme="light"] input::placeholder,
+:root[data-theme="light"] textarea::placeholder,
+:root[data-theme="light"] .svcNote::placeholder {
+  color: var(--dim) !important;
+}
+
+/* Search box */
+:root[data-theme="light"] .searchBox {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .searchBox input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--ink) !important;
+}
+
+/* Drop zone */
+:root[data-theme="light"] .drop {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 1px dashed rgba(0, 0, 0, 0.18) !important;
+  color: var(--dim) !important;
+}
+
+/* ----------------------------------------------------------------
+   Typography — force all lingering white/light text to Apple dark
+   ---------------------------------------------------------------- */
 :root[data-theme="light"] .brand h1,
 :root[data-theme="light"] .panelHeader h2,
 :root[data-theme="light"] .stageTop h2,
 :root[data-theme="light"] .modalTop h3,
 :root[data-theme="light"] .svcModalTop h3,
 :root[data-theme="light"] h3,
-:root[data-theme="light"] strong,
-:root[data-theme="light"] .svcName,
+:root[data-theme="light"] strong {
+  color: var(--ink) !important;
+}
+
 :root[data-theme="light"] .value,
 :root[data-theme="light"] .v,
-:root[data-theme="light"] .n{
+:root[data-theme="light"] .n,
+:root[data-theme="light"] .svcName {
   color: var(--ink) !important;
 }
 
@@ -1328,135 +1385,159 @@
 :root[data-theme="light"] .kpi .t,
 :root[data-theme="light"] .kpi .s,
 :root[data-theme="light"] .svcDesc,
-:root[data-theme="light"] .pill span{
+:root[data-theme="light"] .pill span,
+:root[data-theme="light"] .chip .k {
   color: var(--dim) !important;
 }
 
 :root[data-theme="light"] .small,
 :root[data-theme="light"] .status p,
-:root[data-theme="light"] .callout,
-:root[data-theme="light"] .mutedBox{
+:root[data-theme="light"] .mutedBox {
   color: var(--muted) !important;
 }
 
-:root[data-theme="light"] .hr{ background: rgba(0,0,0,.08) !important; }
-
-/* Tabs: macOS segmented look (white thumb) */
-:root[data-theme="light"] .tabs,
-:root[data-theme="light"] .seg{
-  background: rgba(0,0,0,.06) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7) !important;
-}
-
-:root[data-theme="light"] .tabbtn{
-  color: rgba(0,0,0,.55) !important;
-}
-:root[data-theme="light"] .tabbtn:hover{ color: var(--ink) !important; }
-
-:root[data-theme="light"] .tabbtn[data-active="true"],
-:root[data-theme="light"] .seg button[aria-pressed="true"]{
-  background: rgba(255,255,255,.96) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  box-shadow: 0 8px 18px rgba(0,0,0,.12) !important;
-  color: var(--ink) !important;
-}
-
-/* Tab icons */
-:root[data-theme="light"] .tabicon path{ stroke: rgba(0,0,0,.55) !important; }
-:root[data-theme="light"] .tabicon path[fill]{ fill: rgba(0,0,0,.55) !important; stroke:none !important; }
-:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path{ stroke: var(--ink) !important; }
-:root[data-theme="light"] .tabbtn[data-active="true"] .tabicon path[fill]{ fill: var(--ink) !important; }
-
-/* Inputs */
-:root[data-theme="light"] input,
-:root[data-theme="light"] select,
-:root[data-theme="light"] textarea,
-:root[data-theme="light"] .svcNote,
-:root[data-theme="light"] .searchBox,
-:root[data-theme="light"] .drop{
-  background: rgba(0,0,0,.03) !important;
-  border: 1px solid rgba(0,0,0,.12) !important;
-  color: var(--ink) !important;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,.03) !important;
-}
-:root[data-theme="light"] input::placeholder,
-:root[data-theme="light"] textarea::placeholder,
-:root[data-theme="light"] .svcNote::placeholder{ color: var(--dim) !important; }
-
-/* Buttons */
-:root[data-theme="light"] .btn,
-:root[data-theme="light"] .svcBtn,
-:root[data-theme="light"] .qtyBtn,
-:root[data-theme="light"] .ovToggle,
-:root[data-theme="light"] .linkBtn{
-  background: rgba(255,255,255,.96) !important;
-  border: 1px solid rgba(0,0,0,.12) !important;
-  color: var(--ink) !important;
-  box-shadow: 0 6px 14px rgba(0,0,0,.10) !important;
-}
-
-:root[data-theme="light"] .btn:hover,
-:root[data-theme="light"] .svcBtn:hover,
-:root[data-theme="light"] .linkBtn:hover{
-  background: rgba(245,245,247,.96) !important;
-}
-
-:root[data-theme="light"] .btn.primary,
-:root[data-theme="light"] .svcBtn.primary,
-:root[data-theme="light"] .cartPillBtn{
-  background: var(--accent2) !important;
-  color: #fff !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  box-shadow: 0 14px 28px rgba(0,122,255,.22) !important;
-}
-
-/* Pills/chips/tags: Monterey list chips */
-:root[data-theme="light"] .pill,
-:root[data-theme="light"] .chip,
-:root[data-theme="light"] .tag,
-:root[data-theme="light"] .svcPill,
-:root[data-theme="light"] .fp,
-:root[data-theme="light"] .badge{
-  background: rgba(255,255,255,.88) !important;
-  border: 1px solid rgba(0,0,0,.10) !important;
-  color: var(--ink) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08) !important;
-}
-
-/* Modal sidebars (Monterey vibe) */
-:root[data-theme="light"] .modalNav,
-:root[data-theme="light"] .svcModalLeft{
-  background: rgba(0,0,0,.03) !important;
-}
-:root[data-theme="light"] .navItem[aria-pressed="true"]{
-  background: rgba(10,132,255,.14) !important;
-  border-color: rgba(10,132,255,.28) !important;
+:root[data-theme="light"] .callout {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  color: var(--muted) !important;
   box-shadow: none !important;
 }
 
-/* Overlay alert */
-:root[data-theme="light"] .overlayAlert{
-  background: rgba(255,255,255,.92) !important;
-}
-:root[data-theme="light"] .overlayAlert .head{ border-bottom: 1px solid rgba(0,0,0,.08) !important; }
-:root[data-theme="light"] .overlayAlert .body{ color: var(--muted) !important; }
-:root[data-theme="light"] .overlayAlert .steps,
-:root[data-theme="light"] .overlayAlert .steps li{ color: var(--ink) !important; }
-
-/* Canvas frame */
-:root[data-theme="light"] canvas#sky{
-  border: 1px solid rgba(0,0,0,.12) !important;
-  box-shadow: var(--shadow-card) !important;
-  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(245,246,248,.95)) !important;
+:root[data-theme="light"] .callout b {
+  color: var(--ink) !important;
 }
 
-/* Scrollbar */
-:root[data-theme="light"] .panelBody::-webkit-scrollbar-thumb{
-  background: rgba(0,0,0,.16) !important;
-  border: 2px solid rgba(255,255,255,.72) !important;
+:root[data-theme="light"] .hr {
+  background: rgba(0, 0, 0, 0.07) !important;
 }
 
+/* ----------------------------------------------------------------
+   Settings / Modal internals
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .modalMask,
+:root[data-theme="light"] .svcMask {
+  background: rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+:root[data-theme="light"] .modalBody,
+:root[data-theme="light"] .svcModalBody {
+  background: transparent !important;
+}
+
+/* Sidebar nav — macOS source list style */
+:root[data-theme="light"] .modalNav,
+:root[data-theme="light"] .svcModalLeft {
+  background: var(--glass-sidebar) !important;
+  border-right: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+}
+
+:root[data-theme="light"] .svcModalLeft {
+  border-right: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  border-bottom: none !important;
+}
+
+:root[data-theme="light"] .panelHeader,
+:root[data-theme="light"] .stageTop,
+:root[data-theme="light"] .modalTop,
+:root[data-theme="light"] .svcModalTop {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root[data-theme="light"] .navItem {
+  background: transparent !important;
+  border: none !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .navItem:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .navItem[aria-pressed="true"] {
+  background: rgba(0, 122, 255, 0.12) !important;
+  color: #007AFF !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+/* ----------------------------------------------------------------
+   KPI cards
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .kpi {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="light"] .mutedBox {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  color: var(--muted) !important;
+  box-shadow: none !important;
+}
+
+/* ----------------------------------------------------------------
+   Service thumbnails
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .svcThumb,
+:root[data-theme="light"] .svcBigThumb {
+  background: #F5F5F7 !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ----------------------------------------------------------------
+   Canvas
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] canvas#sky {
+  background: linear-gradient(180deg, #F0F2F8 0%, #E8EAEE 100%) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  box-shadow: var(--shadow2) !important;
+}
+
+/* ----------------------------------------------------------------
+   Video
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] video {
+  background: #000 !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.10) !important;
+  box-shadow: var(--shadow2) !important;
+}
+
+/* ----------------------------------------------------------------
+   Scrollbar — macOS overlay scrollbars
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .panelBody::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+:root[data-theme="light"] .panelBody::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+:root[data-theme="light"] .panelBody::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 255, 255, 0.85) !important;
+}
+
+:root[data-theme="light"] .panelBody::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.28) !important;
+}
+
+/* ----------------------------------------------------------------
+   System dot — theme-aware status colors
+   ---------------------------------------------------------------- */
+:root[data-theme="light"] .dot {
+  background: var(--ok) !important;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.18) !important;
+}
 
 </style>
 </head>
